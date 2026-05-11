@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import 'core/constants/app_constants.dart';
 import 'core/routing/app_router.dart';
 import 'core/theme/themes/app_themes.dart';
 import 'core/wrappers/screen_util_wrapper.dart';
@@ -12,7 +13,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilWrapper(
       child: MaterialApp.router(
-        title: 'Stylish',
+        title: AppConstants.appName,
         debugShowCheckedModeBanner: false,
         theme: AppThemes.light,
         darkTheme: AppThemes.dark,
