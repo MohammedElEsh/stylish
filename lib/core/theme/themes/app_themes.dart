@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+
 import '../colors/app_colors.dart';
-import '../typography/app_typography.dart';
 
 class AppThemes {
   static ThemeData get light => ThemeData(
@@ -14,14 +14,7 @@ class AppThemes {
           surface: AppColors.surfaceLight,
           error: AppColors.error,
         ),
-        textTheme: TextTheme(
-          displayLarge: AppTypography.h1,
-          displayMedium: AppTypography.h2,
-          displaySmall: AppTypography.h3,
-          bodyLarge: AppTypography.bodyLarge,
-          bodyMedium: AppTypography.bodyMedium,
-          bodySmall: AppTypography.bodySmall,
-        ),
+        textTheme: const TextTheme(),
       );
 
   static ThemeData get dark => ThemeData(
@@ -35,13 +28,6 @@ class AppThemes {
           surface: AppColors.surfaceDark,
           error: AppColors.error,
         ),
-        textTheme: TextTheme(
-          displayLarge: AppTypography.h1.copyWith(color: AppColors.textPrimaryDark),
-          displayMedium: AppTypography.h2.copyWith(color: AppColors.textPrimaryDark),
-          displaySmall: AppTypography.h3.copyWith(color: AppColors.textPrimaryDark),
-          bodyLarge: AppTypography.bodyLarge.copyWith(color: AppColors.textPrimaryDark),
-          bodyMedium: AppTypography.bodyMedium.copyWith(color: AppColors.textPrimaryDark),
-          bodySmall: AppTypography.bodySmall.copyWith(color: AppColors.textPrimaryDark),
-        ),
+        textTheme: const TextTheme(),
       );
 }
