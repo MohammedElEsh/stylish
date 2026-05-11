@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="51734763-4f9f-4e1a-9278-077539dbbbb9" name="Changes" comment="Merge branch 'main' of https://github.com/MohammedElEsh/stylish&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;lib/core/widgets/inputs/app_text_field.dart">
+    <list default="true" id="51734763-4f9f-4e1a-9278-077539dbbbb9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/lib/core/network/api_constant.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/theme/colors/app_colors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/theme/colors/app_colors.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/bloc/app_bloc_observer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/observer/bloc_observer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/constants/app_constants.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/constants/app_constants.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/di/injection.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/di/injection.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/errors/error_handler.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/errors/error_handler.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/network/dio_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/network/dio_client.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,6 +72,9 @@
   &quot;fromUser&quot;: false
 }</component>
   <component name="ProjectId" id="3DZjcdJ9Rbi6ERYmtAXno1e2fke" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1" />
     <panes>
@@ -93,12 +102,15 @@
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;io.flutter.project.isFirstOpen&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Zikola/stylish&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Zikola/stylish/lib/core/network&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Zikola\stylish\lib\core\network" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Zikola\stylish\lib" />
       <recent name="D:\Zikola\stylish\lib\core\routing" />

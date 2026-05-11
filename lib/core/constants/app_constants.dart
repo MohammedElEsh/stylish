@@ -1,15 +1,11 @@
-class ApiEndpoints {
-  static const String baseUrl = 'https://api.example.com'; // Change to real URL
-  static const String login = '/auth/login';
-  static const String register = '/auth/register';
-  static const String profile = '/auth/profile';
-}
-
 class AppConstants {
   static const String appName = 'Stylish';
   static const int connectTimeout = 15000;
   static const int receiveTimeout = 15000;
-  
+
+  static const String arabicLangCode = 'ar';
+  static const String englishLangCode = 'en';
+
   // Storage Keys
   static const String tokenKey = 'access_token';
   static const String refreshTokenKey = 'refresh_token';

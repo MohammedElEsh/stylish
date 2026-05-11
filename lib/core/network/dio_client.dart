@@ -1,39 +1,111 @@
 import 'package:dio/dio.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:flutter/foundation.dart';
-import '../constants/app_constants.dart';
-import '../services/storage/secure_storage_service.dart';
-import 'auth_interceptor.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+
+import 'api_constant.dart';
 
 class DioClient {
-  late final Dio _dio;
+  static Dio? _dio;
 
-  DioClient(SecureStorageService secureStorage) {
-    _dio = Dio(
+  static Dio get dio {
+    _dio ??= Dio(
       BaseOptions(
         baseUrl: ApiEndpoints.baseUrl,
-        connectTimeout: const Duration(milliseconds: AppConstants.connectTimeout),
-        receiveTimeout: const Duration(milliseconds: AppConstants.receiveTimeout),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
+        connectTimeout: const Duration(seconds: ApiEndpoints.connectTimeout),
+        receiveTimeout: const Duration(seconds: ApiEndpoints.receiveTimeout),
+        headers: ApiEndpoints.headers,
+        receiveDataWhenStatusError: true,
       ),
     );
 
-    _dio.interceptors.addAll([
-      AuthInterceptor(secureStorage),
-      if (kDebugMode)
+    if (!kReleaseMode) {
+      _dio!.interceptors.add(
         PrettyDioLogger(
           requestHeader: true,
           requestBody: true,
-          responseBody: true,
-          responseHeader: false,
-          error: true,
-          compact: true,
+          responseHeader: true,
         ),
-    ]);
+      );
+    }
+
+    return _dio!;
   }
 
-  Dio get dio => _dio;
+  static Future<Response<T>> get<T>({
+    required String url,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+  }) {
+    return dio.get<T>(
+      url,
+      queryParameters: queryParameters,
+      options: options,
+      cancelToken: cancelToken,
+    );
+  }
+
+  static Future<Response<T>> post<T>({
+    required String url,
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+  }) {
+    return dio.post<T>(
+      url,
+      data: data,
+      queryParameters: queryParameters,
+      options: options,
+      cancelToken: cancelToken,
+    );
+  }
+
+  static Future<Response<T>> put<T>({
+    required String url,
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+  }) {
+    return dio.put<T>(
+      url,
+      data: data,
+      queryParameters: queryParameters,
+      options: options,
+      cancelToken: cancelToken,
+    );
+  }
+
+  static Future<Response<T>> patch<T>({
+    required String url,
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+  }) {
+    return dio.patch<T>(
+      url,
+      data: data,
+      queryParameters: queryParameters,
+      options: options,
+      cancelToken: cancelToken,
+    );
+  }
+
+  static Future<Response<T>> delete<T>({
+    required String url,
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+  }) {
+    return dio.delete<T>(
+      url,
+      data: data,
+      queryParameters: queryParameters,
+      options: options,
+      cancelToken: cancelToken,
+    );
+  }
 }

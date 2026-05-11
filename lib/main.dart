@@ -2,11 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'core/bloc/app_bloc_observer.dart';
+
+import 'app.dart';
+import 'core/observer/bloc_observer.dart';
 import 'core/di/injection.dart';
 import 'core/localization/localization_helper.dart';
 import 'core/services/storage/storage_service.dart';
-import 'app.dart';
 
 void main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();

@@ -1,58 +1,48 @@
+import 'package:dio/dio.dart';
+
 import 'failures.dart';
 
-class ErrorHandler implements Exception {
-  late Failure failure;
-
-  ErrorHandler.handle(dynamic error) {
-    // failure = DataSource.unKnown.getFailure();
-  }
-}
-
-enum DataSource {
-  connectionTimeout,
-  receiveTimeout,
-  sendTimeout,
-  badCertificate,
-  connectionError,
-  cancel,
-  cacheError,
-  noInternetConnection,
-  unKnown,
-}
-
-// extension DataSourceExtension on DataSource {
-//   Failure getFailure() {
-//     switch (this) {
-//       case DataSource.connectionTimeout:
-//         return ServiceFailure(message: ResponseMessage.connectionTimeout);
-//       case DataSource.cancel:
-//         return ServiceFailure(message: ResponseMessage.cancel);
-//       case DataSource.receiveTimeout:
-//         return ServiceFailure(message: ResponseMessage.receiveTimeout);
-//       case DataSource.sendTimeout:
-//         return ServiceFailure(message: ResponseMessage.sendTimeout);
-//       case DataSource.cacheError:
-//         return ServiceFailure(message: ResponseMessage.cacheError);
-//       case DataSource.noInternetConnection:
-//         return NoInternetFailure(message: ResponseMessage.noInternetConnection);
-//       case DataSource.unKnown:
-//         return ServiceFailure(message: ResponseMessage.unKnown);
-//       case DataSource.badCertificate:
-//         return ServiceFailure(message: ResponseMessage.badCertificate);
-//       case DataSource.connectionError:
-//         return ApiFailure(message: ResponseMessage.connectionError);
-//     }
-//   }
-// }
-
 class ResponseMessage {
-  // static const String connectionTimeout = AppTexts.timeoutError;
-  // static const String cancel = AppTexts.requestCanceled;
-  // static const String receiveTimeout = AppTexts.timeoutError;
-  // static const String sendTimeout = AppTexts.timeoutError;
-  // static const String cacheError = AppTexts.cacheError;
-  // static const String noInternetConnection = AppTexts.noInternetError;
-  // static const String unKnown = AppTexts.unKnownError;
-  // static const String badCertificate = AppTexts.badCertificate;
-  // static const String connectionError = AppTexts.connectionError;
+  static const String connectionTimeout = 'Connection timeout';
+  static const String cancel = 'Request cancelled';
+  static const String receiveTimeout = 'Receive timeout';
+  static const String sendTimeout = 'Send timeout';
+  static const String cacheError = 'Cache error';
+  static const String noInternetConnection = 'No internet connection';
+  static const String unKnown = 'Unknown error';
+  static const String badCertificate = 'Bad certificate';
+  static const String connectionError = 'Connection error';
+}
+
+class ErrorHandler {
+  static Failure handle(dynamic error) {
+    if (error is DioException) {
+      return _handleDioException(error);
+    }
+    return const UnknownFailure();
+  }
+
+  static Failure _handleDioException(DioException e) {
+    switch (e.type) {
+      case DioExceptionType.connectionTimeout:
+        return const ServerFailure(ResponseMessage.connectionTimeout);
+      case DioExceptionType.sendTimeout:
+        return const ServerFailure(ResponseMessage.sendTimeout);
+      case DioExceptionType.receiveTimeout:
+        return const ServerFailure(ResponseMessage.receiveTimeout);
+      case DioExceptionType.badCertificate:
+        return const ServerFailure(ResponseMessage.badCertificate);
+      case DioExceptionType.connectionError:
+        return const NetworkFailure(ResponseMessage.connectionError);
+      case DioExceptionType.cancel:
+        return const ServerFailure(ResponseMessage.cancel);
+      case DioExceptionType.badResponse:
+        return ServerFailure(
+          e.response?.statusMessage ?? ResponseMessage.unKnown,
+          statusCode: e.response?.statusCode,
+        );
+      case DioExceptionType.unknown:
+        return const UnknownFailure();
+    }
+  }
 }
