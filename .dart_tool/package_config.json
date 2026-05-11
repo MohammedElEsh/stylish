@@ -2,18 +2,6 @@
   "configVersion": 2,
   "packages": [
     {
-      "name": "_fe_analyzer_shared",
-      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/_fe_analyzer_shared-93.0.0",
-      "packageUri": "lib/",
-      "languageVersion": "3.9"
-    },
-    {
-      "name": "analyzer",
-      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/analyzer-10.0.1",
-      "packageUri": "lib/",
-      "languageVersion": "3.9"
-    },
-    {
       "name": "ansicolor",
       "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/ansicolor-2.0.3",
       "packageUri": "lib/",
@@ -50,42 +38,6 @@
       "languageVersion": "3.1"
     },
     {
-      "name": "build",
-      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/build-4.0.6",
-      "packageUri": "lib/",
-      "languageVersion": "3.7"
-    },
-    {
-      "name": "build_config",
-      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/build_config-1.3.0",
-      "packageUri": "lib/",
-      "languageVersion": "3.7"
-    },
-    {
-      "name": "build_daemon",
-      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/build_daemon-4.1.1",
-      "packageUri": "lib/",
-      "languageVersion": "3.7"
-    },
-    {
-      "name": "build_runner",
-      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/build_runner-2.15.0",
-      "packageUri": "lib/",
-      "languageVersion": "3.7"
-    },
-    {
-      "name": "built_collection",
-      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/built_collection-5.1.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "built_value",
-      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/built_value-8.12.6",
-      "packageUri": "lib/",
-      "languageVersion": "3.0"
-    },
-    {
       "name": "cached_network_image",
       "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/cached_network_image-3.4.1",
       "packageUri": "lib/",
@@ -108,12 +60,6 @@
       "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/characters-1.4.1",
       "packageUri": "lib/",
       "languageVersion": "3.4"
-    },
-    {
-      "name": "checked_yaml",
-      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/checked_yaml-2.0.4",
-      "packageUri": "lib/",
-      "languageVersion": "3.8"
     },
     {
       "name": "clock",
@@ -146,12 +92,6 @@
       "languageVersion": "2.18"
     },
     {
-      "name": "convert",
-      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/convert-3.1.2",
-      "packageUri": "lib/",
-      "languageVersion": "3.4"
-    },
-    {
       "name": "cross_file",
       "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/cross_file-0.3.5+2",
       "packageUri": "lib/",
@@ -174,12 +114,6 @@
       "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/cupertino_icons-1.0.9",
       "packageUri": "lib/",
       "languageVersion": "3.9"
-    },
-    {
-      "name": "dart_style",
-      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/dart_style-3.1.7",
-      "packageUri": "lib/",
-      "languageVersion": "3.10"
     },
     {
       "name": "dbus",
@@ -404,10 +338,10 @@
       "languageVersion": "3.9"
     },
     {
-      "name": "graphs",
-      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/graphs-2.3.2",
+      "name": "google_fonts",
+      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/google_fonts-8.1.0",
       "packageUri": "lib/",
-      "languageVersion": "3.4"
+      "languageVersion": "3.9"
     },
     {
       "name": "hive_ce",
@@ -418,12 +352,6 @@
     {
       "name": "hive_ce_flutter",
       "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/hive_ce_flutter-2.3.4",
-      "packageUri": "lib/",
-      "languageVersion": "3.4"
-    },
-    {
-      "name": "hive_ce_generator",
-      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/hive_ce_generator-1.11.1",
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
@@ -444,12 +372,6 @@
       "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/http-1.6.0",
       "packageUri": "lib/",
       "languageVersion": "3.4"
-    },
-    {
-      "name": "http_multi_server",
-      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/http_multi_server-3.2.2",
-      "packageUri": "lib/",
-      "languageVersion": "3.2"
     },
     {
       "name": "http_parser",
@@ -519,7 +441,7 @@
     },
     {
       "name": "internet_connection_checker_plus",
-      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/internet_connection_checker_plus-2.9.1+2",
+      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/internet_connection_checker_plus-3.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
@@ -528,12 +450,6 @@
       "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/intl-0.20.2",
       "packageUri": "lib/",
       "languageVersion": "3.3"
-    },
-    {
-      "name": "io",
-      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/io-1.0.5",
-      "packageUri": "lib/",
-      "languageVersion": "3.4"
     },
     {
       "name": "isolate_channel",
@@ -722,12 +638,6 @@
       "languageVersion": "3.0"
     },
     {
-      "name": "pool",
-      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/pool-1.5.2",
-      "packageUri": "lib/",
-      "languageVersion": "3.4"
-    },
-    {
       "name": "posix",
       "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/posix-6.5.0",
       "packageUri": "lib/",
@@ -750,12 +660,6 @@
       "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/pub_semver-2.2.0",
       "packageUri": "lib/",
       "languageVersion": "3.4"
-    },
-    {
-      "name": "pubspec_parse",
-      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/pubspec_parse-1.5.0",
-      "packageUri": "lib/",
-      "languageVersion": "3.6"
     },
     {
       "name": "record_use",
@@ -812,18 +716,6 @@
       "languageVersion": "3.3"
     },
     {
-      "name": "shelf",
-      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/shelf-1.4.2",
-      "packageUri": "lib/",
-      "languageVersion": "3.4"
-    },
-    {
-      "name": "shelf_web_socket",
-      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/shelf_web_socket-3.0.0",
-      "packageUri": "lib/",
-      "languageVersion": "3.5"
-    },
-    {
       "name": "skeletonizer",
       "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/skeletonizer-2.1.3",
       "packageUri": "lib/",
@@ -840,18 +732,6 @@
       "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/smooth_page_indicator-2.0.1",
       "packageUri": "lib/",
       "languageVersion": "3.0"
-    },
-    {
-      "name": "source_gen",
-      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/source_gen-4.2.3",
-      "packageUri": "lib/",
-      "languageVersion": "3.9"
-    },
-    {
-      "name": "source_helper",
-      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/source_helper-1.3.12",
-      "packageUri": "lib/",
-      "languageVersion": "3.9"
     },
     {
       "name": "source_span",
@@ -900,12 +780,6 @@
       "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/stream_channel-2.1.4",
       "packageUri": "lib/",
       "languageVersion": "3.3"
-    },
-    {
-      "name": "stream_transform",
-      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/stream_transform-2.1.1",
-      "packageUri": "lib/",
-      "languageVersion": "3.1"
     },
     {
       "name": "string_scanner",
@@ -980,28 +854,10 @@
       "languageVersion": "3.5"
     },
     {
-      "name": "watcher",
-      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/watcher-1.2.1",
-      "packageUri": "lib/",
-      "languageVersion": "3.4"
-    },
-    {
       "name": "web",
       "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/web-1.1.1",
       "packageUri": "lib/",
       "languageVersion": "3.4"
-    },
-    {
-      "name": "web_socket",
-      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/web_socket-1.0.1",
-      "packageUri": "lib/",
-      "languageVersion": "3.4"
-    },
-    {
-      "name": "web_socket_channel",
-      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/web_socket_channel-3.0.3",
-      "packageUri": "lib/",
-      "languageVersion": "3.3"
     },
     {
       "name": "win32",
@@ -1026,12 +882,6 @@
       "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/yaml-3.1.3",
       "packageUri": "lib/",
       "languageVersion": "3.4"
-    },
-    {
-      "name": "yaml_writer",
-      "rootUri": "file:///C:/Users/ELESH/AppData/Local/Pub/Cache/hosted/pub.dev/yaml_writer-2.1.0",
-      "packageUri": "lib/",
-      "languageVersion": "3.0"
     },
     {
       "name": "stylish",

@@ -8,7 +8,6 @@ class AppThemes {
         brightness: Brightness.light,
         primaryColor: AppColors.primary,
         scaffoldBackgroundColor: AppColors.backgroundLight,
-        fontFamily: AppTypography.fontFamily,
         colorScheme: const ColorScheme.light(
           primary: AppColors.primary,
           secondary: AppColors.secondary,
@@ -30,7 +29,6 @@ class AppThemes {
         brightness: Brightness.dark,
         primaryColor: AppColors.primary,
         scaffoldBackgroundColor: AppColors.backgroundDark,
-        fontFamily: AppTypography.fontFamily,
         colorScheme: const ColorScheme.dark(
           primary: AppColors.primary,
           secondary: AppColors.secondary,
