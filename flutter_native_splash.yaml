@@ -1,6 +1,16 @@
 flutter_native_splash:
-  color: "##F83758"
-  # image: assets/images/splash.png
-  # android_12:
-  #   image: assets/images/splash.png
-  #   icon_background_color: "##F83758"
+  # Background image for pre-Android 12 (stretches to fill screen)
+  # Recommended: any resolution PNG, will be stretched
+  image: assets\images\splash_logo_1.png
+  color: "#FFFFFF"
+
+
+  # Android 12+ uses a dedicated icon-style splash image
+  android_12:
+    # For icon WITH background: 960x960px, fits within 640px diameter circle
+    # For icon WITHOUT background: 1152x1152px, fits within 768px diameter circle
+    image: assets\images\splash_logo_1.png
+    color: "#FFFFFF"
+
+  # To regenerate: dart run flutter_native_splash:create
+  # To remove:     dart run flutter_native_splash:remove
