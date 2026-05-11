@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="51734763-4f9f-4e1a-9278-077539dbbbb9" name="Changes" comment="Merge branch 'main' of https://github.com/MohammedElEsh/stylish&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;lib/core/widgets/inputs/app_text_field.dart">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/theme/themes/app_themes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/theme/themes/app_themes.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/theme/typography/app_typography.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/theme/typography/app_typography.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/theme/colors/app_colors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/theme/colors/app_colors.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
