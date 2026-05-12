@@ -3,12 +3,16 @@
     "get_started": "Get Started"
   },
   "onboarding": {
-    "onboarding_title_1": "Your Journey,\nPerfectly Planned",
-    "onboarding_subtitle_1": "Effortlessly create and organize your\ndream trips. Start exploring now!",
-    "onboarding_title_2": "Discover\nFriends Nearby",
-    "onboarding_subtitle_2": "See where your friends are traveling and\nexplore the world together.",
-    "onboarding_title_3": "Stay Updated\nwith Top Places",
-    "onboarding_subtitle_3": "Find trending destinations and must-see attractions,\nall tailored to enhance your travel plans."
+    "skip": "Skip",
+    "prev": "Prev",
+    "next": "Next",
+    "get_started": "Get Started",
+    "onboarding_title_1": "Choose Products",
+    "onboarding_subtitle_1": "Browse through thousands of products and find exactly what you need.",
+    "onboarding_title_2": "Make Payment",
+    "onboarding_subtitle_2": "Secure checkout with multiple payment options.",
+    "onboarding_title_3": "Get Your Order",
+    "onboarding_subtitle_3": "Fast delivery to your doorstep."
   },
   "home": {
     "home_title": "Home",

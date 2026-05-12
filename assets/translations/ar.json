@@ -3,12 +3,16 @@
     "get_started": "ابدأ الآن"
   },
   "onboarding": {
-    "onboarding_title_1": "رحلتك،\nمخططة بشكل مثالي",
-    "onboarding_subtitle_1": "أنشئ ورتب رحلاتك المثالية بكل سهولة.\nابدأ الاستكشاف الآن!",
-    "onboarding_title_2": "اكتشف\nأصدقاءك بالقرب",
-    "onboarding_subtitle_2": "شاهد أين يسافر أصدقاؤك واستكشف\nالعالم معاً.",
-    "onboarding_title_3": "ابقَ على اطلاع\nبأفضل الأماكن",
-    "onboarding_subtitle_3": "اعثر على الوجهات الرائجة ومعالم الجذب التي\nيجب زيارتها، كل ذلك مصمم لرحلتك."
+    "skip": "تخطي",
+    "prev": "السابق",
+    "next": "التالي",
+    "get_started": "ابدأ الآن",
+    "onboarding_title_1": "اختر المنتجات",
+    "onboarding_subtitle_1": "تصفح آلاف المنتجات واعثر على ما تحتاجه بالضبط.",
+    "onboarding_title_2": "ادفع",
+    "onboarding_subtitle_2": "دفع آمن مع خيارات دفع متعددة.",
+    "onboarding_title_3": "استلم طلبك",
+    "onboarding_subtitle_3": "توصيل سريع لباب بيتك."
   },
   "home": {
     "home_title": "الرئيسية",

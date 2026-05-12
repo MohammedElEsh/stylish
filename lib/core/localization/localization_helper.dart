@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 class LocalizationHelper {
   static const List<Locale> supportedLocales = [
-    Locale('en'),
     Locale('ar'),
+    Locale('en'),
   ];
 
   static const String path = 'assets/translations';

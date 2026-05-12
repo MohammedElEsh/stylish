@@ -82,17 +82,18 @@ abstract class AppTypography {
         letterSpacing: 0,
       );
 
-  static TextStyle get semiBold18Center => GoogleFonts.montserrat(
+  static TextStyle get semiBold18 => GoogleFonts.montserrat(
         fontSize: 18.sp,
         fontWeight: FontWeight.w600,
         height: 1,
         letterSpacing: 0,
       );
 
-  static TextStyle get semiBold14Center => GoogleFonts.montserrat(
+  static TextStyle get semiBold14 => GoogleFonts.montserrat(
         fontSize: 14.sp,
         fontWeight: FontWeight.w600,
         height: 24 / 14,
         letterSpacing: 0.28,
+        color: Colors.grey,
       );
 }
