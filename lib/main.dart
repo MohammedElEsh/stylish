@@ -22,7 +22,7 @@ void main() async {
       supportedLocales: LocalizationHelper.supportedLocales,
       path: LocalizationHelper.path,
       fallbackLocale: LocalizationHelper.fallbackLocale,
-      startLocale: const Locale('ar'),
+      // startLocale: const Locale('ar'),
       child: const App(),
     ),
   );

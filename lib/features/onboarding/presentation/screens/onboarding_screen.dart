@@ -6,7 +6,8 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/routing/route_names.dart';
 import '../../../../core/theme/colors/app_colors.dart';
-import '../../data/models/onboarding_model.dart' as models;
+import '../../controllers/onboarding_page_controller.dart';
+import '../../data/models/onboarding_model.dart';
 import '../view_models/onboarding_cubit.dart';
 import '../view_models/onboarding_state.dart';
 import '../widgets/onboarding_dots.dart';
@@ -14,102 +15,90 @@ import '../widgets/onboarding_footer.dart';
 import '../widgets/onboarding_header.dart';
 import '../widgets/onboarding_item.dart';
 
-class OnboardingScreen extends StatefulWidget {
+class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
-
-  @override
-  State<OnboardingScreen> createState() => _OnboardingScreenState();
-}
-
-class _OnboardingScreenState extends State<OnboardingScreen> {
-  final PageController _pageController = PageController();
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
-
-  void _nextPage(OnboardingCubit cubit, int current) {
-    if (current >= models.onboardingPages.length - 1) {
-      cubit.complete();
-      return;
-    }
-
-    _pageController.nextPage(
-      duration: const Duration(milliseconds: 350),
-      curve: Curves.easeInOut,
-    );
-  }
-
-  void _previousPage() {
-    _pageController.previousPage(
-      duration: const Duration(milliseconds: 350),
-      curve: Curves.easeInOut,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => sl<OnboardingCubit>(),
-      child: BlocConsumer<OnboardingCubit, OnboardingState>(
-        listener: (context, state) {
-          if (state.completed) {
-            context.go(RouteNames.login);
-          }
-        },
-        builder: (context, state) {
-          final cubit = context.read<OnboardingCubit>();
+      child: const _OnboardingView(),
+    );
+  }
+}
 
-          final currentIndex = state.currentPage;
+class _OnboardingView extends StatefulWidget {
+  const _OnboardingView();
 
-          final isFirst = currentIndex == 0;
-          final isLast = currentIndex == models.onboardingPages.length - 1;
+  @override
+  State<_OnboardingView> createState() => _OnboardingViewState();
+}
 
-          return Scaffold(
-            backgroundColor: AppColors.surfaceLight,
-            body: SafeArea(
-              child: Column(
-                children: [
-                  OnboardingHeader(
-                    current: currentIndex + 1,
-                    total: models.onboardingPages.length,
-                    showSkip: !isLast,
-                    onSkip: isLast ? null : cubit.complete,
-                  ),
-                  Expanded(
-                    child: PageView.builder(
-                      controller: _pageController,
-                      itemCount: models.onboardingPages.length,
-                      onPageChanged: cubit.onPageChanged,
-                      itemBuilder: (_, i) {
-                        final page = models.onboardingPages[i];
+class _OnboardingViewState extends State<_OnboardingView> {
+  final controller = OnboardingPageController();
 
-                        return OnboardingItem(
-                          image: page.image,
-                          title: page.titleKey.tr(),
-                          description: page.descriptionKey.tr(),
-                        );
-                      },
-                    ),
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<OnboardingCubit, OnboardingState>(
+      listener: (context, state) {
+        if (state.completed) {
+          context.go(RouteNames.login);
+        }
+      },
+      builder: (context, state) {
+        final cubit = context.read<OnboardingCubit>();
+
+        final current = state.currentPage;
+        final isLast = current == onboardingPages.length - 1;
+
+        return Scaffold(
+          backgroundColor: AppColors.surfaceLight,
+          body: SafeArea(
+            child: Column(
+              children: [
+                OnboardingHeader(
+                  current: current + 1,
+                  total: onboardingPages.length,
+                  showSkip: !isLast,
+                  onSkip: cubit.complete,
+                ),
+                Expanded(
+                  child: PageView.builder(
+                    controller: controller.pageController,
+                    itemCount: onboardingPages.length,
+                    onPageChanged: cubit.onPageChanged,
+                    itemBuilder: (_, i) {
+                      final page = onboardingPages[i];
+
+                      return OnboardingItem(
+                        image: page.image,
+                        title: page.titleKey.tr(),
+                        description: page.descriptionKey.tr(),
+                      );
+                    },
                   ),
-                  OnboardingDots(
-                    count: models.onboardingPages.length,
-                    currentIndex: currentIndex,
-                  ),
-                  OnboardingFooter(
-                    isFirst: isFirst,
-                    isLast: isLast,
-                    onPrev: _previousPage,
-                    onNext: () => _nextPage(cubit, currentIndex),
-                  ),
-                ],
-              ),
+                ),
+                OnboardingDots(
+                  count: onboardingPages.length,
+                  currentIndex: current,
+                ),
+                OnboardingFooter(
+                  isFirst: current == 0,
+                  isLast: isLast,
+                  onPrev: controller.previous,
+                  onNext: () => controller.next(current, cubit.complete),
+                ),
+              ],
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }
