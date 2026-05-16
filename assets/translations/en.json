@@ -14,6 +14,10 @@
     "onboarding_title_3": "Get Your Order",
     "onboarding_subtitle_3": "Fast delivery to your doorstep."
   },
+  "validation": {
+    "required": "This field is required",
+    "field_required": "{} is required"
+  },
   "home": {
     "home_title": "Home",
     "welcome_home": "Welcome Home!",
@@ -21,19 +25,22 @@
   },
   "auth": {
     "log_in": "Log in",
-    "log_in_subtitle": "Enter your email and password",
+    "login_subtitle": "Enter your email and password",
+    "welcome_back": "Welcome\nBack!",
     "email": "Email",
+    "email_hint": "Username or Email",
     "email_required": "Email is required",
     "email_invalid": "Enter a valid email",
     "password": "Password",
+    "password_hint": "password",
     "password_required": "Password is required",
-    "password_too_short": "Password must be at least 6 characters",
+    "password_min_length": "Password must be at least 6 characters",
     "remember_me": "Remember me",
-    "forgot_password": "Forgot Password",
+    "forgot_password": "Forgot Password?",
     "login_button": "Login",
     "dont_have_account": "Don't have an account? ",
     "sign_up": "Sign Up",
-    "create_account": "Create Account",
+    "create_account": "Create An Account",
     "create_account_subtitle": "Create a new account to get started.",
     "name": "Name",
     "name_required": "Name is required",
@@ -41,11 +48,14 @@
     "confirm_password_required": "Confirm password is required",
     "passwords_do_not_match": "Passwords do not match",
     "create_account_button": "Create Account",
-    "already_have_account": "Already have an account? ",
+    "already_have_account": "I Already have an account",
     "sign_in": "Sign In",
-    "or_continue_with": "Or Continue With Account",
-    "forgot_password_title": "Forgot Password",
+    "or_continue_with": "Or Continue With",
+    "forgot_password_title": "Forgot Password?",
     "forgot_password_subtitle": "Enter your email address to receive a reset link\nand regain access to your account.",
-    "reset_link_sent": "Password reset link sent to your email."
+    "reset_link_sent": "Password reset link sent to your email.",
+    "terms_first_part": "By clicking the ",
+    "terms_second_part": " button, you agree to the public offer",
+    "terms_link": "Register"
   }
 }
