@@ -21,6 +21,7 @@ class SignupView extends StatefulWidget {
 
 class _SignupViewState extends State<SignupView> {
   final _formKey = GlobalKey<FormState>();
+
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
@@ -55,21 +56,23 @@ class _SignupViewState extends State<SignupView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SizedBox(height: 32.w),
+              SizedBox(height: 32.h),
               Text(
                 'auth.create_account'.tr(),
                 textAlign: TextAlign.left,
                 style: AppTypography.bold36,
               ),
-              SizedBox(height: 32.w),
+              SizedBox(height: 32.h),
               SignupForm(
                 formKey: _formKey,
                 emailController: _emailController,
                 passwordController: _passwordController,
                 confirmPasswordController: _confirmPasswordController,
               ),
-              SizedBox(height: 24.w),
-              TermsAgreement(onRegisterTap: () {}),
+              SizedBox(height: 24.h),
+              TermsAgreement(
+                onRegisterTap: () {},
+              ),
               SizedBox(height: 24.h),
               AppButton(
                 label: 'auth.create_account_button'.tr(),
@@ -82,7 +85,9 @@ class _SignupViewState extends State<SignupView> {
                 onFacebook: _onSocialLogin,
               ),
               SizedBox(height: 32.h),
-              SignupFooter(onSignIn: _onSignIn),
+              SignupFooter(
+                onSignIn: _onSignIn,
+              ),
             ],
           ),
         ),
