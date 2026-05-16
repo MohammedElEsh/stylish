@@ -1,12 +1,65 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:stylish/core/theme/typography/app_typography.dart';
 
-class ForgotPasswordView extends StatelessWidget {
+import '../../../../core/shared/buttons/app_button.dart';
+import '../../../../core/theme/colors/app_colors.dart';
+import '../widgets/forgot_password_form.dart';
+
+class ForgotPasswordView extends StatefulWidget {
   const ForgotPasswordView({super.key});
 
   @override
+  State<ForgotPasswordView> createState() => _ForgotPasswordViewState();
+}
+
+class _ForgotPasswordViewState extends State<ForgotPasswordView> {
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+
+  void _onSubmit() {
+    if (_formKey.currentState?.validate() ?? false) {
+      // TODO: Implement forgot password logic
+    }
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('Forgot Password Screen')),
+    return Scaffold(
+      backgroundColor: AppColors.backgroundLight,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(24.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(height: 32.h),
+              Text(
+                'auth.forgot_password'.tr(),
+                textAlign: TextAlign.left,
+                style: AppTypography.bold36,
+              ),
+              SizedBox(height: 32.h),
+              ForgotPasswordForm(
+                formKey: _formKey,
+                emailController: _emailController,
+              ),
+              SizedBox(height: 64.h),
+              AppButton(
+                label: 'auth.submit'.tr(),
+                onPressed: _onSubmit,
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

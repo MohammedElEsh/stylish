@@ -236,7 +236,7 @@ class _AppTextFieldState extends State<AppTextField> {
             : AppColors.grey5,
         counterText: '',
         contentPadding: widget.contentPadding ??
-            EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+            EdgeInsets.symmetric(horizontal: 16.w, vertical: 22.h),
         hintStyle: widget.hintStyle ??
             AppTypography.regular12.copyWith(color: AppColors.grey2),
         labelStyle: widget.labelStyle,
