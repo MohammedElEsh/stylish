@@ -1,19 +1,52 @@
+import 'package:easy_localization/easy_localization.dart';
+
+/// Centralized form validators.
+///
+/// All messages are localized via easy_localization translation keys, so they
+/// can be reused directly inside widgets without inline validation logic.
 class AppValidators {
+  static final RegExp _emailRegex = RegExp(
+    r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$',
+  );
+
+  /// Validates that [value] is a non-empty, well-formed email address.
   static String? validateEmail(String? value) {
-    if (value == null || value.isEmpty) return 'Email is required';
-    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-    if (!emailRegex.hasMatch(value)) return 'Enter a valid email';
+    if (value == null || value.trim().isEmpty) {
+      return 'auth.email_required'.tr();
+    }
+    if (!_emailRegex.hasMatch(value.trim())) {
+      return 'auth.email_invalid'.tr();
+    }
     return null;
   }
 
-  static String? validatePassword(String? value) {
-    if (value == null || value.isEmpty) return 'Password is required';
-    if (value.length < 6) return 'Password must be at least 6 characters';
+  /// Validates a password.
+  ///
+  /// Always checks that the field is non-empty. When [minLength] is greater
+  /// than zero (default `6`), it also enforces a minimum length. Pass
+  /// `minLength: 0` to skip the length check (e.g. for login flows where you
+  /// only want to ensure the field is filled).
+  static String? validatePassword(
+    String? value, {
+    int minLength = 6,
+  }) {
+    if (value == null || value.isEmpty) {
+      return 'auth.password_required'.tr();
+    }
+    if (minLength > 0 && value.length < minLength) {
+      return 'auth.password_min_length'.tr();
+    }
     return null;
   }
 
-  static String? validateRequired(String? value, String fieldName) {
-    if (value == null || value.isEmpty) return '$fieldName is required';
-    return null;
+  /// Validates that [value] is non-empty.
+  ///
+  /// When [fieldName] is provided it will be interpolated into the generic
+  /// `validation.field_required` translation; otherwise a neutral fallback is
+  /// returned.
+  static String? validateRequired(String? value, {String? fieldName}) {
+    if (value != null && value.trim().isNotEmpty) return null;
+    if (fieldName == null) return 'validation.required'.tr();
+    return 'validation.field_required'.tr(args: [fieldName]);
   }
 }

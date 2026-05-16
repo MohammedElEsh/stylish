@@ -11,6 +11,7 @@ include: package:flutter_lints/flutter.yaml
 
 analyzer:
   errors:
+    deprecated_member_use: ignore
     inference_failure_on_untyped_parameter: ignore
   plugins:
     - custom_lint

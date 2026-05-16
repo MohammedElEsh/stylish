@@ -14,6 +14,10 @@
     "onboarding_title_3": "استلم طلبك",
     "onboarding_subtitle_3": "توصيل سريع لباب بيتك."
   },
+  "validation": {
+    "required": "هذا الحقل مطلوب",
+    "field_required": "{} مطلوب"
+  },
   "home": {
     "home_title": "الرئيسية",
     "welcome_home": "أهلاً بك!",
@@ -21,13 +25,16 @@
   },
   "auth": {
     "log_in": "تسجيل الدخول",
-    "log_in_subtitle": "أدخل بريدك الإلكتروني وكلمة المرور",
+    "login_subtitle": "أدخل بريدك الإلكتروني وكلمة المرور",
+    "welcome_back": "مرحباً\nبعودتك!",
     "email": "البريد الإلكتروني",
+    "email_hint": "أدخل بريدك الإلكتروني",
     "email_required": "البريد الإلكتروني مطلوب",
     "email_invalid": "أدخل بريداً إلكترونياً صالحاً",
     "password": "كلمة المرور",
+    "password_hint": "أدخل كلمة المرور",
     "password_required": "كلمة المرور مطلوبة",
-    "password_too_short": "كلمة المرور يجب أن تكون 6 أحرف على الأقل",
+    "password_min_length": "كلمة المرور يجب أن تكون 6 أحرف على الأقل",
     "remember_me": "تذكرني",
     "forgot_password": "نسيت كلمة المرور؟",
     "login_button": "دخول",

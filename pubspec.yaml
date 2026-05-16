@@ -7,7 +7,7 @@ environment:
   sdk: ">=3.5.0 <4.0.0"
 
 dependencies:
-  flutter_skill: ^0.2.6
+  flutter_skill: ^0.9.36
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.9
@@ -41,7 +41,7 @@ dependencies:
   flutter_svg: ^2.3.0
 
   # Icons
-  iconsax_plus: ^1.0.0
+  hugeicons: ^1.1.7
 
   # Shimmer / Skeleton
   skeletonizer: ^2.1.3

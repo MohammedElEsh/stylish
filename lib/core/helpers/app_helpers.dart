@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../theme/colors/app_colors.dart';
-import '../theme/spacing/app_spacing.dart';
 
 class AppHelpers {
   static void showAppSnackBar(
@@ -14,7 +14,7 @@ class AppHelpers {
         backgroundColor: isError ? AppColors.error : AppColors.success,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppRadius.s),
+          borderRadius: BorderRadius.circular(4.r),
         ),
       ),
     );
@@ -30,7 +30,7 @@ class AppHelpers {
       barrierDismissible: barrierDismissible,
       builder: (context) => Dialog(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppRadius.m),
+          borderRadius: BorderRadius.circular(8.r),
         ),
         child: child,
       ),
@@ -45,7 +45,7 @@ class AppHelpers {
       context: context,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
-          top: Radius.circular(AppRadius.l),
+          top: Radius.circular(12.r),
         ),
       ),
       builder: (context) => Padding(
