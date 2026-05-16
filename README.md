@@ -29,6 +29,11 @@ A scalable Flutter eCommerce application built with MVVM architecture, responsiv
 |--------|--------|--------|
 | ![Onboarding 1](assets/shots/onboarding_shot_1.png) | ![Onboarding 2](assets/shots/onboarding_shot_2.png) | ![Onboarding 3](assets/shots/onboarding_shot_3.png) |
 
+### Authentication
+| Login | Signup | Forgot Password |
+|-------|--------|-----------------|
+| ![Login](assets/shots/login.png) | ![Signup](assets/shots/signup.png) | ![Forgot Password](assets/shots/forget-password.png) |
+
 ---
 
 ## Features
