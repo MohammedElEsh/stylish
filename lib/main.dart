@@ -6,6 +6,7 @@ import 'app.dart';
 import 'core/di/injection.dart';
 import 'core/localization/localization_helper.dart';
 import 'core/observer/bloc_observer.dart';
+import 'core/routing/app_router.dart';
 import 'core/services/storage/storage_service.dart';
 
 void main() async {
@@ -14,6 +15,7 @@ void main() async {
   await StorageService.init();
   await EasyLocalization.ensureInitialized();
   await initDependencies();
+  initRouter();
 
   Bloc.observer = AppBlocObserver();
 

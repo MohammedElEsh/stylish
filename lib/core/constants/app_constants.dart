@@ -11,7 +11,7 @@ class AppConstants {
   static const String userKey = 'user_data';
   static const String themeKey = 'app_theme';
   static const String localeKey = 'app_locale';
-  static const String onboardingKey = 'onboarding_completed';
+  static const String onboardingKey = 'is_onboarding_completed';
 }
 
 class AppAssets {

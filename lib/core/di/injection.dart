@@ -7,6 +7,7 @@ import '../../features/onboarding/presentation/view_models/onboarding_cubit.dart
 import '../network/dio_client.dart';
 import '../services/connectivity/connectivity_service.dart';
 import '../services/media/media_service.dart';
+import '../services/session/session_manager.dart';
 import '../services/storage/secure_storage_service.dart';
 
 final GetIt sl = GetIt.instance;
@@ -26,6 +27,7 @@ Future<void> initDependencies() async {
 
   sl.registerLazySingleton<Dio>(() => DioClient.dio);
 
-  sl.registerFactory<OnboardingCubit>(
-      () => OnboardingCubit(sl<SharedPreferences>()));
+  sl.registerLazySingleton<SessionManager>(() => SessionManager(sl()));
+
+  sl.registerFactory<OnboardingCubit>(() => OnboardingCubit(sl()));
 }
