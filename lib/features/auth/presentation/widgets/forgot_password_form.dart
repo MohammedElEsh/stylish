@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/constants/app_strings.dart';
 import '../../../../core/shared/inputs/app_text_field.dart';
 import '../../../../core/theme/colors/app_colors.dart';
 import '../../../../core/theme/typography/app_typography.dart';
@@ -26,7 +27,7 @@ class ForgotPasswordForm extends StatelessWidget {
         children: [
           AppTextField(
             controller: emailController,
-            hint: 'auth.email_hint'.tr(),
+            hint: AppStrings.authLoginEmailHint.tr(),
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.done,
             prefixIcon: const Icon(
@@ -48,7 +49,7 @@ class ForgotPasswordForm extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text: 'auth.forgot_password_helper'.tr(),
+                    text: AppStrings.authForgotPasswordHelper.tr(),
                     style: AppTypography.regular12.copyWith(
                       color: AppColors.textSecondary,
                     ),

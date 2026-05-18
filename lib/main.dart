@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app.dart';
 import 'core/di/injection.dart';
@@ -19,15 +20,15 @@ void main() async {
 
   Bloc.observer = AppBlocObserver();
 
-  // final prefs = await SharedPreferences.getInstance();
-  // await prefs.remove('onboarding_done');
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.remove('onboarding_done');
 
   runApp(
     EasyLocalization(
       supportedLocales: LocalizationHelper.supportedLocales,
       path: LocalizationHelper.path,
       fallbackLocale: LocalizationHelper.fallbackLocale,
-      // startLocale: const Locale('ar'),
+      // startLocale: const Locale(AppConstants.arabicLangCode),
       child: const App(),
     ),
   );

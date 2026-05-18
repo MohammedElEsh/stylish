@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:stylish/core/theme/colors/app_colors.dart';
 
+import '../../../../core/constants/app_strings.dart';
 import '../../../../core/theme/typography/app_typography.dart';
 
 class SignupFooter extends StatelessWidget {
@@ -15,7 +16,7 @@ class SignupFooter extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'auth.already_have_account'.tr(),
+          AppStrings.authSignupAlreadyHaveAccount.tr(),
           style: AppTypography.regular14.copyWith(
             color: AppColors.grey2,
           ),
@@ -23,7 +24,7 @@ class SignupFooter extends StatelessWidget {
         TextButton(
           onPressed: onSignIn,
           child: Text(
-            'auth.sign_in'.tr(),
+            AppStrings.authSignupSignIn.tr(),
             style: AppTypography.semiBold14.copyWith(
               color: AppColors.primary,
               decoration: TextDecoration.underline,

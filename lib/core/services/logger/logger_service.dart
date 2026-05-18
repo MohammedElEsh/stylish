@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 
 class LoggerService {
@@ -8,13 +9,49 @@ class LoggerService {
       lineLength: 120,
       colors: true,
       printEmojis: true,
-      dateTimeFormat: DateTimeFormat.none,
     ),
   );
 
-  static void d(String message) => _logger.d(message);
-  static void i(String message) => _logger.i(message);
-  static void w(String message) => _logger.w(message);
-  static void e(String message, [dynamic error, StackTrace? stackTrace]) =>
-      _logger.e(message, error: error, stackTrace: stackTrace);
+  /// Debug logs
+  static void d(String message, {String? tag}) {
+    if (!_enabled) return;
+    _logger.d(_format(message, tag));
+  }
+
+  /// Info logs
+  static void i(String message, {String? tag}) {
+    if (!_enabled) return;
+    _logger.i(_format(message, tag));
+  }
+
+  /// Warning logs
+  static void w(String message, {String? tag}) {
+    if (!_enabled) return;
+    _logger.w(_format(message, tag));
+  }
+
+  /// Error logs
+  static void e(
+    String message, [
+    dynamic error,
+    StackTrace? stackTrace,
+    String? tag,
+  ]) {
+    if (!_enabled) return;
+
+    _logger.e(
+      _format(message, tag),
+      error: error,
+      stackTrace: stackTrace,
+    );
+  }
+
+  /// Format logs
+  static String _format(String message, String? tag) {
+    if (tag == null) return message;
+    return '[$tag] $message';
+  }
+
+  /// Disable logs in production
+  static bool get _enabled => kDebugMode;
 }

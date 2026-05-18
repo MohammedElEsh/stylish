@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stylish/core/theme/typography/app_typography.dart';
 
+import '../../../../core/constants/app_strings.dart';
 import '../../../../core/shared/buttons/app_button.dart';
 import '../../../../core/theme/colors/app_colors.dart';
 import '../widgets/forgot_password_form.dart';
@@ -42,7 +43,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
             children: [
               SizedBox(height: 32.h),
               Text(
-                'auth.forgot_password'.tr(),
+                AppStrings.authForgotPasswordTitle.tr(),
                 textAlign: TextAlign.left,
                 style: AppTypography.bold36,
               ),
@@ -53,7 +54,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
               ),
               SizedBox(height: 64.h),
               AppButton(
-                label: 'auth.submit'.tr(),
+                label: AppStrings.authForgotPasswordSubmit.tr(),
                 onPressed: _onSubmit,
               ),
             ],

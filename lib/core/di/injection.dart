@@ -3,8 +3,8 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../features/onboarding/presentation/view_models/onboarding_cubit.dart';
-import '../network/dio_consumer.dart';
+import '../../features/onboarding/presentation/manager/onboarding_cubit.dart';
+import '../networking/dio_consumer.dart';
 import '../services/connectivity/connectivity_service.dart';
 import '../services/media/media_service.dart';
 import '../services/session/session_manager.dart';

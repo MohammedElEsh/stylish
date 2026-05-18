@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/constants/app_strings.dart';
 import '../../../../core/theme/colors/app_colors.dart';
 import '../../../../core/theme/typography/app_typography.dart';
 
@@ -30,7 +31,7 @@ class OnboardingFooter extends StatelessWidget {
             TextButton(
               onPressed: onPrev,
               child: Text(
-                'onboarding.prev'.tr(),
+                AppStrings.onboardingPrev.tr(),
                 style: AppTypography.semiBold18.copyWith(
                   color: AppColors.grey5,
                 ),
@@ -41,7 +42,9 @@ class OnboardingFooter extends StatelessWidget {
           TextButton(
             onPressed: onNext,
             child: Text(
-              isLast ? 'onboarding.get_started'.tr() : 'onboarding.next'.tr(),
+              isLast
+                  ? AppStrings.onboardingGetStarted.tr()
+                  : AppStrings.onboardingNext.tr(),
               style: AppTypography.semiBold18.copyWith(
                 color: AppColors.primary,
               ),

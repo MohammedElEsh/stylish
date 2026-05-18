@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/constants/app_strings.dart';
 import '../../../../core/shared/inputs/app_text_field.dart';
 import '../../../../core/theme/colors/app_colors.dart';
 import '../../../../core/theme/typography/app_typography.dart';
@@ -31,7 +32,7 @@ class LoginForm extends StatelessWidget {
         children: [
           AppTextField(
             controller: emailController,
-            hint: 'auth.email_hint'.tr(),
+            hint: AppStrings.authLoginEmailHint.tr(),
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             prefixIcon: const Icon(
@@ -43,7 +44,7 @@ class LoginForm extends StatelessWidget {
           SizedBox(height: 16.h),
           AppTextField(
             controller: passwordController,
-            hint: 'auth.password_hint'.tr(),
+            hint: AppStrings.authLoginPasswordHint.tr(),
             isPassword: true,
             textInputAction: TextInputAction.done,
             prefixIcon: const Icon(
@@ -58,7 +59,7 @@ class LoginForm extends StatelessWidget {
             child: TextButton(
               onPressed: onForgotPassword,
               child: Text(
-                'auth.forgot_password'.tr(),
+                AppStrings.authLoginForgotPassword.tr(),
                 style: AppTypography.semiBold14.copyWith(
                   color: AppColors.primary,
                 ),

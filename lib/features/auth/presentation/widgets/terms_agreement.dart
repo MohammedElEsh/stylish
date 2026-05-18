@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/constants/app_strings.dart';
 import '../../../../core/theme/colors/app_colors.dart';
 import '../../../../core/theme/typography/app_typography.dart';
 
@@ -23,10 +24,10 @@ class TermsAgreement extends StatelessWidget {
         ),
         children: [
           TextSpan(
-            text: 'auth.terms_first_part'.tr(),
+            text: AppStrings.authTermsFirstPart.tr(),
           ),
           TextSpan(
-            text: 'auth.terms_link'.tr(),
+            text: AppStrings.authTermsLink.tr(),
             style: AppTypography.regular12.copyWith(
               color: AppColors.primary,
               decoration: TextDecoration.underline,
@@ -35,7 +36,7 @@ class TermsAgreement extends StatelessWidget {
             recognizer: TapGestureRecognizer()..onTap = onRegisterTap,
           ),
           TextSpan(
-            text: 'auth.terms_second_part'.tr(),
+            text: AppStrings.authTermsSecondPart.tr(),
           ),
         ],
       ),

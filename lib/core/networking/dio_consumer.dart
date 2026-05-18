@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../errors/failures.dart';
@@ -12,15 +13,17 @@ class DioConsumer implements ApiConsumer {
   DioConsumer({required this.dio}) {
     dio.options.baseUrl = ApiEndpoints.baseUrl;
     dio.interceptors.add(ApiInterceptors());
-    dio.interceptors.add(
-      PrettyDioLogger(
-        request: true,
-        requestBody: true,
-        responseBody: false,
-        responseHeader: true,
-        error: true,
-      ),
-    );
+    if (kDebugMode) {
+      dio.interceptors.add(
+        PrettyDioLogger(
+          request: true,
+          requestBody: true,
+          responseBody: false,
+          responseHeader: true,
+          error: true,
+        ),
+      );
+    }
   }
 
   @override

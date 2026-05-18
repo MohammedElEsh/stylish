@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 
+import '../constants/app_strings.dart';
+
 /// Centralized form validators.
 ///
 /// All messages are localized via easy_localization translation keys, so they
@@ -12,10 +14,10 @@ class AppValidators {
   /// Validates that [value] is a non-empty, well-formed email address.
   static String? validateEmail(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'auth.email_required'.tr();
+      return AppStrings.authLoginEmailRequired.tr();
     }
     if (!_emailRegex.hasMatch(value.trim())) {
-      return 'auth.email_invalid'.tr();
+      return AppStrings.authLoginEmailInvalid.tr();
     }
     return null;
   }
@@ -31,10 +33,10 @@ class AppValidators {
     int minLength = 6,
   }) {
     if (value == null || value.isEmpty) {
-      return 'auth.password_required'.tr();
+      return AppStrings.authLoginPasswordRequired.tr();
     }
     if (minLength > 0 && value.length < minLength) {
-      return 'auth.password_min_length'.tr();
+      return AppStrings.authLoginPasswordMinLength.tr();
     }
     return null;
   }
@@ -46,7 +48,7 @@ class AppValidators {
   /// returned.
   static String? validateRequired(String? value, {String? fieldName}) {
     if (value != null && value.trim().isNotEmpty) return null;
-    if (fieldName == null) return 'validation.required'.tr();
-    return 'validation.field_required'.tr(args: [fieldName]);
+    if (fieldName == null) return AppStrings.validationRequired.tr();
+    return AppStrings.validationFieldRequired.tr(args: [fieldName]);
   }
 }

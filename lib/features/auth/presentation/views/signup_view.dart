@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/constants/app_strings.dart';
 import '../../../../core/routing/route_names.dart';
 import '../../../../core/shared/buttons/app_button.dart';
 import '../../../../core/theme/colors/app_colors.dart';
@@ -58,7 +59,7 @@ class _SignupViewState extends State<SignupView> {
             children: [
               SizedBox(height: 32.h),
               Text(
-                'auth.create_account'.tr(),
+                AppStrings.authSignupTitle.tr(),
                 textAlign: TextAlign.left,
                 style: AppTypography.bold36,
               ),
@@ -75,7 +76,7 @@ class _SignupViewState extends State<SignupView> {
               ),
               SizedBox(height: 24.h),
               AppButton(
-                label: 'auth.create_account_button'.tr(),
+                label: AppStrings.authSignupButton.tr(),
                 onPressed: _onSignUp,
               ),
               SizedBox(height: 48.h),

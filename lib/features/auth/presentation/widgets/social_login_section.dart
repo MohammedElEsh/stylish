@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stylish/features/auth/presentation/widgets/social_login_button.dart';
 
-import '../../../../core/constants/app_constants.dart';
+import '../../../../core/constants/app_assets.dart';
+import '../../../../core/constants/app_strings.dart';
 import '../../../../core/theme/colors/app_colors.dart';
 import '../../../../core/theme/typography/app_typography.dart';
 
@@ -26,7 +27,8 @@ class SocialLoginSection extends StatelessWidget {
         Row(
           children: [
             const Expanded(child: Divider(color: AppColors.grey5)),
-            Text('auth.or_continue_with'.tr(), style: AppTypography.regular12),
+            Text(AppStrings.authOrContinueWith.tr(),
+                style: AppTypography.regular12),
             const Expanded(child: Divider(color: AppColors.grey5)),
           ],
         ),

@@ -1,4 +1,5 @@
-import '../../../../core/constants/app_constants.dart';
+import '../../../../core/constants/app_assets.dart';
+import '../../../../core/constants/app_strings.dart';
 
 class OnboardingPage {
   final String image;
@@ -12,20 +13,20 @@ class OnboardingPage {
   });
 }
 
-const List<OnboardingPage> onboardingPages = [
-  OnboardingPage(
+final List<OnboardingPage> onboardingPages = [
+  const OnboardingPage(
     image: AppAssets.onboarding1,
-    titleKey: 'onboarding.onboarding_title_1',
-    descriptionKey: 'onboarding.onboarding_subtitle_1',
+    titleKey: AppStrings.onboardingStepTitle1,
+    descriptionKey: AppStrings.onboardingStepSubtitle1,
   ),
-  OnboardingPage(
+  const OnboardingPage(
     image: AppAssets.onboarding2,
-    titleKey: 'onboarding.onboarding_title_2',
-    descriptionKey: 'onboarding.onboarding_subtitle_2',
+    titleKey: AppStrings.onboardingStepTitle2,
+    descriptionKey: AppStrings.onboardingStepSubtitle2,
   ),
-  OnboardingPage(
+  const OnboardingPage(
     image: AppAssets.onboarding3,
-    titleKey: 'onboarding.onboarding_title_3',
-    descriptionKey: 'onboarding.onboarding_subtitle_3',
+    titleKey: AppStrings.onboardingStepTitle3,
+    descriptionKey: AppStrings.onboardingStepSubtitle3,
   ),
 ];

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/constants/app_strings.dart';
 import '../../../../core/routing/route_names.dart';
 import '../../../../core/shared/buttons/app_button.dart';
 import '../../../../core/theme/colors/app_colors.dart';
@@ -56,7 +57,7 @@ class _LoginViewState extends State<LoginView> {
             children: [
               SizedBox(height: 32.w),
               Text(
-                'auth.welcome_back'.tr(),
+                AppStrings.authLoginWelcomeBack.tr(),
                 textAlign: TextAlign.left,
                 style: AppTypography.bold36,
               ),
@@ -69,7 +70,7 @@ class _LoginViewState extends State<LoginView> {
               ),
               SizedBox(height: 24.w),
               AppButton(
-                label: 'auth.log_in'.tr(),
+                label: AppStrings.authLoginButton.tr(),
                 onPressed: _onLogin,
               ),
               SizedBox(height: 96.h),

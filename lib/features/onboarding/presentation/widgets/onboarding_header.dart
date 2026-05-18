@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/constants/app_strings.dart';
 import '../../../../core/theme/colors/app_colors.dart';
 import '../../../../core/theme/typography/app_typography.dart';
 
@@ -36,7 +37,7 @@ class OnboardingHeader extends StatelessWidget {
             InkWell(
               onTap: onSkip,
               child: Text(
-                'onboarding.skip'.tr(),
+                AppStrings.onboardingSkip.tr(),
                 style: AppTypography.semiBold18,
               ),
             ),

@@ -3,61 +3,73 @@
     "get_started": "Get Started"
   },
   "onboarding": {
-    "skip": "Skip",
-    "prev": "Prev",
-    "next": "Next",
-    "get_started": "Get Started",
-    "onboarding_title_1": "Choose Products",
-    "onboarding_subtitle_1": "Browse through thousands of products and find exactly what you need.",
-    "onboarding_title_2": "Make Payment",
-    "onboarding_subtitle_2": "Secure checkout with multiple payment options.",
-    "onboarding_title_3": "Get Your Order",
-    "onboarding_subtitle_3": "Fast delivery to your doorstep."
+    "actions": {
+      "skip": "Skip",
+      "prev": "Prev",
+      "next": "Next",
+      "get_started": "Get Started"
+    },
+    "steps": {
+      "title1": "Choose Products",
+      "subtitle1": "Browse through thousands of products and find exactly what you need.",
+      "title2": "Make Payment",
+      "subtitle2": "Secure checkout with multiple payment options.",
+      "title3": "Get Your Order",
+      "subtitle3": "Fast delivery to your doorstep."
+    }
   },
   "validation": {
     "required": "This field is required",
     "field_required": "{} is required"
   },
   "home": {
-    "home_title": "Home",
-    "welcome_home": "Welcome Home!",
-    "home_subtitle": "You have successfully completed the onboarding process."
+    "title": "Home",
+    "welcome": "Welcome Home!",
+    "subtitle": "You have successfully completed the onboarding process."
   },
   "auth": {
-    "log_in": "Log in",
-    "login_subtitle": "Enter your email and password",
-    "welcome_back": "Welcome\nBack!",
-    "email": "Email",
-    "email_hint": "Username or Email",
-    "email_required": "Email is required",
-    "email_invalid": "Enter a valid email",
-    "password": "Password",
-    "password_hint": "password",
-    "password_required": "Password is required",
-    "password_min_length": "Password must be at least 6 characters",
-    "remember_me": "Remember me",
-    "forgot_password": "Forgot Password?",
-    "login_button": "Login",
-    "dont_have_account": "Don't have an account? ",
-    "sign_up": "Sign Up",
-    "create_account": "Create An Account",
-    "create_account_subtitle": "Create a new account to get started.",
-    "name": "Name",
-    "name_required": "Name is required",
-    "confirm_password": "Confirm Password",
-    "confirm_password_required": "Confirm password is required",
-    "passwords_do_not_match": "Passwords do not match",
-    "create_account_button": "Create Account",
-    "already_have_account": "I Already have an account",
-    "sign_in": "Sign In",
     "or_continue_with": "Or Continue With",
-    "forgot_password_title": "Forgot Password?",
-    "forgot_password_subtitle": "Enter your email address to receive a reset link\nand regain access to your account.",
-    "forgot_password_helper": "We will send you a message to set or reset your new password",
-    "reset_link_sent": "Password reset link sent to your email.",
-    "submit": "Submit",
-    "terms_first_part": "By clicking the ",
-    "terms_second_part": " button, you agree to the public offer",
-    "terms_link": "Register"
+    "login": {
+      "title": "Log in",
+      "subtitle": "Enter your email and password",
+      "welcome_back": "Welcome\nBack!",
+      "email": "Email",
+      "email_hint": "Username or Email",
+      "email_required": "Email is required",
+      "email_invalid": "Enter a valid email",
+      "password": "Password",
+      "password_hint": "password",
+      "password_required": "Password is required",
+      "password_min_length": "Password must be at least 6 characters",
+      "remember_me": "Remember me",
+      "forgot_password": "Forgot Password?",
+      "button": "Login",
+      "dont_have_account": "Don't have an account? ",
+      "sign_up": "Sign Up"
+    },
+    "signup": {
+      "title": "Create An Account",
+      "subtitle": "Create a new account to get started.",
+      "name": "Name",
+      "name_required": "Name is required",
+      "confirm_password": "Confirm Password",
+      "confirm_password_required": "Confirm password is required",
+      "passwords_do_not_match": "Passwords do not match",
+      "button": "Create Account",
+      "already_have_account": "I Already have an account",
+      "sign_in": "Sign In"
+    },
+    "forgot_password": {
+      "title": "Forgot Password?",
+      "subtitle": "Enter your email address to receive a reset link\nand regain access to your account.",
+      "helper": "We will send you a message to set or reset your new password",
+      "reset_link_sent": "Password reset link sent to your email.",
+      "submit": "Submit"
+    },
+    "terms": {
+      "first_part": "By clicking the ",
+      "link": "Register",
+      "second_part": " button, you agree to the public offer"
+    }
   }
 }
