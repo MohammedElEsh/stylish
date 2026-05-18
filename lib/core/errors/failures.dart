@@ -11,7 +11,8 @@ class ServerFailure extends Failure {
 
   factory ServerFailure.fromDioException(DioException e) {
     final statusCode = e.response?.statusCode;
-    final message = e.response?.data?['message'] as String? ?? e.message ?? 'Server error';
+    final message =
+        e.response?.data?['message'] as String? ?? e.message ?? 'Server error';
     return ServerFailure(message, statusCode: statusCode);
   }
 }

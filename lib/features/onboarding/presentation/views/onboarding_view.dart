@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/routing/route_names.dart';
 import '../../../../core/theme/colors/app_colors.dart';
-import '../../controllers/onboarding_page_controller.dart';
 import '../../data/models/onboarding_model.dart';
 import '../view_models/onboarding_cubit.dart';
 import '../view_models/onboarding_state.dart';
@@ -23,12 +22,32 @@ class OnboardingView extends StatefulWidget {
 }
 
 class _OnboardingViewState extends State<OnboardingView> {
-  final controller = OnboardingPageController();
+  late final PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
 
   @override
   void dispose() {
-    controller.dispose();
+    _pageController.dispose();
     super.dispose();
+  }
+
+  void _nextPage() {
+    _pageController.nextPage(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  void _previousPage() {
+    _pageController.previousPage(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
   }
 
   @override
@@ -59,7 +78,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                   ),
                   Expanded(
                     child: PageView.builder(
-                      controller: controller.pageController,
+                      controller: _pageController,
                       itemCount: totalPages,
                       onPageChanged:
                           context.read<OnboardingCubit>().onPageChanged,
@@ -81,12 +100,12 @@ class _OnboardingViewState extends State<OnboardingView> {
                   OnboardingFooter(
                     isFirst: current == 0,
                     isLast: isLast,
-                    onPrev: controller.previous,
+                    onPrev: _previousPage,
                     onNext: () {
                       if (isLast) {
                         context.read<OnboardingCubit>().complete();
                       } else {
-                        controller.next();
+                        _nextPage();
                       }
                     },
                   ),

@@ -11,14 +11,15 @@ void main() {
     SharedPreferences.setMockInitialValues({});
     await EasyLocalization.ensureInitialized();
 
-    await tester.pumpWidget(
-      EasyLocalization(
-        supportedLocales: const [Locale('en'),Locale('ar'),],
-        path: 'assets/translations',
-        fallbackLocale: const Locale('en'),
-        child: const App(),
-      )
-    );
+    await tester.pumpWidget(EasyLocalization(
+      supportedLocales: const [
+        Locale('en'),
+        Locale('ar'),
+      ],
+      path: 'assets/translations',
+      fallbackLocale: const Locale('en'),
+      child: const App(),
+    ));
 
     // Verify that our base app builds successfully.
     expect(find.byType(App), findsOneWidget);

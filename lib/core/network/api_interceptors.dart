@@ -9,8 +9,10 @@ class ApiInterceptors extends Interceptor {
   }
 
   @override
-  void onResponse(Response<dynamic> response, ResponseInterceptorHandler handler) {
-    debugPrint('Response: ${response.statusCode} ${response.requestOptions.path}');
+  void onResponse(
+      Response<dynamic> response, ResponseInterceptorHandler handler) {
+    debugPrint(
+        'Response: ${response.statusCode} ${response.requestOptions.path}');
     super.onResponse(response, handler);
   }
 

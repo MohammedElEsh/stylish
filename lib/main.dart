@@ -19,6 +19,9 @@ void main() async {
 
   Bloc.observer = AppBlocObserver();
 
+  // final prefs = await SharedPreferences.getInstance();
+  // await prefs.remove('onboarding_done');
+
   runApp(
     EasyLocalization(
       supportedLocales: LocalizationHelper.supportedLocales,

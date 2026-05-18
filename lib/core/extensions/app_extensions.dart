@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
 extension StringExtensions on String {
-  String get capitalize => isNotEmpty ? '${this[0].toUpperCase()}${substring(1)}' : '';
-  bool get isValidEmail => RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(this);
+  String get capitalize =>
+      isNotEmpty ? '${this[0].toUpperCase()}${substring(1)}' : '';
+  bool get isValidEmail =>
+      RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(this);
   bool get isValidPassword => length >= 6;
-  
-  String get hardcoded => this; // For easy identification of non-localized strings
+
+  String get hardcoded =>
+      this; // For easy identification of non-localized strings
 }
 
 extension NumExtensions on num {
@@ -34,9 +37,13 @@ extension DateTimeExtensions on DateTime {
 }
 
 extension WidgetExtensions on Widget {
-  Widget paddingAll(double value) => Padding(padding: EdgeInsets.all(value), child: this);
+  Widget paddingAll(double value) =>
+      Padding(padding: EdgeInsets.all(value), child: this);
   Widget paddingSymmetric({double horizontal = 0, double vertical = 0}) =>
-      Padding(padding: EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical), child: this);
-  
+      Padding(
+          padding:
+              EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical),
+          child: this);
+
   Widget visible(bool condition) => condition ? this : const SizedBox.shrink();
 }
