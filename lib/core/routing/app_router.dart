@@ -16,7 +16,7 @@ void initRouter() {
   appRouter = GoRouter(
     initialLocation: guard.initialLocation,
     refreshListenable: guard.refreshListenable,
-    redirect: (context, state) => guard.redirect(state.uri.path),
+    redirect: guard.redirect,
     routes: [
       GoRoute(
         path: RouteNames.onboarding,

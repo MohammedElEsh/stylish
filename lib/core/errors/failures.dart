@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+
 abstract class Failure {
   final String message;
   const Failure(this.message);
@@ -6,6 +8,12 @@ abstract class Failure {
 class ServerFailure extends Failure {
   final int? statusCode;
   const ServerFailure(super.message, {this.statusCode});
+
+  factory ServerFailure.fromDioException(DioException e) {
+    final statusCode = e.response?.statusCode;
+    final message = e.response?.data?['message'] as String? ?? e.message ?? 'Server error';
+    return ServerFailure(message, statusCode: statusCode);
+  }
 }
 
 class NetworkFailure extends Failure {

@@ -4,7 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../features/onboarding/presentation/view_models/onboarding_cubit.dart';
-import '../network/dio_client.dart';
+import '../network/dio_consumer.dart';
 import '../services/connectivity/connectivity_service.dart';
 import '../services/media/media_service.dart';
 import '../services/session/session_manager.dart';
@@ -25,7 +25,7 @@ Future<void> initDependencies() async {
 
   sl.registerLazySingleton<MediaService>(() => MediaServiceImpl());
 
-  sl.registerLazySingleton<Dio>(() => DioClient.dio);
+  sl.registerLazySingleton<DioConsumer>(() => DioConsumer(dio: Dio()));
 
   sl.registerLazySingleton<SessionManager>(() => SessionManager(sl()));
 

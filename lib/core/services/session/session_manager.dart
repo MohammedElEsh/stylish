@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+enum AppStatus {
+  onboardingRequired,
+  unauthenticated,
+  authenticated,
+}
+
 class SessionManager extends ChangeNotifier {
   final SharedPreferences prefs;
 
@@ -11,6 +17,12 @@ class SessionManager extends ChangeNotifier {
 
   bool get onboardingDone => prefs.getBool(_onboardingKey) ?? false;
   bool get isAuthenticated => prefs.getString(_tokenKey) != null;
+
+  AppStatus get status {
+    if (!onboardingDone) return AppStatus.onboardingRequired;
+    if (!isAuthenticated) return AppStatus.unauthenticated;
+    return AppStatus.authenticated;
+  }
 
   Future<void> completeOnboarding() async {
     await prefs.setBool(_onboardingKey, true);
