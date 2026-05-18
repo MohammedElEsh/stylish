@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../theme/colors/app_colors.dart';
+import '../../theme/typography/app_typography.dart';
 
 class AppErrorWidget extends StatelessWidget {
   final String message;
@@ -25,7 +27,10 @@ class AppErrorWidget extends StatelessWidget {
             Text(
               message,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16.sp, color: AppColors.grey1),
+              style: AppTypography.semiBold14.copyWith(
+                fontSize: 16.sp,
+                color: AppColors.grey1,
+              ),
             ),
             SizedBox(height: 24.w),
             ElevatedButton(

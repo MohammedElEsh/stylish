@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../storage/secure_storage_service.dart';
+
 enum AppStatus {
   onboardingRequired,
   unauthenticated,
@@ -9,33 +11,45 @@ enum AppStatus {
 
 class SessionManager extends ChangeNotifier {
   final SharedPreferences prefs;
+  final SecureStorageService secureStorage;
 
-  SessionManager(this.prefs);
+  SessionManager(this.prefs, this.secureStorage);
 
   static const _onboardingKey = 'onboarding_done';
-  static const _tokenKey = 'token';
+  static const _accessTokenKey = 'access_token';
+
+  AppStatus _status = AppStatus.unauthenticated;
 
   bool get onboardingDone => prefs.getBool(_onboardingKey) ?? false;
-  bool get isAuthenticated => prefs.getString(_tokenKey) != null;
+  AppStatus get status => _status;
 
-  AppStatus get status {
-    if (!onboardingDone) return AppStatus.onboardingRequired;
-    if (!isAuthenticated) return AppStatus.unauthenticated;
-    return AppStatus.authenticated;
+  Future<void> initialize() async {
+    if (!onboardingDone) {
+      _status = AppStatus.onboardingRequired;
+    } else {
+      final token = await secureStorage.read(_accessTokenKey);
+      _status = (token != null && token.isNotEmpty)
+          ? AppStatus.authenticated
+          : AppStatus.unauthenticated;
+    }
+    notifyListeners();
   }
 
   Future<void> completeOnboarding() async {
     await prefs.setBool(_onboardingKey, true);
+    _status = AppStatus.unauthenticated;
     notifyListeners();
   }
 
-  Future<void> login(String token) async {
-    await prefs.setString(_tokenKey, token);
+  Future<void> login() async {
+    _status = AppStatus.authenticated;
     notifyListeners();
   }
 
   Future<void> logout() async {
-    await prefs.remove(_tokenKey);
+    await secureStorage.delete(_accessTokenKey);
+    await secureStorage.delete('refresh_token');
+    _status = AppStatus.unauthenticated;
     notifyListeners();
   }
 }

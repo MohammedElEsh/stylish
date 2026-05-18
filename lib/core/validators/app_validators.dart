@@ -30,7 +30,7 @@ class AppValidators {
   /// only want to ensure the field is filled).
   static String? validatePassword(
     String? value, {
-    int minLength = 6,
+    int minLength = 4,
   }) {
     if (value == null || value.isEmpty) {
       return AppStrings.authLoginPasswordRequired.tr();

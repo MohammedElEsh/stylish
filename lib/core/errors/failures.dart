@@ -1,12 +1,23 @@
 import 'package:dio/dio.dart';
 
+import '../shared/feedback/feedback_message.dart';
+
 abstract class Failure {
   final String message;
+
   const Failure(this.message);
+
+  FeedbackMessage toFeedbackMessage() {
+    return FeedbackMessage(
+      type: FeedbackType.error,
+      description: message,
+    );
+  }
 }
 
 class ServerFailure extends Failure {
   final int? statusCode;
+
   const ServerFailure(super.message, {this.statusCode});
 
   factory ServerFailure.fromDioException(DioException e) {
