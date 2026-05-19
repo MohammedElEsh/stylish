@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/di/injection.dart';
 import '../../features/auth/presentation/manager/auth_login_cubit.dart';
+import '../../features/auth/presentation/manager/auth_register_cubit.dart';
 import '../../features/auth/presentation/views/forgot_password_view.dart';
 import '../../features/auth/presentation/views/login_view.dart';
 import '../../features/auth/presentation/views/signup_view.dart';
@@ -41,7 +42,10 @@ void initRouter() {
       ),
       GoRoute(
         path: RouteNames.signup,
-        builder: (context, state) => const SignupView(),
+        builder: (context, state) => BlocProvider(
+          create: (_) => sl<AuthRegisterCubit>(),
+          child: const SignupView(),
+        ),
       ),
       GoRoute(
         path: RouteNames.forgotPassword,

@@ -1,3 +1,6 @@
+import 'package:stylish/core/constants/app_assets.dart';
+import 'package:stylish/features/auth/data/models/user_model.dart';
+
 import '../../../../core/errors/failures.dart';
 import '../../../../core/errors/safe_call.dart';
 import '../../../../core/networking/api_consumer.dart';
@@ -28,12 +31,63 @@ class AuthRepositoryImpl implements AuthRepository {
         throw const ServerFailure('Unexpected response format');
       }
 
-      if (!response.containsKey('access_token') || !response.containsKey('refresh_token')) {
+      if (!response.containsKey('access_token') ||
+          !response.containsKey('refresh_token')) {
         final message = response['message'] as String?;
         throw ServerFailure(message ?? 'Incorrect email or password');
       }
 
       return AuthTokens.fromJson(response);
+    });
+  }
+
+  @override
+  EitherResult<UserModel> register({
+    required String name,
+    required String email,
+    required String password,
+  }) {
+    return safeCall(() async {
+      final response = await apiConsumer.post(
+        ApiEndpoints.register,
+        data: {
+          'name': name,
+          'email': email,
+          'password': password,
+          'avatar': AppAssets.defaultUserAvatar,
+        },
+      );
+
+      if (response is! Map<String, dynamic>) {
+        throw const ServerFailure('Unexpected response format');
+      }
+
+      if (response.containsKey('message')) {
+        final message = response['message'] as String?;
+        if (message != null && message.isNotEmpty) {
+          throw ServerFailure(message);
+        }
+      }
+
+      return UserModel.fromJson(response);
+    });
+  }
+
+  @override
+  EitherResult<bool> checkEmailAvailability({
+    required String email,
+  }) {
+    return safeCall(() async {
+      final response = await apiConsumer.post(
+        ApiEndpoints.checkEmailAvailability,
+        data: {'email': email},
+      );
+
+      if (response is! Map<String, dynamic>) {
+        throw const ServerFailure('Unexpected response format');
+      }
+
+      return response['isAvailable'] as bool;
     });
   }
 }

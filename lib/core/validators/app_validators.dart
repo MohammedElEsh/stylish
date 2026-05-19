@@ -8,7 +8,7 @@ import '../constants/app_strings.dart';
 /// can be reused directly inside widgets without inline validation logic.
 class AppValidators {
   static final RegExp _emailRegex = RegExp(
-    r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$',
+    r'^[\w-.]+@([\w-]+\.)+[\w-]{2,}$',
   );
 
   /// Validates that [value] is a non-empty, well-formed email address.
@@ -50,5 +50,25 @@ class AppValidators {
     if (value != null && value.trim().isNotEmpty) return null;
     if (fieldName == null) return AppStrings.validationRequired.tr();
     return AppStrings.validationFieldRequired.tr(args: [fieldName]);
+  }
+
+  /// Validates that [value] is a non-empty name.
+  static String? validateName(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return AppStrings.authSignupNameRequired.tr();
+    }
+    return null;
+  }
+
+  /// Validates that [value] matches the [originalPassword].
+  static String? validateConfirmPassword(
+      String? value, String originalPassword) {
+    if (value == null || value.isEmpty) {
+      return AppStrings.authSignupConfirmPasswordRequired.tr();
+    }
+    if (value != originalPassword) {
+      return AppStrings.authSignupPasswordsDoNotMatch.tr();
+    }
+    return null;
   }
 }

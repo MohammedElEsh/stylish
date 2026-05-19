@@ -2,4 +2,5 @@ class ApiEndpoints {
   static const String baseUrl = 'https://api.escuelajs.co/api/v1';
   static const String login = '/auth/login';
   static const String register = '/users';
+  static const String checkEmailAvailability = '/users/is-available';
 }

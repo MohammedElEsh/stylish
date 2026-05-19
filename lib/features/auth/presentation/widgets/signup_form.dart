@@ -11,12 +11,14 @@ class SignupForm extends StatelessWidget {
   const SignupForm({
     super.key,
     required this.formKey,
+    required this.nameController,
     required this.emailController,
     required this.passwordController,
     required this.confirmPasswordController,
   });
 
   final GlobalKey<FormState> formKey;
+  final TextEditingController nameController;
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final TextEditingController confirmPasswordController;
@@ -29,6 +31,18 @@ class SignupForm extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          AppTextField(
+            controller: nameController,
+            hint: AppStrings.authSignupName.tr(),
+            keyboardType: TextInputType.name,
+            textInputAction: TextInputAction.next,
+            prefixIcon: Icon(
+              CupertinoIcons.person_fill,
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+            validator: AppValidators.validateName,
+          ),
+          SizedBox(height: 16.h),
           AppTextField(
             controller: emailController,
             hint: AppStrings.authLoginEmailHint.tr(),
@@ -62,7 +76,10 @@ class SignupForm extends StatelessWidget {
               CupertinoIcons.lock_fill,
               color: theme.colorScheme.onSurfaceVariant,
             ),
-            validator: AppValidators.validatePassword,
+            validator: (value) => AppValidators.validateConfirmPassword(
+              value,
+              passwordController.text,
+            ),
           ),
         ],
       ),
