@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/routing/route_names.dart';
 import '../../../../core/shared/buttons/app_button.dart';
-import '../../../../core/theme/colors/app_colors.dart';
 import '../../../../core/theme/typography/app_typography.dart';
 import '../widgets/login_footer.dart';
 import '../widgets/login_form.dart';
@@ -47,8 +46,9 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: AppColors.backgroundLight,
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.all(24.w),
