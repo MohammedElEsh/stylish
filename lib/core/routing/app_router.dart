@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/di/injection.dart';
+import '../../features/auth/presentation/manager/auth_login_cubit.dart';
 import '../../features/auth/presentation/views/forgot_password_view.dart';
 import '../../features/auth/presentation/views/login_view.dart';
 import '../../features/auth/presentation/views/signup_view.dart';
@@ -33,7 +34,10 @@ void initRouter() {
       ),
       GoRoute(
         path: RouteNames.login,
-        builder: (context, state) => const LoginView(),
+        builder: (context, state) => BlocProvider(
+          create: (_) => sl<AuthLoginCubit>(),
+          child: const LoginView(),
+        ),
       ),
       GoRoute(
         path: RouteNames.signup,

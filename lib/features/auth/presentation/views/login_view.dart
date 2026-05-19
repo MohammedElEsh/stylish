@@ -1,12 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/routing/route_names.dart';
 import '../../../../core/shared/buttons/app_button.dart';
-import '../../../../core/theme/typography/app_typography.dart';
+import '../manager/auth_login_cubit.dart';
+import '../manager/auth_login_state.dart';
 import '../widgets/login_footer.dart';
 import '../widgets/login_form.dart';
 import '../widgets/social_login_section.dart';
@@ -25,7 +27,10 @@ class _LoginViewState extends State<LoginView> {
 
   void _onLogin() {
     if (_formKey.currentState?.validate() ?? false) {
-      // TODO: Implement login logic
+      context.read<AuthLoginCubit>().login(
+            email: _emailController.text.trim(),
+            password: _passwordController.text,
+          );
     }
   }
 
@@ -35,6 +40,14 @@ class _LoginViewState extends State<LoginView> {
 
   void _onSocialLogin() {
     // TODO: Implement social login
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Optionally, you can pre-fill the email field for testing
+    _emailController.text = 'maria@mail.com';
+    _passwordController.text = '12345';
   }
 
   @override
@@ -50,39 +63,51 @@ class _LoginViewState extends State<LoginView> {
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(24.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              SizedBox(height: 32.w),
-              Text(
-                AppStrings.authLoginWelcomeBack.tr(),
-                textAlign: TextAlign.left,
-                style: AppTypography.bold36,
+        child: BlocConsumer<AuthLoginCubit, AuthLoginState>(
+          listener: (context, state) {
+            if (state is AuthLoginSuccess) {
+              context.go(RouteNames.home);
+            }
+          },
+          builder: (context, state) {
+            final isLoading = state is AuthLoginLoading;
+
+            return SingleChildScrollView(
+              padding: EdgeInsets.all(24.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SizedBox(height: 32.w),
+                  Text(
+                    AppStrings.authLoginWelcomeBack.tr(),
+                    textAlign: TextAlign.left,
+                    style: theme.textTheme.displayLarge,
+                  ),
+                  SizedBox(height: 32.w),
+                  LoginForm(
+                    formKey: _formKey,
+                    emailController: _emailController,
+                    passwordController: _passwordController,
+                    onForgotPassword: _onForgotPassword,
+                  ),
+                  SizedBox(height: 24.w),
+                  AppButton(
+                    label: AppStrings.authLoginButton.tr(),
+                    onPressed: _onLogin,
+                    isLoading: isLoading,
+                  ),
+                  SizedBox(height: 96.h),
+                  SocialLoginSection(
+                    onGoogle: _onSocialLogin,
+                    onApple: _onSocialLogin,
+                    onFacebook: _onSocialLogin,
+                  ),
+                  SizedBox(height: 32.h),
+                  LoginFooter(onSignUp: _onSignUp),
+                ],
               ),
-              SizedBox(height: 32.w),
-              LoginForm(
-                formKey: _formKey,
-                emailController: _emailController,
-                passwordController: _passwordController,
-                onForgotPassword: _onForgotPassword,
-              ),
-              SizedBox(height: 24.w),
-              AppButton(
-                label: AppStrings.authLoginButton.tr(),
-                onPressed: _onLogin,
-              ),
-              SizedBox(height: 96.h),
-              SocialLoginSection(
-                onGoogle: _onSocialLogin,
-                onApple: _onSocialLogin,
-                onFacebook: _onSocialLogin,
-              ),
-              SizedBox(height: 32.h),
-              LoginFooter(onSignUp: _onSignUp),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );

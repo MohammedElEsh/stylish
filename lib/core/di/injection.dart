@@ -3,6 +3,9 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../features/auth/data/repositories/auth_repository.dart';
+import '../../features/auth/data/repositories/auth_repository_impl.dart';
+import '../../features/auth/presentation/manager/auth_login_cubit.dart';
 import '../../features/onboarding/presentation/manager/onboarding_cubit.dart';
 import '../networking/api_consumer.dart';
 import '../networking/dio_consumer.dart';
@@ -74,5 +77,19 @@ Future<void> initDependencies() async {
   // =====================================================
   sl.registerFactory<OnboardingCubit>(
     () => OnboardingCubit(sl()),
+  );
+
+  // =====================================================
+  // FEATURE: AUTH
+  // =====================================================
+  sl.registerLazySingleton<AuthRepository>(
+    () => AuthRepositoryImpl(apiConsumer: sl<ApiConsumer>()),
+  );
+
+  sl.registerFactory<AuthLoginCubit>(
+    () => AuthLoginCubit(
+      repository: sl<AuthRepository>(),
+      sessionManager: sl<SessionManager>(),
+    ),
   );
 }
