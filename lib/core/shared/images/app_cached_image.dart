@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../extensions/context_extensions.dart';
-
 class AppCachedImage extends StatelessWidget {
   final String imageUrl;
   final double? width;
@@ -23,6 +21,7 @@ class AppCachedImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return ClipRRect(
       borderRadius: BorderRadius.circular(borderRadius),
       child: CachedNetworkImage(
@@ -34,14 +33,14 @@ class AppCachedImage extends StatelessWidget {
           child: Container(
             width: width,
             height: height,
-            color: context.colorScheme.surfaceContainerHighest,
+            color: theme.colorScheme.surfaceContainerHighest,
           ),
         ),
         errorWidget: (context, url, error) => Container(
           width: width,
           height: height,
-          color: context.colorScheme.surfaceContainerHighest,
-          child: Icon(Icons.error, size: 24.r, color: context.colorScheme.onSurfaceVariant),
+          color: theme.colorScheme.surfaceContainerHighest,
+          child: Icon(Icons.error, size: 24.r, color: theme.colorScheme.onSurfaceVariant),
         ),
       ),
     );

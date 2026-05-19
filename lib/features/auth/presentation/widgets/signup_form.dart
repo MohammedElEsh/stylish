@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/app_strings.dart';
-import '../../../../core/extensions/context_extensions.dart';
 import '../../../../core/shared/inputs/app_text_field.dart';
 import '../../../../core/validators/app_validators.dart';
 
@@ -23,6 +23,7 @@ class SignupForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Form(
       key: formKey,
       child: Column(
@@ -35,7 +36,7 @@ class SignupForm extends StatelessWidget {
             textInputAction: TextInputAction.next,
             prefixIcon: Icon(
               CupertinoIcons.person_fill,
-              color: context.colorScheme.onSurfaceVariant,
+              color: theme.colorScheme.onSurfaceVariant,
             ),
             validator: AppValidators.validateEmail,
           ),
@@ -47,7 +48,7 @@ class SignupForm extends StatelessWidget {
             textInputAction: TextInputAction.next,
             prefixIcon: Icon(
               CupertinoIcons.lock_fill,
-              color: context.colorScheme.onSurfaceVariant,
+              color: theme.colorScheme.onSurfaceVariant,
             ),
             validator: AppValidators.validatePassword,
           ),
@@ -59,7 +60,7 @@ class SignupForm extends StatelessWidget {
             textInputAction: TextInputAction.done,
             prefixIcon: Icon(
               CupertinoIcons.lock_fill,
-              color: context.colorScheme.onSurfaceVariant,
+              color: theme.colorScheme.onSurfaceVariant,
             ),
             validator: AppValidators.validatePassword,
           ),

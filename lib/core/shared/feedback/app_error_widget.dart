@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../constants/app_strings.dart';
-import '../../extensions/context_extensions.dart';
 import '../../shared/buttons/app_button.dart';
 
 class AppErrorWidget extends StatelessWidget {
@@ -18,18 +17,19 @@ class AppErrorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Center(
       child: Padding(
         padding: EdgeInsets.all(16.w),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.error_outline, color: context.colorScheme.error, size: 64),
+            Icon(Icons.error_outline, color: theme.colorScheme.error, size: 64),
             SizedBox(height: 16.h),
             Text(
               message,
               textAlign: TextAlign.center,
-              style: context.textTheme.bodyMedium?.copyWith(
+              style: theme.textTheme.bodyMedium?.copyWith(
                 fontSize: 16.sp,
               ),
             ),

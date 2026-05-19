@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../extensions/context_extensions.dart';
-
 class AppLoading extends StatelessWidget {
   final double size;
   final Color? color;
@@ -17,12 +15,13 @@ class AppLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Center(
       child: SizedBox(
         width: size.r,
         height: size.r,
         child: CircularProgressIndicator(
-          color: color ?? context.colorScheme.primary,
+          color: color ?? theme.colorScheme.primary,
           strokeWidth: strokeWidth.r,
         ),
       ),

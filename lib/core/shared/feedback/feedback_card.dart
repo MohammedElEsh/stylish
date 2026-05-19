@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../extensions/context_extensions.dart';
+import '../../theme/colors/app_colors.dart';
 import 'feedback_message.dart';
 
 class FeedbackCard extends StatelessWidget {
@@ -17,39 +17,39 @@ class FeedbackCard extends StatelessWidget {
   Color _backgroundColor(BuildContext context) {
     switch (message.type) {
       case FeedbackType.success:
-        return context.colorScheme.primary.withOpacity(0.12);
+        return AppColors.success.withOpacity(0.12);
       case FeedbackType.error:
-        return context.colorScheme.error.withOpacity(0.12);
+        return AppColors.error.withOpacity(0.12);
       case FeedbackType.info:
-        return context.colorScheme.secondary.withOpacity(0.12);
+        return AppColors.info.withOpacity(0.12);
       case FeedbackType.warning:
-        return context.colorScheme.error.withOpacity(0.12);
+        return AppColors.warning.withOpacity(0.12);
     }
   }
 
   Color _borderColor(BuildContext context) {
     switch (message.type) {
       case FeedbackType.success:
-        return context.colorScheme.primary;
+        return AppColors.success;
       case FeedbackType.error:
-        return context.colorScheme.error;
+        return AppColors.error;
       case FeedbackType.info:
-        return context.colorScheme.secondary;
+        return AppColors.info;
       case FeedbackType.warning:
-        return context.colorScheme.error;
+        return AppColors.warning;
     }
   }
 
   Color _iconColor(BuildContext context) {
     switch (message.type) {
       case FeedbackType.success:
-        return context.colorScheme.primary;
+        return AppColors.success;
       case FeedbackType.error:
-        return context.colorScheme.error;
+        return AppColors.error;
       case FeedbackType.info:
-        return context.colorScheme.secondary;
+        return AppColors.info;
       case FeedbackType.warning:
-        return context.colorScheme.error;
+        return AppColors.warning;
     }
   }
 
@@ -68,12 +68,14 @@ class FeedbackCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       padding: EdgeInsets.all(12.w),
       decoration: BoxDecoration(
         color: _backgroundColor(context),
         borderRadius: BorderRadius.circular(10.r),
-        border: Border.all(color: _borderColor(context).withOpacity(0.3), width: 1),
+        border:
+            Border.all(color: _borderColor(context).withOpacity(0.3), width: 1),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,7 +89,7 @@ class FeedbackCard extends StatelessWidget {
                 if (message.title != null) ...[
                   Text(
                     message.title!,
-                    style: context.textTheme.bodyMedium?.copyWith(
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       color: _iconColor(context),
                     ),
                   ),
@@ -95,8 +97,8 @@ class FeedbackCard extends StatelessWidget {
                 ],
                 Text(
                   message.description,
-                  style: context.textTheme.labelMedium?.copyWith(
-                    color: context.colorScheme.onSurface,
+                  style: theme.textTheme.labelMedium?.copyWith(
+                    color: theme.colorScheme.onSurface,
                   ),
                 ),
               ],
@@ -108,7 +110,7 @@ class FeedbackCard extends StatelessWidget {
               child: Icon(
                 Icons.close,
                 size: 16.r,
-                color: context.colorScheme.onSurfaceVariant,
+                color: theme.colorScheme.onSurfaceVariant,
               ),
             ),
         ],
