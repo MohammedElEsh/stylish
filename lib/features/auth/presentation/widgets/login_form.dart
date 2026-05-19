@@ -5,8 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/shared/inputs/app_text_field.dart';
-import '../../../../core/theme/colors/app_colors.dart';
-import '../../../../core/theme/typography/app_typography.dart';
 import '../../../../core/validators/app_validators.dart';
 
 class LoginForm extends StatelessWidget {
@@ -25,6 +23,8 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Form(
       key: formKey,
       child: Column(
@@ -35,9 +35,9 @@ class LoginForm extends StatelessWidget {
             hint: AppStrings.authLoginEmailHint.tr(),
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
-            prefixIcon: const Icon(
+            prefixIcon: Icon(
               CupertinoIcons.person_fill,
-              color: AppColors.grey3,
+              color: theme.colorScheme.onSurfaceVariant,
             ),
             validator: AppValidators.validateEmail,
           ),
@@ -47,25 +47,25 @@ class LoginForm extends StatelessWidget {
             hint: AppStrings.authLoginPasswordHint.tr(),
             isPassword: true,
             textInputAction: TextInputAction.done,
-            prefixIcon: const Icon(
+            prefixIcon: Icon(
               CupertinoIcons.lock_fill,
-              color: AppColors.grey3,
+              color: theme.colorScheme.onSurfaceVariant,
             ),
             validator: AppValidators.validatePassword,
           ),
           SizedBox(height: 4.h),
-          Align(
-            alignment: AlignmentDirectional.centerEnd,
-            child: TextButton(
-              onPressed: onForgotPassword,
-              child: Text(
-                AppStrings.authLoginForgotPassword.tr(),
-                style: AppTypography.semiBold14.copyWith(
-                  color: AppColors.primary,
-                ),
-              ),
-            ),
-          ),
+          // Align(
+          //   alignment: AlignmentDirectional.centerEnd,
+          //   child: TextButton(
+          //     onPressed: onForgotPassword,
+          //     child: Text(
+          //       AppStrings.authLoginForgotPassword.tr(),
+          //       style: theme.textTheme.bodyMedium?.copyWith(
+          //         color: theme.colorScheme.primary,
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../theme/colors/app_colors.dart';
-import '../../theme/typography/app_typography.dart';
+import '../../extensions/context_extensions.dart';
 import 'feedback_message.dart';
 
 class FeedbackCard extends StatelessWidget {
@@ -15,42 +14,42 @@ class FeedbackCard extends StatelessWidget {
     this.onDismiss,
   });
 
-  Color get _backgroundColor {
+  Color _backgroundColor(BuildContext context) {
     switch (message.type) {
       case FeedbackType.success:
-        return AppColors.success.withOpacity(0.12);
+        return context.colorScheme.primary.withOpacity(0.12);
       case FeedbackType.error:
-        return AppColors.error.withOpacity(0.12);
+        return context.colorScheme.error.withOpacity(0.12);
       case FeedbackType.info:
-        return AppColors.fifth.withOpacity(0.12);
+        return context.colorScheme.secondary.withOpacity(0.12);
       case FeedbackType.warning:
-        return AppColors.warning.withOpacity(0.12);
+        return context.colorScheme.error.withOpacity(0.12);
     }
   }
 
-  Color get _borderColor {
+  Color _borderColor(BuildContext context) {
     switch (message.type) {
       case FeedbackType.success:
-        return AppColors.success;
+        return context.colorScheme.primary;
       case FeedbackType.error:
-        return AppColors.error;
+        return context.colorScheme.error;
       case FeedbackType.info:
-        return AppColors.fifth;
+        return context.colorScheme.secondary;
       case FeedbackType.warning:
-        return AppColors.warning;
+        return context.colorScheme.error;
     }
   }
 
-  Color get _iconColor {
+  Color _iconColor(BuildContext context) {
     switch (message.type) {
       case FeedbackType.success:
-        return AppColors.success;
+        return context.colorScheme.primary;
       case FeedbackType.error:
-        return AppColors.error;
+        return context.colorScheme.error;
       case FeedbackType.info:
-        return AppColors.fifth;
+        return context.colorScheme.secondary;
       case FeedbackType.warning:
-        return AppColors.warning;
+        return context.colorScheme.error;
     }
   }
 
@@ -72,14 +71,14 @@ class FeedbackCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(12.w),
       decoration: BoxDecoration(
-        color: _backgroundColor,
+        color: _backgroundColor(context),
         borderRadius: BorderRadius.circular(10.r),
-        border: Border.all(color: _borderColor.withOpacity(0.3), width: 1),
+        border: Border.all(color: _borderColor(context).withOpacity(0.3), width: 1),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(_icon, color: _iconColor, size: 20.r),
+          Icon(_icon, color: _iconColor(context), size: 20.r),
           SizedBox(width: 10.w),
           Expanded(
             child: Column(
@@ -88,16 +87,16 @@ class FeedbackCard extends StatelessWidget {
                 if (message.title != null) ...[
                   Text(
                     message.title!,
-                    style: AppTypography.semiBold14.copyWith(
-                      color: _iconColor,
+                    style: context.textTheme.bodyMedium?.copyWith(
+                      color: _iconColor(context),
                     ),
                   ),
                   SizedBox(height: 2.h),
                 ],
                 Text(
                   message.description,
-                  style: AppTypography.regular12.copyWith(
-                    color: AppColors.grey1,
+                  style: context.textTheme.labelMedium?.copyWith(
+                    color: context.colorScheme.onSurface,
                   ),
                 ),
               ],
@@ -109,7 +108,7 @@ class FeedbackCard extends StatelessWidget {
               child: Icon(
                 Icons.close,
                 size: 16.r,
-                color: AppColors.grey3,
+                color: context.colorScheme.onSurfaceVariant,
               ),
             ),
         ],

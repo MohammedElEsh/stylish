@@ -17,6 +17,7 @@ class SessionManager extends ChangeNotifier {
 
   static const _onboardingKey = 'onboarding_done';
   static const _accessTokenKey = 'access_token';
+  static const _refreshTokenKey = 'refresh_token';
 
   AppStatus _status = AppStatus.unauthenticated;
 
@@ -41,14 +42,18 @@ class SessionManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> login() async {
+  Future<void> login({required String accessToken, String? refreshToken}) async {
+    await secureStorage.write(_accessTokenKey, accessToken);
+    if (refreshToken != null) {
+      await secureStorage.write(_refreshTokenKey, refreshToken);
+    }
     _status = AppStatus.authenticated;
     notifyListeners();
   }
 
   Future<void> logout() async {
     await secureStorage.delete(_accessTokenKey);
-    await secureStorage.delete('refresh_token');
+    await secureStorage.delete(_refreshTokenKey);
     _status = AppStatus.unauthenticated;
     notifyListeners();
   }

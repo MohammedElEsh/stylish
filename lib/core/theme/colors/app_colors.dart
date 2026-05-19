@@ -4,16 +4,15 @@ class AppColors {
   // Primary
   static const Color primary = Color(0xFFF83758);
   static const Color secondary = Color(0xFF17223B);
-  static const Color third = Color(0xFFFFCCD5);
-  static const Color forth = Color(0xFFFA7189);
-  static const Color fifth = Color(0xFF4392F9);
+  static const Color primaryLight = Color(0xFFFFCCD5);
+  static const Color primaryMedium = Color(0xFFFA7189);
 
   // Background
   static const Color backgroundLight = Color(0xFFF9F9F9);
   static const Color backgroundDark = Color(0xFF121212);
 
   // Surface
-  static const Color surfaceLight = Colors.white;
+  static const Color surfaceLight = Color(0xFFFFFFFF);
   static const Color surfaceDark = Color(0xFF1E1E1E);
 
   // Text
@@ -21,9 +20,7 @@ class AppColors {
   static const Color textPrimaryDark = Color(0xFFFFFFFF);
   static const Color textSecondary = Color(0xFF828282);
 
-  // Accent
-  static const Color lightBlue = Color(0xFF2FA2B9);
-
+  // Semantic
   static const Color success = Color(0xFF4BB543);
   static const Color error = Color(0xFFFF3333);
   static const Color warning = Color(0xFFFFCC00);

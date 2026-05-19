@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/extensions/context_extensions.dart';
 import '../../../../core/shared/inputs/app_text_field.dart';
-import '../../../../core/theme/colors/app_colors.dart';
 import '../../../../core/validators/app_validators.dart';
 
 class SignupForm extends StatelessWidget {
@@ -33,9 +33,9 @@ class SignupForm extends StatelessWidget {
             hint: AppStrings.authLoginEmailHint.tr(),
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
-            prefixIcon: const Icon(
+            prefixIcon: Icon(
               CupertinoIcons.person_fill,
-              color: AppColors.grey3,
+              color: context.colorScheme.onSurfaceVariant,
             ),
             validator: AppValidators.validateEmail,
           ),
@@ -45,9 +45,9 @@ class SignupForm extends StatelessWidget {
             hint: AppStrings.authLoginPasswordHint.tr(),
             isPassword: true,
             textInputAction: TextInputAction.next,
-            prefixIcon: const Icon(
+            prefixIcon: Icon(
               CupertinoIcons.lock_fill,
-              color: AppColors.grey3,
+              color: context.colorScheme.onSurfaceVariant,
             ),
             validator: AppValidators.validatePassword,
           ),
@@ -57,9 +57,9 @@ class SignupForm extends StatelessWidget {
             hint: AppStrings.authSignupConfirmPassword.tr(),
             isPassword: true,
             textInputAction: TextInputAction.done,
-            prefixIcon: const Icon(
+            prefixIcon: Icon(
               CupertinoIcons.lock_fill,
-              color: AppColors.grey3,
+              color: context.colorScheme.onSurfaceVariant,
             ),
             validator: AppValidators.validatePassword,
           ),

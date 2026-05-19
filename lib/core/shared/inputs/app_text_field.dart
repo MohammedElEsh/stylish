@@ -3,73 +3,44 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../theme/colors/app_colors.dart';
-import '../../theme/typography/app_typography.dart';
-
 class AppTextField extends StatefulWidget {
   const AppTextField({
     super.key,
-    // ── Content ─────────────────────────────
     this.controller,
     this.focusNode,
     this.initialValue,
-    // ── Labels ──────────────────────────────
     this.hint,
     this.label,
-    this.helper,
-    this.externalError,
-    // ── Prefix / Suffix ─────────────────────
+    this.helperText,
     this.prefixIcon,
     this.suffixIcon,
-    this.prefix,
-    this.suffix,
-    // ── Password ────────────────────────────
-    this.isPassword = false,
-    this.passwordToggleIcon, // custom eye icon widget (overrides default)
-    // ── Icon sizing & coloring ──────────────
-    this.prefixIconSize, // size applied via IconTheme
-    this.suffixIconSize, // size applied to suffixIcon & password eye
-    this.prefixIconColor, // color applied via IconTheme
-    this.suffixIconColor, // color applied to suffixIcon & password eye
-    // ── Behaviour ───────────────────────────
-    this.readOnly = false,
     this.enabled = true,
+    this.readOnly = false,
     this.autofocus = false,
-    this.autocorrect = true,
-    this.enableSuggestions = true,
-    // ── Keyboard ────────────────────────────
+    this.isPassword = false,
+    this.enablePasswordToggle = true,
+    this.isLoading = false,
     this.keyboardType,
     this.textInputAction,
     this.textCapitalization = TextCapitalization.none,
-    this.inputFormatters,
-    // ── Limits ──────────────────────────────
     this.maxLines = 1,
     this.minLines,
-    this.maxLength, // enforced silently — no counter shown
-    // ── Styling overrides ───────────────────
-    this.fillColor,
-    this.borderRadius,
-    this.borderWidth, // stroke width for all borders
-    this.contentPadding,
-    this.textStyle,
-    this.hintStyle,
-    this.labelStyle,
-    this.errorStyle,
-    this.helperStyle,
-    this.textAlign = TextAlign.start,
-    // ── Borders (full override if needed) ───
-    this.enabledBorder,
-    this.focusedBorder,
-    this.errorBorder,
-    this.disabledBorder,
-    // ── Callbacks ───────────────────────────
-    this.validator,
+    this.expands = false,
+    this.inputFormatters,
     this.onChanged,
     this.onSubmitted,
     this.onTap,
     this.onEditingComplete,
-    this.prefixIconConstraints,
-    this.suffixIconConstraints,
+    this.validator,
+    this.errorText,
+    this.cursorColor,
+    this.cursorHeight,
+    this.cursorWidth = 2.0,
+    this.cursorRadius,
+    this.contentPadding,
+    this.fillColor,
+    this.textStyle,
+    this.hintStyle,
   });
 
   final TextEditingController? controller;
@@ -78,61 +49,47 @@ class AppTextField extends StatefulWidget {
 
   final String? hint;
   final String? label;
-  final String? helper;
-  final String? externalError;
+  final String? helperText;
 
   final Widget? prefixIcon;
   final Widget? suffixIcon;
-  final Widget? prefix;
-  final Widget? suffix;
+
+  final bool enabled;
+  final bool readOnly;
+  final bool autofocus;
 
   final bool isPassword;
-  final Widget? passwordToggleIcon;
+  final bool enablePasswordToggle;
 
-  final double? prefixIconSize;
-  final double? suffixIconSize;
-  final Color? prefixIconColor;
-  final Color? suffixIconColor;
-
-  final bool readOnly;
-  final bool enabled;
-  final bool autofocus;
-  final bool autocorrect;
-  final bool enableSuggestions;
+  final bool isLoading;
 
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
   final TextCapitalization textCapitalization;
-  final List<TextInputFormatter>? inputFormatters;
 
   final int? maxLines;
   final int? minLines;
-  final int? maxLength;
+  final bool expands;
 
-  final Color? fillColor;
-  final double? borderRadius;
-  final double? borderWidth;
-  final EdgeInsetsGeometry? contentPadding;
-  final TextStyle? textStyle;
-  final TextStyle? hintStyle;
-  final TextStyle? labelStyle;
-  final TextStyle? errorStyle;
-  final TextStyle? helperStyle;
-  final TextAlign textAlign;
+  final List<TextInputFormatter>? inputFormatters;
 
-  final InputBorder? enabledBorder;
-  final InputBorder? focusedBorder;
-  final InputBorder? errorBorder;
-  final InputBorder? disabledBorder;
-
-  final String? Function(String?)? validator;
   final ValueChanged<String>? onChanged;
   final ValueChanged<String>? onSubmitted;
   final VoidCallback? onTap;
   final VoidCallback? onEditingComplete;
 
-  final BoxConstraints? prefixIconConstraints;
-  final BoxConstraints? suffixIconConstraints;
+  final String? Function(String?)? validator;
+  final String? errorText;
+
+  final Color? cursorColor;
+  final double? cursorHeight;
+  final double cursorWidth;
+  final Radius? cursorRadius;
+
+  final EdgeInsets? contentPadding;
+  final Color? fillColor;
+  final TextStyle? textStyle;
+  final TextStyle? hintStyle;
 
   @override
   State<AppTextField> createState() => _AppTextFieldState();
@@ -140,116 +97,96 @@ class AppTextField extends StatefulWidget {
 
 class _AppTextFieldState extends State<AppTextField> {
   late bool _obscure;
+  late FocusNode _focusNode;
 
   @override
   void initState() {
     super.initState();
     _obscure = widget.isPassword;
+    _focusNode = widget.focusNode ?? FocusNode();
   }
 
-  void _toggleObscure() => setState(() => _obscure = !_obscure);
-
-  double get _r => widget.borderRadius ?? 12.r;
-
-  double get _bw => widget.borderWidth ?? 1.0;
-
-  InputBorder _border(Color color) => OutlineInputBorder(
-        borderRadius: BorderRadius.circular(_r),
-        borderSide: BorderSide(color: color, width: _bw),
-      );
-
-  // Wraps any icon widget with IconTheme to enforce size / color without
-  // breaking custom widgets like HugeIcon or SvgPicture.
-  Widget _themed(Widget icon, {double? size, Color? color}) {
-    if (size == null && color == null) return icon;
-    return IconTheme(
-      data: IconThemeData(size: size, color: color),
-      child: icon,
-    );
-  }
-
-  Widget? get _resolvedPrefixIcon {
-    if (widget.prefixIcon == null) return null;
-    return _themed(
-      widget.prefixIcon!,
-      size: widget.prefixIconSize,
-      color: widget.prefixIconColor,
-    );
-  }
-
-  Widget? get _resolvedSuffixIcon {
-    if (widget.isPassword) {
-      final eyeIcon = widget.passwordToggleIcon ??
-          Icon(
-            _obscure ? CupertinoIcons.eye_slash : CupertinoIcons.eye,
-            color: widget.suffixIconColor ?? AppColors.grey3,
-            size: widget.suffixIconSize ?? 20.r,
-          );
-      return IconButton(icon: eyeIcon, onPressed: _toggleObscure);
+  @override
+  void dispose() {
+    if (widget.focusNode == null) {
+      _focusNode.dispose();
     }
-    if (widget.suffixIcon == null) return null;
-    return _themed(
-      widget.suffixIcon!,
-      size: widget.suffixIconSize,
-      color: widget.suffixIconColor,
-    );
+    super.dispose();
+  }
+
+  void _toggleObscure() {
+    setState(() => _obscure = !_obscure);
+  }
+
+  Widget? _buildSuffix() {
+    if (widget.isLoading) {
+      return SizedBox(
+        width: 18.r,
+        height: 18.r,
+        child: const CircularProgressIndicator(strokeWidth: 2),
+      );
+    }
+
+    if (widget.isPassword && widget.enablePasswordToggle) {
+      return IconButton(
+        onPressed: _toggleObscure,
+        icon: Icon(
+          _obscure ? CupertinoIcons.eye_slash : CupertinoIcons.eye,
+          size: 20.r,
+        ),
+      );
+    }
+
+    return widget.suffixIcon;
   }
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).inputDecorationTheme;
+
     return TextFormField(
       controller: widget.controller,
-      focusNode: widget.focusNode,
+      focusNode: _focusNode,
       initialValue: widget.initialValue,
-      obscureText: _obscure,
-      readOnly: widget.readOnly,
+      obscureText: widget.isPassword ? _obscure : false,
       enabled: widget.enabled,
+      readOnly: widget.readOnly,
       autofocus: widget.autofocus,
-      autocorrect: widget.autocorrect,
-      enableSuggestions: widget.enableSuggestions,
       keyboardType: widget.keyboardType,
       textInputAction: widget.textInputAction,
       textCapitalization: widget.textCapitalization,
-      inputFormatters: widget.inputFormatters,
-      maxLines: widget.isPassword ? 1 : widget.maxLines,
+      maxLines: widget.isPassword ? 1 : (widget.maxLines ?? 1),
       minLines: widget.minLines,
-      maxLength: widget.maxLength,
-      textAlign: widget.textAlign,
-      style: widget.textStyle ?? AppTypography.regular12,
-      validator: widget.validator,
+      expands: widget.expands,
+      inputFormatters: widget.inputFormatters,
       onChanged: widget.onChanged,
       onFieldSubmitted: widget.onSubmitted,
       onTap: widget.onTap,
       onEditingComplete: widget.onEditingComplete,
+      validator: widget.validator,
+      style: widget.textStyle ?? Theme.of(context).textTheme.bodyMedium,
+      cursorColor: widget.cursorColor,
+      cursorHeight: widget.cursorHeight,
+      cursorWidth: widget.cursorWidth,
+      cursorRadius: widget.cursorRadius,
       decoration: InputDecoration(
         hintText: widget.hint,
         labelText: widget.label,
-        helperText: widget.helper,
-        errorText: widget.externalError,
-        prefixIcon: _resolvedPrefixIcon,
-        suffixIcon: _resolvedSuffixIcon,
-        prefix: widget.prefix,
-        suffix: widget.suffix,
+        helperText: widget.helperText,
+        errorText: widget.errorText,
+        prefixIcon: widget.prefixIcon,
+        suffixIcon: _buildSuffix(),
         filled: true,
-        fillColor: widget.enabled
-            ? (widget.fillColor ?? AppColors.grey5)
-            : AppColors.grey5,
+        fillColor: widget.fillColor ?? theme.fillColor,
+        contentPadding: widget.contentPadding ?? theme.contentPadding,
+        hintStyle: widget.hintStyle ?? theme.hintStyle,
+        border: theme.border,
+        enabledBorder: theme.enabledBorder,
+        focusedBorder: theme.focusedBorder,
+        errorBorder: theme.errorBorder,
+        focusedErrorBorder: theme.focusedErrorBorder,
+        disabledBorder: theme.disabledBorder,
         counterText: '',
-        contentPadding: widget.contentPadding ??
-            EdgeInsets.symmetric(horizontal: 16.w, vertical: 22.h),
-        hintStyle: widget.hintStyle ??
-            AppTypography.regular12.copyWith(color: AppColors.grey2),
-        labelStyle: widget.labelStyle,
-        errorStyle: widget.errorStyle,
-        helperStyle: widget.helperStyle,
-        border: _border(AppColors.grey5),
-        enabledBorder: widget.enabledBorder ?? _border(AppColors.grey3),
-        focusedBorder: widget.focusedBorder ?? _border(AppColors.grey3),
-        errorBorder: widget.errorBorder ?? _border(AppColors.error),
-        focusedErrorBorder: widget.errorBorder ?? _border(AppColors.error),
-        disabledBorder: widget.disabledBorder ?? _border(AppColors.grey5),
-        prefixIconConstraints: widget.prefixIconConstraints,
-        suffixIconConstraints: widget.suffixIconConstraints,
       ),
     );
   }

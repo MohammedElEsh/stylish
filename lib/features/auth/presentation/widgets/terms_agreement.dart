@@ -3,8 +3,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_strings.dart';
-import '../../../../core/theme/colors/app_colors.dart';
-import '../../../../core/theme/typography/app_typography.dart';
 
 class TermsAgreement extends StatelessWidget {
   const TermsAgreement({
@@ -16,11 +14,13 @@ class TermsAgreement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return RichText(
       textAlign: TextAlign.left,
       text: TextSpan(
-        style: AppTypography.regular12.copyWith(
-          color: AppColors.grey3,
+        style: theme.textTheme.labelMedium?.copyWith(
+          color: theme.colorScheme.onSurfaceVariant,
         ),
         children: [
           TextSpan(
@@ -28,10 +28,10 @@ class TermsAgreement extends StatelessWidget {
           ),
           TextSpan(
             text: AppStrings.authTermsLink.tr(),
-            style: AppTypography.regular12.copyWith(
-              color: AppColors.primary,
+            style: theme.textTheme.labelMedium?.copyWith(
+              color: theme.colorScheme.primary,
               decoration: TextDecoration.underline,
-              decorationColor: AppColors.primary,
+              decorationColor: theme.colorScheme.primary,
             ),
             recognizer: TapGestureRecognizer()..onTap = onRegisterTap,
           ),

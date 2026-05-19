@@ -1,9 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:stylish/core/theme/colors/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/app_strings.dart';
-import '../../../../core/theme/typography/app_typography.dart';
 
 class SignupFooter extends StatelessWidget {
   const SignupFooter({super.key, required this.onSignIn});
@@ -12,23 +11,25 @@ class SignupFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    final theme = Theme.of(context);
+
+    return Wrap(
+      alignment: WrapAlignment.center,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      spacing: 4.w,
       children: [
         Text(
           AppStrings.authSignupAlreadyHaveAccount.tr(),
-          style: AppTypography.regular14.copyWith(
-            color: AppColors.grey2,
-          ),
+          style: theme.textTheme.bodyLarge,
         ),
         TextButton(
           onPressed: onSignIn,
           child: Text(
             AppStrings.authSignupSignIn.tr(),
-            style: AppTypography.semiBold14.copyWith(
-              color: AppColors.primary,
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.primary,
               decoration: TextDecoration.underline,
-              decorationColor: AppColors.primary,
+              decorationColor: theme.colorScheme.primary,
               decorationThickness: 1.5,
               decorationStyle: TextDecorationStyle.solid,
             ),

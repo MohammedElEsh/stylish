@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class AppFunctions {
-  static void copyToClipboard(String text) {
-    Clipboard.setData(ClipboardData(text: text));
+  static Future<void> copyToClipboard(String text) async {
+    await Clipboard.setData(ClipboardData(text: text));
   }
 
   static void hideKeyboard() {

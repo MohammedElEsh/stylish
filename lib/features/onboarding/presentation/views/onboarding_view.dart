@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/di/injection.dart';
 import '../../../../core/routing/route_names.dart';
-import '../../../../core/theme/colors/app_colors.dart';
 import '../../data/models/onboarding_model.dart';
 import '../manager/onboarding_cubit.dart';
 import '../manager/onboarding_state.dart';
@@ -52,69 +50,68 @@ class _OnboardingViewState extends State<OnboardingView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => sl<OnboardingCubit>(),
-      child: BlocConsumer<OnboardingCubit, OnboardingState>(
-        listener: (context, state) {
-          if (state.completed) {
-            context.go(RouteNames.login);
-          }
-        },
-        builder: (context, state) {
-          final current = state.currentPage;
-          final totalPages = onboardingPages.length;
-          final isLast = current == totalPages - 1;
+    final theme = Theme.of(context);
 
-          return Scaffold(
-            backgroundColor: AppColors.surfaceLight,
-            body: SafeArea(
-              child: Column(
-                children: [
-                  OnboardingHeader(
-                    current: current + 1,
-                    total: totalPages,
-                    showSkip: !isLast,
-                    onSkip: context.read<OnboardingCubit>().complete,
-                  ),
-                  Expanded(
-                    child: PageView.builder(
-                      controller: _pageController,
-                      itemCount: totalPages,
-                      onPageChanged:
-                          context.read<OnboardingCubit>().onPageChanged,
-                      itemBuilder: (_, i) {
-                        final page = onboardingPages[i];
+    return BlocConsumer<OnboardingCubit, OnboardingState>(
+      listener: (context, state) {
+        if (state.completed) {
+          context.go(RouteNames.login);
+        }
+      },
+      builder: (context, state) {
+        final current = state.currentPage;
+        final totalPages = onboardingPages.length;
+        final isLast = current == totalPages - 1;
 
-                        return OnboardingItem(
-                          image: page.image,
-                          title: page.titleKey.tr(),
-                          description: page.descriptionKey.tr(),
-                        );
-                      },
-                    ),
-                  ),
-                  OnboardingDots(
-                    count: totalPages,
-                    currentIndex: current,
-                  ),
-                  OnboardingFooter(
-                    isFirst: current == 0,
-                    isLast: isLast,
-                    onPrev: _previousPage,
-                    onNext: () {
-                      if (isLast) {
-                        context.read<OnboardingCubit>().complete();
-                      } else {
-                        _nextPage();
-                      }
+        return Scaffold(
+          backgroundColor: theme.colorScheme.surface,
+          body: SafeArea(
+            child: Column(
+              children: [
+                OnboardingHeader(
+                  current: current + 1,
+                  total: totalPages,
+                  showSkip: !isLast,
+                  onSkip: context.read<OnboardingCubit>().complete,
+                ),
+                Expanded(
+                  child: PageView.builder(
+                    controller: _pageController,
+                    itemCount: totalPages,
+                    onPageChanged:
+                        context.read<OnboardingCubit>().onPageChanged,
+                    itemBuilder: (_, i) {
+                      final page = onboardingPages[i];
+
+                      return OnboardingItem(
+                        image: page.image,
+                        title: page.titleKey.tr(),
+                        description: page.descriptionKey.tr(),
+                      );
                     },
                   ),
-                ],
-              ),
+                ),
+                OnboardingDots(
+                  count: totalPages,
+                  currentIndex: current,
+                ),
+                OnboardingFooter(
+                  isFirst: current == 0,
+                  isLast: isLast,
+                  onPrev: _previousPage,
+                  onNext: () {
+                    if (isLast) {
+                      context.read<OnboardingCubit>().complete();
+                    } else {
+                      _nextPage();
+                    }
+                  },
+                ),
+              ],
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

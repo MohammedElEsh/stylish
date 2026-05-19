@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../theme/colors/app_colors.dart';
+
+import '../../extensions/context_extensions.dart';
 
 class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
@@ -26,10 +27,8 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
       title: title != null
           ? Text(
               title!,
-              style: TextStyle(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.bold,
-                color: AppColors.textPrimaryLight,
+              style: context.textTheme.headlineSmall?.copyWith(
+                fontWeight: FontWeight.w600,
               ),
             )
           : null,

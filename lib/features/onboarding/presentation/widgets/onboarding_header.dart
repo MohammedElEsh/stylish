@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/app_strings.dart';
-import '../../../../core/theme/colors/app_colors.dart';
-import '../../../../core/theme/typography/app_typography.dart';
 
 class OnboardingHeader extends StatelessWidget {
   final int current;
@@ -22,6 +20,8 @@ class OnboardingHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 22.h),
       child: Row(
@@ -29,8 +29,8 @@ class OnboardingHeader extends StatelessWidget {
         children: [
           Text(
             '$current/$total',
-            style: AppTypography.semiBold18.copyWith(
-              color: AppColors.primary,
+            style: theme.textTheme.headlineSmall?.copyWith(
+              color: theme.colorScheme.primary,
             ),
           ),
           if (showSkip)
@@ -38,7 +38,7 @@ class OnboardingHeader extends StatelessWidget {
               onTap: onSkip,
               child: Text(
                 AppStrings.onboardingSkip.tr(),
-                style: AppTypography.semiBold18,
+                style: theme.textTheme.headlineSmall,
               ),
             ),
         ],

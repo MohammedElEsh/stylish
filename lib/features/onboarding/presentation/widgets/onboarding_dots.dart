@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/theme/colors/app_colors.dart';
-
 class OnboardingDots extends StatelessWidget {
   final int count;
   final int currentIndex;
@@ -15,6 +13,8 @@ class OnboardingDots extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(
@@ -28,7 +28,7 @@ class OnboardingDots extends StatelessWidget {
             width: isActive ? 40.w : 8.w,
             height: 8.h,
             decoration: BoxDecoration(
-              color: isActive ? AppColors.primary : AppColors.grey5,
+              color: isActive ? theme.colorScheme.primary : theme.colorScheme.outlineVariant,
               borderRadius: BorderRadius.circular(4.r),
             ),
           );

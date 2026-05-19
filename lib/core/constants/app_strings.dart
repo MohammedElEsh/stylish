@@ -8,6 +8,8 @@ class AppStrings {
 
   // Shared
   static const String sharedGetStarted = 'shared.get_started';
+  static const String sharedRetry = 'shared.retry';
+  static const String sharedNoInternet = 'shared.no_internet';
 
   // Onboarding - Actions
   static const String onboardingSkip = 'onboarding.actions.skip';

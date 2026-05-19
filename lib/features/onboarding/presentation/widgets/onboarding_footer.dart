@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/app_strings.dart';
-import '../../../../core/theme/colors/app_colors.dart';
-import '../../../../core/theme/typography/app_typography.dart';
 
 class OnboardingFooter extends StatelessWidget {
   final bool isFirst;
@@ -22,6 +20,8 @@ class OnboardingFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 32.h),
       child: Row(
@@ -32,8 +32,8 @@ class OnboardingFooter extends StatelessWidget {
               onPressed: onPrev,
               child: Text(
                 AppStrings.onboardingPrev.tr(),
-                style: AppTypography.semiBold18.copyWith(
-                  color: AppColors.grey5,
+                style: theme.textTheme.headlineSmall?.copyWith(
+                  color: theme.colorScheme.outlineVariant,
                 ),
               ),
             )
@@ -45,8 +45,8 @@ class OnboardingFooter extends StatelessWidget {
               isLast
                   ? AppStrings.onboardingGetStarted.tr()
                   : AppStrings.onboardingNext.tr(),
-              style: AppTypography.semiBold18.copyWith(
-                color: AppColors.primary,
+              style: theme.textTheme.headlineSmall?.copyWith(
+                color: theme.colorScheme.primary,
               ),
             ),
           ),

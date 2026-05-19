@@ -5,8 +5,6 @@ import 'package:stylish/features/auth/presentation/widgets/social_login_button.d
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/constants/app_strings.dart';
-import '../../../../core/theme/colors/app_colors.dart';
-import '../../../../core/theme/typography/app_typography.dart';
 
 class SocialLoginSection extends StatelessWidget {
   const SocialLoginSection({
@@ -22,24 +20,29 @@ class SocialLoginSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Column(
       children: [
         Row(
           children: [
-            const Expanded(child: Divider(color: AppColors.grey5)),
-            Text(AppStrings.authOrContinueWith.tr(),
-                style: AppTypography.regular12),
-            const Expanded(child: Divider(color: AppColors.grey5)),
+            const Expanded(child: Divider()),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.w),
+              child: Text(AppStrings.authOrContinueWith.tr(),
+                  style: theme.textTheme.labelMedium),
+            ),
+            const Expanded(child: Divider()),
           ],
         ),
         SizedBox(height: 24.w),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        Wrap(
+          alignment: WrapAlignment.center,
+          spacing: 16.w,
+          runSpacing: 8.w,
           children: [
             SocialButton(asset: AppAssets.googleIcon, onPressed: onGoogle),
-            SizedBox(width: 16.w),
             SocialButton(asset: AppAssets.appleIcon, onPressed: onApple),
-            SizedBox(width: 16.w),
             SocialButton(asset: AppAssets.facebookIcon, onPressed: onFacebook),
           ],
         ),

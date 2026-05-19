@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/theme/typography/app_typography.dart';
-
 class OnboardingItem extends StatelessWidget {
   final String image;
   final String title;
@@ -17,6 +15,8 @@ class OnboardingItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 24.w),
       child: Column(
@@ -33,13 +33,13 @@ class OnboardingItem extends StatelessWidget {
           SizedBox(height: 24.h),
           Text(
             title,
-            style: AppTypography.extraBold24,
+            style: theme.textTheme.headlineLarge,
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 12.h),
           Text(
             description,
-            style: AppTypography.semiBold14,
+            style: theme.textTheme.bodyMedium,
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 24.h),

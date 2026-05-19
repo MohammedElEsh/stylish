@@ -1,6 +1,8 @@
 {
   "shared": {
-    "get_started": "ابدأ الآن"
+    "get_started": "ابدأ الآن",
+    "retry": "إعادة المحاولة",
+    "no_internet": "لا يوجد اتصال بالإنترنت"
   },
   "onboarding": {
     "actions": {

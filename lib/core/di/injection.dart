@@ -11,26 +11,68 @@ import '../services/media/media_service.dart';
 import '../services/session/session_manager.dart';
 import '../services/storage/secure_storage_service.dart';
 
-final GetIt sl = GetIt.instance;
+final sl = GetIt.instance;
 
 Future<void> initDependencies() async {
+  // =====================================================
+  // STORAGE LAYER
+  // =====================================================
   final prefs = await SharedPreferences.getInstance();
   sl.registerLazySingleton<SharedPreferences>(() => prefs);
 
   sl.registerLazySingleton<SecureStorageService>(
-      () => SecureStorageServiceImpl());
+    () => SecureStorageServiceImpl(),
+  );
 
-  sl.registerLazySingleton<Connectivity>(() => Connectivity());
-  sl.registerLazySingleton<ConnectivityService>(
-      () => ConnectivityServiceImpl(sl()));
-
-  sl.registerLazySingleton<MediaService>(() => MediaServiceImpl());
+  // =====================================================
+  // NETWORK LAYER
+  // =====================================================
+  sl.registerLazySingleton<Dio>(() {
+    return Dio(
+      BaseOptions(
+        connectTimeout: const Duration(seconds: 20),
+        receiveTimeout: const Duration(seconds: 20),
+      ),
+    );
+  });
 
   sl.registerLazySingleton<DioConsumer>(
-      () => DioConsumer(dio: Dio(), secureStorage: sl()));
-  sl.registerLazySingleton<ApiConsumer>(() => sl<DioConsumer>());
+    () => DioConsumer(
+      dio: sl<Dio>(),
+      secureStorage: sl<SecureStorageService>(),
+    ),
+  );
 
-  sl.registerLazySingleton<SessionManager>(() => SessionManager(sl(), sl()));
+  sl.registerLazySingleton<ApiConsumer>(
+    () => sl<DioConsumer>(),
+  );
 
-  sl.registerFactory<OnboardingCubit>(() => OnboardingCubit(sl()));
+  // =====================================================
+  // CORE SERVICES
+  // =====================================================
+  sl.registerLazySingleton<Connectivity>(
+    () => Connectivity(),
+  );
+
+  sl.registerLazySingleton<ConnectivityService>(
+    () => ConnectivityServiceImpl(sl()),
+  );
+
+  sl.registerLazySingleton<MediaService>(
+    () => MediaServiceImpl(),
+  );
+
+  sl.registerLazySingleton<SessionManager>(
+    () => SessionManager(
+      sl<SharedPreferences>(),
+      sl<SecureStorageService>(),
+    ),
+  );
+
+  // =====================================================
+  // FEATURE: ONBOARDING
+  // =====================================================
+  sl.registerFactory<OnboardingCubit>(
+    () => OnboardingCubit(sl()),
+  );
 }

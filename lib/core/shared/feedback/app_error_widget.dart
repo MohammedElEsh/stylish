@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../theme/colors/app_colors.dart';
-import '../../theme/typography/app_typography.dart';
+import '../../constants/app_strings.dart';
+import '../../extensions/context_extensions.dart';
+import '../../shared/buttons/app_button.dart';
 
 class AppErrorWidget extends StatelessWidget {
   final String message;
@@ -22,20 +24,20 @@ class AppErrorWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.error_outline, color: AppColors.error, size: 64),
-            SizedBox(height: 16.w),
+            Icon(Icons.error_outline, color: context.colorScheme.error, size: 64),
+            SizedBox(height: 16.h),
             Text(
               message,
               textAlign: TextAlign.center,
-              style: AppTypography.semiBold14.copyWith(
+              style: context.textTheme.bodyMedium?.copyWith(
                 fontSize: 16.sp,
-                color: AppColors.grey1,
               ),
             ),
-            SizedBox(height: 24.w),
-            ElevatedButton(
+            SizedBox(height: 24.h),
+            AppButton(
+              label: AppStrings.sharedRetry.tr(),
               onPressed: onRetry,
-              child: const Text('Retry'),
+              expanded: false,
             ),
           ],
         ),

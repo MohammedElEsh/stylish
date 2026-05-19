@@ -1,6 +1,8 @@
 {
   "shared": {
-    "get_started": "Get Started"
+    "get_started": "Get Started",
+    "retry": "Retry",
+    "no_internet": "No internet connection"
   },
   "onboarding": {
     "actions": {

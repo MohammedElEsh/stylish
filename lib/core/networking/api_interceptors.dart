@@ -36,9 +36,9 @@ class ApiInterceptors extends Interceptor {
   void onError(DioException err, ErrorInterceptorHandler handler) {
     LoggerService.e(
       'Error: ${err.type} — ${err.message}',
-      err,
-      err.stackTrace,
-      'ApiInterceptor',
+      error: err,
+      stackTrace: err.stackTrace,
+      tag: 'ApiInterceptor',
     );
     super.onError(err, handler);
   }

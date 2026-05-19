@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 import '../services/session/session_manager.dart';
@@ -8,7 +7,7 @@ import 'route_names.dart';
 class RouterGuard {
   final SessionManager _sessionManager;
 
-  RouterGuard() : _sessionManager = GetIt.instance<SessionManager>();
+  RouterGuard(this._sessionManager);
 
   String get initialLocation {
     switch (_sessionManager.status) {
@@ -23,8 +22,8 @@ class RouterGuard {
 
   ChangeNotifier get refreshListenable => _sessionManager;
 
-  String? redirect(BuildContext context, GoRouterState state) {
-    final location = state.matchedLocation;
+  String? redirect(BuildContext _, GoRouterState state) {
+    final location = state.uri.path;
 
     switch (_sessionManager.status) {
       case AppStatus.onboardingRequired:
@@ -32,7 +31,7 @@ class RouterGuard {
         return RouteNames.onboarding;
 
       case AppStatus.unauthenticated:
-        final allowed = {
+        const allowed = {
           RouteNames.login,
           RouteNames.signup,
           RouteNames.forgotPassword,
@@ -41,7 +40,7 @@ class RouterGuard {
         return RouteNames.login;
 
       case AppStatus.authenticated:
-        final blocked = {
+        const blocked = {
           RouteNames.login,
           RouteNames.signup,
           RouteNames.forgotPassword,

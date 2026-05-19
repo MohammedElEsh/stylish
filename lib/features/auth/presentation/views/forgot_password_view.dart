@@ -1,11 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:stylish/core/theme/typography/app_typography.dart';
 
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/shared/buttons/app_button.dart';
-import '../../../../core/theme/colors/app_colors.dart';
 import '../widgets/forgot_password_form.dart';
 
 class ForgotPasswordView extends StatefulWidget {
@@ -33,8 +31,10 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: AppColors.backgroundLight,
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.all(24.w),
@@ -45,7 +45,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
               Text(
                 AppStrings.authForgotPasswordTitle.tr(),
                 textAlign: TextAlign.left,
-                style: AppTypography.bold36,
+                style: theme.textTheme.displayLarge,
               ),
               SizedBox(height: 32.h),
               ForgotPasswordForm(

@@ -1,10 +1,14 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:stylish/features/auth/presentation/views/signup_view.dart';
 
+import '../../core/di/injection.dart';
 import '../../features/auth/presentation/views/forgot_password_view.dart';
 import '../../features/auth/presentation/views/login_view.dart';
+import '../../features/auth/presentation/views/signup_view.dart';
+import '../../features/home/presentation/views/home_view.dart';
+import '../../features/onboarding/presentation/manager/onboarding_cubit.dart';
 import '../../features/onboarding/presentation/views/onboarding_view.dart';
+import '../services/session/session_manager.dart';
 import '../shared/feedback/feedback_handler.dart';
 import 'route_names.dart';
 import 'router_guard.dart';
@@ -12,7 +16,7 @@ import 'router_guard.dart';
 late final GoRouter appRouter;
 
 void initRouter() {
-  final guard = RouterGuard();
+  final guard = RouterGuard(sl<SessionManager>());
 
   appRouter = GoRouter(
     navigatorKey: FeedbackHandler.navigatorKey,
@@ -22,7 +26,10 @@ void initRouter() {
     routes: [
       GoRoute(
         path: RouteNames.onboarding,
-        builder: (context, state) => const OnboardingView(),
+        builder: (context, state) => BlocProvider(
+          create: (_) => sl<OnboardingCubit>(),
+          child: const OnboardingView(),
+        ),
       ),
       GoRoute(
         path: RouteNames.login,
@@ -38,8 +45,7 @@ void initRouter() {
       ),
       GoRoute(
         path: RouteNames.home,
-        builder: (context, state) =>
-            const Scaffold(body: Center(child: Text('Home'))),
+        builder: (context, state) => const HomeView(),
       ),
     ],
   );

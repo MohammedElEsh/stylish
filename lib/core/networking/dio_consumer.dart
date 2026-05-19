@@ -21,27 +21,10 @@ class DioConsumer implements ApiConsumer {
         responseBody: true,
         responseHeader: true,
         error: true,
+        compact: false,
+        maxWidth: 90,
       ),
     );
-  }
-
-  @override
-  Future<dynamic> post(
-    String path, {
-    Map<String, dynamic>? queryParameters,
-    Object? data,
-    bool isFormData = false,
-  }) async {
-    final response = await dio.post<dynamic>(
-      path,
-      queryParameters: queryParameters,
-      data:
-          isFormData ? FormData.fromMap(data as Map<String, dynamic>) : data,
-    );
-
-    LoggerService.d('POST ${dio.options.baseUrl}$path → ${response.statusCode}', tag: 'DioConsumer');
-
-    return response.data;
   }
 
   @override
@@ -54,11 +37,49 @@ class DioConsumer implements ApiConsumer {
     final response = await dio.get<dynamic>(
       path,
       queryParameters: queryParameters,
-      data:
-          isFormData ? FormData.fromMap(data as Map<String, dynamic>) : data,
+      data: isFormData ? FormData.fromMap(data as Map<String, dynamic>) : data,
     );
 
-    LoggerService.d('GET ${dio.options.baseUrl}$path → ${response.statusCode}', tag: 'DioConsumer');
+    LoggerService.d('GET ${dio.options.baseUrl}$path → ${response.statusCode}',
+        tag: 'DioConsumer');
+
+    return response.data;
+  }
+
+  @override
+  Future<dynamic> post(
+    String path, {
+    Map<String, dynamic>? queryParameters,
+    Object? data,
+    bool isFormData = false,
+  }) async {
+    final response = await dio.post<dynamic>(
+      path,
+      queryParameters: queryParameters,
+      data: isFormData ? FormData.fromMap(data as Map<String, dynamic>) : data,
+    );
+
+    LoggerService.d('POST ${dio.options.baseUrl}$path → ${response.statusCode}',
+        tag: 'DioConsumer');
+
+    return response.data;
+  }
+
+  @override
+  Future<dynamic> put(
+    String path, {
+    Map<String, dynamic>? queryParameters,
+    Object? data,
+    bool isFormData = false,
+  }) async {
+    final response = await dio.put<dynamic>(
+      path,
+      queryParameters: queryParameters,
+      data: isFormData ? FormData.fromMap(data as Map<String, dynamic>) : data,
+    );
+
+    LoggerService.d('PUT ${dio.options.baseUrl}$path → ${response.statusCode}',
+        tag: 'DioConsumer');
 
     return response.data;
   }
@@ -73,11 +94,12 @@ class DioConsumer implements ApiConsumer {
     final response = await dio.patch<dynamic>(
       path,
       queryParameters: queryParameters,
-      data:
-          isFormData ? FormData.fromMap(data as Map<String, dynamic>) : data,
+      data: isFormData ? FormData.fromMap(data as Map<String, dynamic>) : data,
     );
 
-    LoggerService.d('PATCH ${dio.options.baseUrl}$path → ${response.statusCode}', tag: 'DioConsumer');
+    LoggerService.d(
+        'PATCH ${dio.options.baseUrl}$path → ${response.statusCode}',
+        tag: 'DioConsumer');
 
     return response.data;
   }
@@ -89,7 +111,9 @@ class DioConsumer implements ApiConsumer {
       data: isFormData ? FormData.fromMap({}) : null,
     );
 
-    LoggerService.d('DELETE ${dio.options.baseUrl}$path → ${response.statusCode}', tag: 'DioConsumer');
+    LoggerService.d(
+        'DELETE ${dio.options.baseUrl}$path → ${response.statusCode}',
+        tag: 'DioConsumer');
 
     return response.data;
   }

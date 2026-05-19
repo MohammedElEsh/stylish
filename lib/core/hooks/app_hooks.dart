@@ -1,8 +1,4 @@
 import 'dart:async';
-import 'package:flutter/services.dart';
-
-// Note: Requires flutter_hooks package if used in widgets
-// These are logic-only "hooks" or utility managers from the hybrid core.
 
 class TimerManager {
   Timer? _timer;
@@ -27,11 +23,5 @@ class TimerManager {
   void dispose() {
     _timer?.cancel();
     _controller.close();
-  }
-}
-
-class ClipboardManager {
-  static Future<void> copy(String text) async {
-    await Clipboard.setData(ClipboardData(text: text));
   }
 }

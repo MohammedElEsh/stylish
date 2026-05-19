@@ -1,11 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/shared/inputs/app_text_field.dart';
-import '../../../../core/theme/colors/app_colors.dart';
-import '../../../../core/theme/typography/app_typography.dart';
 import '../../../../core/validators/app_validators.dart';
 
 class ForgotPasswordForm extends StatelessWidget {
@@ -20,6 +19,8 @@ class ForgotPasswordForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Form(
       key: formKey,
       child: Column(
@@ -30,9 +31,9 @@ class ForgotPasswordForm extends StatelessWidget {
             hint: AppStrings.authLoginEmailHint.tr(),
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.done,
-            prefixIcon: const Icon(
+            prefixIcon: Icon(
               CupertinoIcons.mail_solid,
-              color: AppColors.grey3,
+              color: theme.colorScheme.onSurfaceVariant,
             ),
             validator: AppValidators.validateEmail,
           ),
@@ -44,14 +45,14 @@ class ForgotPasswordForm extends StatelessWidget {
                 children: [
                   TextSpan(
                     text: '* ',
-                    style: AppTypography.regular12.copyWith(
-                      color: AppColors.primary,
+                    style: theme.textTheme.labelMedium?.copyWith(
+                      color: theme.colorScheme.primary,
                     ),
                   ),
                   TextSpan(
                     text: AppStrings.authForgotPasswordHelper.tr(),
-                    style: AppTypography.regular12.copyWith(
-                      color: AppColors.textSecondary,
+                    style: theme.textTheme.labelMedium?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
                     ),
                   ),
                 ],

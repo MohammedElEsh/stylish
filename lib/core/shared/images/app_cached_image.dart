@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+
+import '../../extensions/context_extensions.dart';
 
 class AppCachedImage extends StatelessWidget {
   final String imageUrl;
@@ -31,14 +34,14 @@ class AppCachedImage extends StatelessWidget {
           child: Container(
             width: width,
             height: height,
-            color: Colors.grey[300],
+            color: context.colorScheme.surfaceContainerHighest,
           ),
         ),
         errorWidget: (context, url, error) => Container(
           width: width,
           height: height,
-          color: Colors.grey[200],
-          child: const Icon(Icons.error),
+          color: context.colorScheme.surfaceContainerHighest,
+          child: Icon(Icons.error, size: 24.r, color: context.colorScheme.onSurfaceVariant),
         ),
       ),
     );

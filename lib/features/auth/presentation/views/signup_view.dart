@@ -6,8 +6,6 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/routing/route_names.dart';
 import '../../../../core/shared/buttons/app_button.dart';
-import '../../../../core/theme/colors/app_colors.dart';
-import '../../../../core/theme/typography/app_typography.dart';
 import '../widgets/signup_footer.dart';
 import '../widgets/signup_form.dart';
 import '../widgets/social_login_section.dart';
@@ -49,8 +47,10 @@ class _SignupViewState extends State<SignupView> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: AppColors.backgroundLight,
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.all(24.w),
@@ -61,7 +61,7 @@ class _SignupViewState extends State<SignupView> {
               Text(
                 AppStrings.authSignupTitle.tr(),
                 textAlign: TextAlign.left,
-                style: AppTypography.bold36,
+                style: theme.textTheme.displayLarge,
               ),
               SizedBox(height: 32.h),
               SignupForm(
