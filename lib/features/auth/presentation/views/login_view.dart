@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -45,9 +46,11 @@ class _LoginViewState extends State<LoginView> {
   @override
   void initState() {
     super.initState();
-    // Optionally, you can pre-fill the email field for testing
-    _emailController.text = 'maria@mail.com';
-    _passwordController.text = '12345';
+
+    if (kDebugMode) {
+      _emailController.text = 'mohamed@gmail.com';
+      _passwordController.text = 'M1234';
+    }
   }
 
   @override
