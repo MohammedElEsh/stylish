@@ -8,6 +8,7 @@
 ---
 
 ## Screenshots
+---
 
 ### Development Branch
 
