@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../storage/secure_storage_service.dart';
+import '../auth/token_service.dart';
+import '../logger/logger_service.dart';
 
 enum AppStatus {
   onboardingRequired,
@@ -11,28 +12,30 @@ enum AppStatus {
 
 class SessionManager extends ChangeNotifier {
   final SharedPreferences prefs;
-  final SecureStorageService secureStorage;
+  final TokenService tokenService;
 
-  SessionManager(this.prefs, this.secureStorage);
+  SessionManager(this.prefs, this.tokenService);
 
   static const _onboardingKey = 'onboarding_done';
-  static const _accessTokenKey = 'access_token';
-  static const _refreshTokenKey = 'refresh_token';
 
   AppStatus _status = AppStatus.unauthenticated;
 
   bool get onboardingDone => prefs.getBool(_onboardingKey) ?? false;
+
   AppStatus get status => _status;
 
+  /// Called at app startup — checks stored token to decide initial state.
   Future<void> initialize() async {
     if (!onboardingDone) {
       _status = AppStatus.onboardingRequired;
-    } else {
-      final token = await secureStorage.read(_accessTokenKey);
-      _status = (token != null && token.isNotEmpty)
-          ? AppStatus.authenticated
-          : AppStatus.unauthenticated;
+      notifyListeners();
+      return;
     }
+
+    final token = await tokenService.getAccessToken();
+    _status = (token != null && token.isNotEmpty)
+        ? AppStatus.authenticated
+        : AppStatus.unauthenticated;
     notifyListeners();
   }
 
@@ -42,18 +45,28 @@ class SessionManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> login({required String accessToken, String? refreshToken}) async {
-    await secureStorage.write(_accessTokenKey, accessToken);
-    if (refreshToken != null) {
-      await secureStorage.write(_refreshTokenKey, refreshToken);
-    }
+  // ─── Login ─────────────────────────────────────────────────────────────────
+
+  Future<bool> login({
+    required String accessToken,
+    String? refreshToken,
+  }) async {
+    LoggerService.i('login() — saving tokens', tag: 'SessionManager');
+    await tokenService.saveTokens(
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+    );
+
     _status = AppStatus.authenticated;
     notifyListeners();
+    return true;
   }
 
+  // ─── Logout ────────────────────────────────────────────────────────────────
+
   Future<void> logout() async {
-    await secureStorage.delete(_accessTokenKey);
-    await secureStorage.delete(_refreshTokenKey);
+    LoggerService.w('logout() — clearing tokens', tag: 'SessionManager');
+    await tokenService.clearTokens();
     _status = AppStatus.unauthenticated;
     notifyListeners();
   }

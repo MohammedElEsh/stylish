@@ -2,18 +2,24 @@ import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../services/logger/logger_service.dart';
-import '../services/storage/secure_storage_service.dart';
+import '../services/session/session_manager.dart';
 import 'api_consumer.dart';
 import 'api_endpoints.dart';
 import 'api_interceptors.dart';
 
 class DioConsumer implements ApiConsumer {
   final Dio dio;
-  final SecureStorageService secureStorage;
+  final ApiInterceptors apiInterceptors;
+  final SessionManager sessionManager;
 
-  DioConsumer({required this.dio, required this.secureStorage}) {
+  DioConsumer(
+    this.dio, {
+    required this.apiInterceptors,
+    required this.sessionManager,
+  }) {
     dio.options.baseUrl = ApiEndpoints.baseUrl.trim();
-    dio.interceptors.add(ApiInterceptors(secureStorage: secureStorage));
+    apiInterceptors.attachSessionManager(sessionManager);
+    dio.interceptors.add(apiInterceptors);
     dio.interceptors.add(
       PrettyDioLogger(
         request: true,

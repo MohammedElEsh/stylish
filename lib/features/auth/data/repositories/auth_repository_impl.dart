@@ -2,13 +2,19 @@ import '../../../../core/errors/failures.dart';
 import '../../../../core/errors/safe_call.dart';
 import '../../../../core/networking/api_consumer.dart';
 import '../../../../core/networking/api_endpoints.dart';
+import '../../../../core/services/session/session_manager.dart';
 import '../models/auth_tokens.dart';
 import 'auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  final ApiConsumer apiConsumer;
+  final ApiConsumer _apiConsumer;
+  final SessionManager _sessionManager;
 
-  AuthRepositoryImpl({required this.apiConsumer});
+  AuthRepositoryImpl({
+    required ApiConsumer apiConsumer,
+    required SessionManager sessionManager,
+  })  : _apiConsumer = apiConsumer,
+        _sessionManager = sessionManager;
 
   @override
   EitherResult<AuthTokens> login({
@@ -16,24 +22,35 @@ class AuthRepositoryImpl implements AuthRepository {
     required String password,
   }) {
     return safeCall(() async {
-      final response = await apiConsumer.post(
+      final response = await _apiConsumer.post(
         ApiEndpoints.login,
-        data: {
-          'email': email,
-          'password': password,
-        },
+        data: {'email': email, 'password': password},
       );
 
       if (response is! Map<String, dynamic>) {
         throw const ServerFailure('Unexpected response format');
       }
 
-      if (!response.containsKey('access_token') || !response.containsKey('refresh_token')) {
+      if (!response.containsKey('access_token') ||
+          !response.containsKey('refresh_token')) {
         final message = response['message'] as String?;
         throw ServerFailure(message ?? 'Incorrect email or password');
       }
 
-      return AuthTokens.fromJson(response);
+      final tokens = AuthTokens.fromJson(response);
+
+      final sessionValid = await _sessionManager.login(
+        accessToken: 'tokens.accessToken',
+        refreshToken: tokens.refreshToken,
+      );
+
+      if (!sessionValid) {
+        throw const AuthFailure(
+          'Token validation failed after login. Please try again.',
+        );
+      }
+
+      return tokens;
     });
   }
 }

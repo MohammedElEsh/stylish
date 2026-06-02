@@ -9,6 +9,7 @@ import '../../features/auth/presentation/views/signup_view.dart';
 import '../../features/home/presentation/views/home_view.dart';
 import '../../features/onboarding/presentation/manager/onboarding_cubit.dart';
 import '../../features/onboarding/presentation/views/onboarding_view.dart';
+import '../dev/auth_flow_test.dart';
 import '../services/session/session_manager.dart';
 import '../shared/feedback/feedback_handler.dart';
 import 'route_names.dart';
@@ -50,6 +51,10 @@ void initRouter() {
       GoRoute(
         path: RouteNames.home,
         builder: (context, state) => const HomeView(),
+      ),
+      GoRoute(
+        path: RouteNames.authFlowTest,
+        builder: (context, state) => const AuthFlowTest(),
       ),
     ],
   );

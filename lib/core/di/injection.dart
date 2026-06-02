@@ -8,7 +8,10 @@ import '../../features/auth/data/repositories/auth_repository_impl.dart';
 import '../../features/auth/presentation/manager/auth_login_cubit.dart';
 import '../../features/onboarding/presentation/manager/onboarding_cubit.dart';
 import '../networking/api_consumer.dart';
+import '../networking/api_interceptors.dart';
 import '../networking/dio_consumer.dart';
+import '../services/auth/token_refresher.dart';
+import '../services/auth/token_service.dart';
 import '../services/connectivity/connectivity_service.dart';
 import '../services/media/media_service.dart';
 import '../services/session/session_manager.dart';
@@ -18,7 +21,7 @@ final sl = GetIt.instance;
 
 Future<void> initDependencies() async {
   // =====================================================
-  // STORAGE LAYER
+  // 1. STORAGE LAYER
   // =====================================================
   final prefs = await SharedPreferences.getInstance();
   sl.registerLazySingleton<SharedPreferences>(() => prefs);
@@ -28,7 +31,33 @@ Future<void> initDependencies() async {
   );
 
   // =====================================================
-  // NETWORK LAYER
+  // 2. TOKEN SERVICE
+  //    Storage-only — persists access/refresh tokens.
+  // =====================================================
+  sl.registerLazySingleton<TokenService>(
+    () => TokenService(secureStorage: sl<SecureStorageService>()),
+  );
+
+  // =====================================================
+  // 3. TOKEN REFRESHER
+  //    Network-only — handles refresh API + single-flight.
+  // =====================================================
+  sl.registerLazySingleton<TokenRefresher>(
+    () => TokenRefresher(tokenService: sl<TokenService>()),
+  );
+
+  // =====================================================
+  // 4. SESSION
+  // =====================================================
+  sl.registerLazySingleton<SessionManager>(
+    () => SessionManager(
+      sl<SharedPreferences>(),
+      sl<TokenService>(),
+    ),
+  );
+
+  // =====================================================
+  // 5. NETWORK LAYER
   // =====================================================
   sl.registerLazySingleton<Dio>(() {
     return Dio(
@@ -39,10 +68,19 @@ Future<void> initDependencies() async {
     );
   });
 
+  sl.registerLazySingleton<ApiInterceptors>(
+    () => ApiInterceptors(
+      dio: sl<Dio>(),
+      tokenService: sl<TokenService>(),
+      tokenRefresher: sl<TokenRefresher>(),
+    ),
+  );
+
   sl.registerLazySingleton<DioConsumer>(
     () => DioConsumer(
-      dio: sl<Dio>(),
-      secureStorage: sl<SecureStorageService>(),
+      sl<Dio>(),
+      apiInterceptors: sl<ApiInterceptors>(),
+      sessionManager: sl<SessionManager>(),
     ),
   );
 
@@ -51,7 +89,7 @@ Future<void> initDependencies() async {
   );
 
   // =====================================================
-  // CORE SERVICES
+  // 6. CORE SERVICES
   // =====================================================
   sl.registerLazySingleton<Connectivity>(
     () => Connectivity(),
@@ -65,31 +103,24 @@ Future<void> initDependencies() async {
     () => MediaServiceImpl(),
   );
 
-  sl.registerLazySingleton<SessionManager>(
-    () => SessionManager(
-      sl<SharedPreferences>(),
-      sl<SecureStorageService>(),
-    ),
-  );
-
   // =====================================================
-  // FEATURE: ONBOARDING
+  // 7. FEATURE: ONBOARDING
   // =====================================================
   sl.registerFactory<OnboardingCubit>(
     () => OnboardingCubit(sl()),
   );
 
   // =====================================================
-  // FEATURE: AUTH
+  // 8. FEATURE: AUTH
   // =====================================================
   sl.registerLazySingleton<AuthRepository>(
-    () => AuthRepositoryImpl(apiConsumer: sl<ApiConsumer>()),
+    () => AuthRepositoryImpl(
+      apiConsumer: sl<ApiConsumer>(),
+      sessionManager: sl<SessionManager>(),
+    ),
   );
 
   sl.registerFactory<AuthLoginCubit>(
-    () => AuthLoginCubit(
-      repository: sl<AuthRepository>(),
-      sessionManager: sl<SessionManager>(),
-    ),
+    () => AuthLoginCubit(repository: sl<AuthRepository>()),
   );
 }
