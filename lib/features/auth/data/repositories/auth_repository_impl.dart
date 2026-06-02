@@ -40,7 +40,7 @@ class AuthRepositoryImpl implements AuthRepository {
       final tokens = AuthTokens.fromJson(response);
 
       final sessionValid = await _sessionManager.login(
-        accessToken: 'tokens.accessToken',
+        accessToken: tokens.accessToken,
         refreshToken: tokens.refreshToken,
       );
 

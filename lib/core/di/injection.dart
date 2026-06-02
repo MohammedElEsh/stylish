@@ -40,7 +40,7 @@ Future<void> initDependencies() async {
 
   // =====================================================
   // 3. TOKEN REFRESHER
-  //    Network-only — handles refresh API + single-flight.
+  //    Single HTTP call + single-flight guarantee.
   // =====================================================
   sl.registerLazySingleton<TokenRefresher>(
     () => TokenRefresher(tokenService: sl<TokenService>()),
@@ -73,6 +73,7 @@ Future<void> initDependencies() async {
       dio: sl<Dio>(),
       tokenService: sl<TokenService>(),
       tokenRefresher: sl<TokenRefresher>(),
+      sessionManager: sl<SessionManager>(),
     ),
   );
 
@@ -80,7 +81,6 @@ Future<void> initDependencies() async {
     () => DioConsumer(
       sl<Dio>(),
       apiInterceptors: sl<ApiInterceptors>(),
-      sessionManager: sl<SessionManager>(),
     ),
   );
 
