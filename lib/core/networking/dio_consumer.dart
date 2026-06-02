@@ -2,29 +2,33 @@ import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../services/logger/logger_service.dart';
-import '../services/storage/secure_storage_service.dart';
 import 'api_consumer.dart';
 import 'api_endpoints.dart';
 import 'api_interceptors.dart';
 
+/// Concrete [ApiConsumer] backed by Dio.
+///
+/// Responsibilities:
+/// - Configure base URL and timeouts.
+/// - Register [ApiInterceptors] (auth + 401 recovery) and [PrettyDioLogger].
+/// - Delegate HTTP verbs to Dio and return the parsed response body.
 class DioConsumer implements ApiConsumer {
   final Dio dio;
-  final SecureStorageService secureStorage;
 
-  DioConsumer({required this.dio, required this.secureStorage}) {
+  DioConsumer(this.dio, {required ApiInterceptors apiInterceptors}) {
     dio.options.baseUrl = ApiEndpoints.baseUrl.trim();
-    dio.interceptors.add(ApiInterceptors(secureStorage: secureStorage));
-    dio.interceptors.add(
+    dio.interceptors.addAll([
+      apiInterceptors,
       PrettyDioLogger(
         request: true,
         requestBody: true,
         responseBody: true,
-        responseHeader: true,
+        responseHeader: false,
         error: true,
-        compact: false,
+        compact: true,
         maxWidth: 90,
       ),
-    );
+    ]);
   }
 
   @override
@@ -39,10 +43,10 @@ class DioConsumer implements ApiConsumer {
       queryParameters: queryParameters,
       data: isFormData ? FormData.fromMap(data as Map<String, dynamic>) : data,
     );
-
-    LoggerService.d('GET ${dio.options.baseUrl}$path → ${response.statusCode}',
-        tag: 'DioConsumer');
-
+    LoggerService.d(
+      'GET ${dio.options.baseUrl}$path → ${response.statusCode}',
+      tag: 'DioConsumer',
+    );
     return response.data;
   }
 
@@ -58,10 +62,10 @@ class DioConsumer implements ApiConsumer {
       queryParameters: queryParameters,
       data: isFormData ? FormData.fromMap(data as Map<String, dynamic>) : data,
     );
-
-    LoggerService.d('POST ${dio.options.baseUrl}$path → ${response.statusCode}',
-        tag: 'DioConsumer');
-
+    LoggerService.d(
+      'POST ${dio.options.baseUrl}$path → ${response.statusCode}',
+      tag: 'DioConsumer',
+    );
     return response.data;
   }
 
@@ -77,10 +81,10 @@ class DioConsumer implements ApiConsumer {
       queryParameters: queryParameters,
       data: isFormData ? FormData.fromMap(data as Map<String, dynamic>) : data,
     );
-
-    LoggerService.d('PUT ${dio.options.baseUrl}$path → ${response.statusCode}',
-        tag: 'DioConsumer');
-
+    LoggerService.d(
+      'PUT ${dio.options.baseUrl}$path → ${response.statusCode}',
+      tag: 'DioConsumer',
+    );
     return response.data;
   }
 
@@ -96,11 +100,10 @@ class DioConsumer implements ApiConsumer {
       queryParameters: queryParameters,
       data: isFormData ? FormData.fromMap(data as Map<String, dynamic>) : data,
     );
-
     LoggerService.d(
-        'PATCH ${dio.options.baseUrl}$path → ${response.statusCode}',
-        tag: 'DioConsumer');
-
+      'PATCH ${dio.options.baseUrl}$path → ${response.statusCode}',
+      tag: 'DioConsumer',
+    );
     return response.data;
   }
 
@@ -110,11 +113,10 @@ class DioConsumer implements ApiConsumer {
       path,
       data: isFormData ? FormData.fromMap({}) : null,
     );
-
     LoggerService.d(
-        'DELETE ${dio.options.baseUrl}$path → ${response.statusCode}',
-        tag: 'DioConsumer');
-
+      'DELETE ${dio.options.baseUrl}$path → ${response.statusCode}',
+      tag: 'DioConsumer',
+    );
     return response.data;
   }
 }
