@@ -19,7 +19,10 @@ class TokenRefresher {
 
   Future<bool> refresh() async {
     final refreshToken = await _tokenService.getRefreshToken();
-    if (refreshToken == null || refreshToken.isEmpty) return false;
+    if (refreshToken == null || refreshToken.isEmpty) {
+      LoggerService.w('No refresh token stored — cannot refresh', tag: 'AUTH');
+      return false;
+    }
 
     try {
       final res = await _dio.post<Map<String, dynamic>>(
@@ -30,17 +33,29 @@ class TokenRefresher {
       final newAccess = res.data?['access_token'] as String?;
       final newRefresh = res.data?['refresh_token'] as String?;
 
-      if (newAccess == null || newAccess.isEmpty) return false;
+      if (newAccess == null || newAccess.isEmpty) {
+        LoggerService.e(
+          'Refresh response missing access_token',
+          tag: 'AUTH',
+        );
+        return false;
+      }
 
       await _tokenService.saveTokens(
         accessToken: newAccess,
         refreshToken: newRefresh,
       );
 
-      LoggerService.i('Token refreshed', tag: 'TokenRefresher');
+      LoggerService.i('Token refresh succeeded — new tokens saved',
+          tag: 'AUTH');
       return true;
-    } catch (e) {
-      LoggerService.e('Refresh failed: $e', tag: 'TokenRefresher');
+    } catch (e, st) {
+      LoggerService.e(
+        'Token refresh request failed',
+        error: e,
+        stackTrace: st,
+        tag: 'AUTH',
+      );
       return false;
     }
   }

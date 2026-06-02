@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:dio/dio.dart';
 
 import '../services/auth/token_refresher.dart';
@@ -13,8 +11,7 @@ class ApiInterceptors extends Interceptor {
   final TokenRefresher _tokenRefresher;
   final SessionManager _sessionManager;
 
-  bool _isRefreshing = false;
-  final List<Completer<void>> _queue = [];
+  Future<bool>? _refreshFuture;
 
   ApiInterceptors({
     required Dio dio,
@@ -37,6 +34,10 @@ class ApiInterceptors extends Interceptor {
     if (token != null && token.isNotEmpty) {
       options.headers['Authorization'] = 'Bearer $token';
     }
+    LoggerService.d(
+      '→ ${options.method} ${options.path}',
+      tag: 'NETWORK',
+    );
     handler.next(options);
   }
 
@@ -48,52 +49,74 @@ class ApiInterceptors extends Interceptor {
     ErrorInterceptorHandler handler,
   ) async {
     if (err.response?.statusCode != 401) return handler.next(err);
+
+    LoggerService.w(
+      '401 on ${err.requestOptions.method} ${err.requestOptions.path}',
+      tag: 'AUTH',
+    );
+
+    // Already retried — break the loop
     if (err.requestOptions.extra['retried'] == true) {
+      LoggerService.e(
+        'Retry also returned 401 — forcing logout',
+        tag: 'AUTH',
+      );
       await _sessionManager.logout();
       return handler.next(err);
     }
 
-    // ── Queue: wait if refresh is already running ──────────────────────────
-    if (_isRefreshing) {
-      final completer = Completer<void>();
-      _queue.add(completer);
-      try {
-        await completer.future;
-      } catch (_) {
-        return handler.next(err);
-      }
+    // Single-flight: start refresh or join the one already running
+    final isLeader = _refreshFuture == null;
+    if (isLeader) {
+      LoggerService.i('Starting token refresh', tag: 'AUTH');
+    } else {
+      LoggerService.d('Joining in-flight refresh', tag: 'AUTH');
     }
 
-    // ── Refresh ────────────────────────────────────────────────────────────
-    else {
-      _isRefreshing = true;
-      final refreshed = await _tokenRefresher.refresh();
-      _isRefreshing = false;
+    _refreshFuture ??= _tokenRefresher.refresh();
+    final refreshed = await _refreshFuture!;
+    _refreshFuture = null;
 
-      if (!refreshed) {
-        _queue
-          ..forEach((c) => c.completeError('Refresh failed'))
-          ..clear();
-        await _tokenService.clearTokens();
-        await _sessionManager.logout();
-        return handler.next(err);
-      }
-
-      _queue
-        ..forEach((c) => c.complete())
-        ..clear();
+    if (!refreshed) {
+      LoggerService.e('Token refresh failed — logging out', tag: 'AUTH');
+      await _sessionManager.logout();
+      return handler.next(err);
     }
 
-    // ── Retry original request with new token ──────────────────────────────
+    LoggerService.i(
+      'Retrying ${err.requestOptions.method} ${err.requestOptions.path}',
+      tag: 'NETWORK',
+    );
+
+    // Retry with new token — no mutation of original RequestOptions
     try {
       final token = await _tokenService.getAccessToken() ?? '';
-      err.requestOptions
-        ..extra['retried'] = true
-        ..headers['Authorization'] = 'Bearer $token';
-      handler.resolve(await _dio.fetch<dynamic>(err.requestOptions));
+      final response = await _dio.request<dynamic>(
+        err.requestOptions.path,
+        data: err.requestOptions.data,
+        queryParameters: err.requestOptions.queryParameters,
+        options: Options(
+          method: err.requestOptions.method,
+          headers: {
+            ...err.requestOptions.headers,
+            'Authorization': 'Bearer $token',
+          },
+          extra: {
+            ...err.requestOptions.extra,
+            'retried': true,
+          },
+          contentType: err.requestOptions.contentType,
+          responseType: err.requestOptions.responseType,
+        ),
+      );
+      handler.resolve(response);
     } catch (e, st) {
-      LoggerService.e('Retry failed',
-          error: e, stackTrace: st, tag: 'ApiInterceptors');
+      LoggerService.e(
+        'Retry failed for ${err.requestOptions.method} ${err.requestOptions.path}',
+        error: e,
+        stackTrace: st,
+        tag: 'NETWORK',
+      );
       handler.next(err);
     }
   }

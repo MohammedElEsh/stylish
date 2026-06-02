@@ -16,7 +16,7 @@ class RouterGuard {
       case AppStatus.unauthenticated:
         return RouteNames.login;
       case AppStatus.authenticated:
-        return RouteNames.home;
+        return RouteNames.authFlowTest;
     }
   }
 
