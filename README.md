@@ -12,11 +12,11 @@
 
 ### Development Branch
 
-![Dev Branch](assets/shots/dev_branch_01.png)
+![Dev Branch](assets/shots/dev_branch_04.png)
 
 ### Login Success (Home Screen)
 
-![Login Success](assets/shots/first_login.png)
+![Login Success](assets/shots/start_shot.png)
 
 ---
 
