@@ -14,7 +14,7 @@
 
 ![Dev Branch](assets/shots/dev_branch_04.png)
 
-### Login Success (Home Screen)
+### Login Success (Getting Started Screen)
 
 ![Login Success](assets/shots/start_shot.png)
 
