@@ -1,9 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../../../core/routing/route_names.dart';
 import '../../data/models/onboarding_model.dart';
 import '../manager/onboarding_cubit.dart';
 import '../manager/onboarding_state.dart';
@@ -52,12 +50,7 @@ class _OnboardingViewState extends State<OnboardingView> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return BlocConsumer<OnboardingCubit, OnboardingState>(
-      listener: (context, state) {
-        if (state.completed) {
-          context.go(RouteNames.login);
-        }
-      },
+    return BlocBuilder<OnboardingCubit, OnboardingState>(
       builder: (context, state) {
         final current = state.currentPage;
         final totalPages = onboardingPages.length;

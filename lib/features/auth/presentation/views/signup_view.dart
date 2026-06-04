@@ -61,12 +61,7 @@ class _SignupViewState extends State<SignupView> {
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
-        child: BlocConsumer<AuthRegisterCubit, AuthRegisterState>(
-          listener: (context, state) {
-            if (state is AuthRegisterSuccess) {
-              context.go(RouteNames.gettingStarted);
-            }
-          },
+        child: BlocBuilder<AuthRegisterCubit, AuthRegisterState>(
           builder: (context, state) {
             final isLoading = state is AuthRegisterLoading;
 

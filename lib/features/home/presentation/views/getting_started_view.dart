@@ -1,19 +1,20 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:stylish/core/theme/typography/app_typography.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/constants/app_strings.dart';
-import '../../../../core/routing/route_names.dart';
+import '../../../../core/di/injection.dart';
+import '../../../../core/services/session/session_manager.dart';
 import '../../../../core/shared/buttons/app_button.dart';
 
 class GettingStartedView extends StatelessWidget {
   const GettingStartedView({super.key});
 
   void _onGetStarted(BuildContext context) {
-    context.go(RouteNames.home);
+    // No manual navigation: the state transition drives the redirect.
+    sl<SessionManager>().markReady();
   }
 
   @override

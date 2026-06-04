@@ -66,12 +66,7 @@ class _LoginViewState extends State<LoginView> {
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
-        child: BlocConsumer<AuthLoginCubit, AuthLoginState>(
-          listener: (context, state) {
-            if (state is AuthLoginSuccess) {
-              context.go(RouteNames.gettingStarted);
-            }
-          },
+        child: BlocBuilder<AuthLoginCubit, AuthLoginState>(
           builder: (context, state) {
             final isLoading = state is AuthLoginLoading;
 
