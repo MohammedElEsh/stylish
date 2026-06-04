@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../features/auth/data/repositories/auth_repository.dart';
 import '../../features/auth/data/repositories/auth_repository_impl.dart';
 import '../../features/auth/presentation/manager/auth_login_cubit.dart';
+import '../../features/auth/presentation/manager/auth_register_cubit.dart';
 import '../../features/onboarding/presentation/manager/onboarding_cubit.dart';
 import '../networking/api_consumer.dart';
 import '../networking/api_interceptors.dart';
@@ -122,5 +123,9 @@ Future<void> initDependencies() async {
 
   sl.registerFactory<AuthLoginCubit>(
     () => AuthLoginCubit(repository: sl<AuthRepository>()),
+  );
+
+  sl.registerFactory<AuthRegisterCubit>(
+    () => AuthRegisterCubit(repository: sl<AuthRepository>()),
   );
 }
