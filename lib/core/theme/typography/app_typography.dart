@@ -19,6 +19,9 @@ abstract class AppTypography {
   static TextStyle get bold36 =>
       _base(fontSize: 36, fontWeight: FontWeight.w700);
 
+  static TextStyle get bold28 =>
+      _base(fontSize: 28, fontWeight: FontWeight.w700);
+
   static TextStyle get extraBold24 =>
       _base(fontSize: 24, fontWeight: FontWeight.w800);
 

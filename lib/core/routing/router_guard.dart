@@ -35,6 +35,7 @@ class RouterGuard {
           RouteNames.login,
           RouteNames.signup,
           RouteNames.forgotPassword,
+          RouteNames.gettingStarted,
         };
         if (allowed.contains(location)) return null;
         return RouteNames.login;
@@ -46,7 +47,7 @@ class RouterGuard {
           RouteNames.forgotPassword,
           RouteNames.onboarding,
         };
-        if (blocked.contains(location)) return RouteNames.home;
+        if (blocked.contains(location)) return RouteNames.gettingStarted;
         return null;
     }
   }

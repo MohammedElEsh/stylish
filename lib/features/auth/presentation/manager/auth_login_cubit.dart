@@ -37,7 +37,7 @@ class AuthLoginCubit extends Cubit<AuthLoginState> {
         // SessionManager.login() already saved + validated the tokens and
         // notified its listeners, so the router guard redirects automatically.
         LoggerService.i('Login succeeded', tag: 'AuthLoginCubit');
-        FeedbackHandler.success('Logged in successfully');
+        // FeedbackHandler.success('Logged in successfully');
         emit(const AuthLoginSuccess());
       },
     );

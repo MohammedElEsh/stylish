@@ -25,6 +25,11 @@
     "field_required": "{} is required"
   },
   "home": {
+    "getting_started": {
+      "title": "You want Authentic, here you go!",
+      "subtitle": "Find it here, buy it now!",
+      "button": "Get Started"
+    },
     "title": "Home",
     "welcome": "Welcome Home!",
     "subtitle": "You have successfully completed the onboarding process."

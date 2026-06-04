@@ -7,6 +7,7 @@ import '../../features/auth/presentation/manager/auth_register_cubit.dart';
 import '../../features/auth/presentation/views/forgot_password_view.dart';
 import '../../features/auth/presentation/views/login_view.dart';
 import '../../features/auth/presentation/views/signup_view.dart';
+import '../../features/home/presentation/views/getting_started_view.dart';
 import '../../features/home/presentation/views/home_view.dart';
 import '../../features/onboarding/presentation/manager/onboarding_cubit.dart';
 import '../../features/onboarding/presentation/views/onboarding_view.dart';
@@ -51,6 +52,10 @@ void initRouter() {
       GoRoute(
         path: RouteNames.forgotPassword,
         builder: (context, state) => const ForgotPasswordView(),
+      ),
+      GoRoute(
+        path: RouteNames.gettingStarted,
+        builder: (context, state) => const GettingStartedView(),
       ),
       GoRoute(
         path: RouteNames.home,

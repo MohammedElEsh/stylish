@@ -64,7 +64,7 @@ class _SignupViewState extends State<SignupView> {
         child: BlocConsumer<AuthRegisterCubit, AuthRegisterState>(
           listener: (context, state) {
             if (state is AuthRegisterSuccess) {
-              context.go(RouteNames.login);
+              context.go(RouteNames.gettingStarted);
             }
           },
           builder: (context, state) {

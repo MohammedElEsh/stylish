@@ -69,7 +69,7 @@ class _LoginViewState extends State<LoginView> {
         child: BlocConsumer<AuthLoginCubit, AuthLoginState>(
           listener: (context, state) {
             if (state is AuthLoginSuccess) {
-              context.go(RouteNames.home);
+              context.go(RouteNames.gettingStarted);
             }
           },
           builder: (context, state) {

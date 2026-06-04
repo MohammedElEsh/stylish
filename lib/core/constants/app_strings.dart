@@ -86,4 +86,9 @@ class AppStrings {
   static const String authTermsFirstPart = 'auth.terms.first_part';
   static const String authTermsLink = 'auth.terms.link';
   static const String authTermsSecondPart = 'auth.terms.second_part';
+
+  // Home - Getting Started
+  static const String gettingStartedTitle = 'home.getting_started.title';
+  static const String gettingStartedSubtitle = 'home.getting_started.subtitle';
+  static const String gettingStartedButton = 'home.getting_started.button';
 }
