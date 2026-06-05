@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/shared/inputs/search_field.dart';
 import '../../../../core/shared/layout/app_top_bar.dart';
+import '../../../categories/presentation/widgets/categories_list.dart';
 import '../manager/home_cubit.dart';
 import '../manager/home_state.dart';
 import '../widgets/filter_sort_row.dart';
@@ -29,6 +30,8 @@ class HomeView extends StatelessWidget {
                 const SearchField(),
                 SizedBox(height: 16.h),
                 const FilterSortRow(),
+                SizedBox(height: 24.h),
+                const CategoriesList(),
               ],
             ),
           ),

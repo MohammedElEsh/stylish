@@ -8,6 +8,8 @@ import '../../features/auth/data/repositories/auth_repository_impl.dart';
 import '../../features/auth/presentation/manager/auth_login_cubit.dart';
 import '../../features/auth/presentation/manager/auth_register_cubit.dart';
 import '../../features/cart/presentation/manager/cart_cubit.dart';
+import '../../features/categories/data/repositories/categories_repository.dart';
+import '../../features/categories/data/repositories/categories_repository_impl.dart';
 import '../../features/categories/presentation/manager/categories_cubit.dart';
 import '../../features/home/presentation/manager/home_cubit.dart';
 import '../../features/onboarding/presentation/manager/onboarding_cubit.dart';
@@ -144,8 +146,12 @@ Future<void> initDependencies() async {
   // =====================================================
   // 10. FEATURE: CATEGORIES (tab 1)
   // =====================================================
+  sl.registerLazySingleton<CategoriesRepository>(
+    () => CategoriesRepositoryImpl(apiConsumer: sl<ApiConsumer>()),
+  );
+
   sl.registerFactory<CategoriesCubit>(
-    () => CategoriesCubit(),
+    () => CategoriesCubit(repository: sl<CategoriesRepository>()),
   );
 
   // =====================================================

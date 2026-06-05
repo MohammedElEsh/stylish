@@ -5,4 +5,5 @@ class ApiEndpoints {
   static const String register = '/users';
   static const String profile = '/auth/profile';
   static const String checkEmailAvailability = '/users/is-available';
+  static const String categories = '/categories';
 }

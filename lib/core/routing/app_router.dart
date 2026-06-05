@@ -77,8 +77,14 @@ void initRouter() {
             routes: [
               GoRoute(
                 path: RouteNames.home,
-                builder: (context, state) => BlocProvider(
-                  create: (_) => sl<HomeCubit>(),
+                builder: (context, state) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider(create: (_) => sl<HomeCubit>()),
+                    BlocProvider(
+                      create: (_) =>
+                          sl<CategoriesCubit>()..loadCategories(),
+                    ),
+                  ],
                   child: const HomeView(),
                 ),
               ),
