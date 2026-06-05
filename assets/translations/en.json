@@ -86,7 +86,13 @@
     "welcome": "Welcome Home!",
     "subtitle": "You have successfully completed the onboarding process.",
     "search": {
-      "placeholder": "Search any Product..."
+      "placeholder": "Search any Product...",
+      "voice_hint": "Voice search"
+    },
+    "filter_sort": {
+      "title": "All Featured",
+      "sort": "Sort",
+      "filter": "Filter"
     }
   }
 }

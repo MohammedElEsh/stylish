@@ -94,6 +94,12 @@ class AppStrings {
 
   // Home - Search
   static const String homeSearchPlaceholder = 'home.search.placeholder';
+  static const String homeSearchVoiceHint = 'home.search.voice_hint';
+
+  // Home - Filter & Sort
+  static const String homeFilterSortTitle = 'home.filter_sort.title';
+  static const String homeFilterSortSort = 'home.filter_sort.sort';
+  static const String homeFilterSortFilter = 'home.filter_sort.filter';
 
   // Bottom Nav
   static const String navHome = 'nav.home';

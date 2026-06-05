@@ -6,6 +6,7 @@ import '../../../../core/shared/inputs/search_field.dart';
 import '../../../../core/shared/layout/app_top_bar.dart';
 import '../manager/home_cubit.dart';
 import '../manager/home_state.dart';
+import '../widgets/filter_sort_row.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -23,9 +24,11 @@ class HomeView extends StatelessWidget {
               horizontal: 24.w,
               vertical: 8.h,
             ),
-            child: const Column(
+            child: Column(
               children: [
-                SearchField(),
+                const SearchField(),
+                SizedBox(height: 16.h),
+                const FilterSortRow(),
               ],
             ),
           ),
