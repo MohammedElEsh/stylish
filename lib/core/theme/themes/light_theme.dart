@@ -316,13 +316,13 @@ ThemeData lightTheme = ThemeData(
       if (states.contains(WidgetState.selected)) {
         return AppTypography.semiBold14.copyWith(color: AppColors.primary);
       }
-      return AppTypography.semiBold14.copyWith(color: AppColors.grey3);
+      return AppTypography.semiBold14.copyWith(color: Colors.black);
     }),
     iconTheme: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
         return const IconThemeData(color: AppColors.primary);
       }
-      return const IconThemeData(color: AppColors.grey3);
+      return const IconThemeData(color: Colors.black);
     }),
   ),
 
