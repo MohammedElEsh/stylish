@@ -92,6 +92,9 @@ class AppStrings {
   static const String gettingStartedSubtitle = 'home.getting_started.subtitle';
   static const String gettingStartedButton = 'home.getting_started.button';
 
+  // Home - Search
+  static const String homeSearchPlaceholder = 'home.search.placeholder';
+
   // Bottom Nav
   static const String navHome = 'nav.home';
   static const String navWishlist = 'nav.wishlist';

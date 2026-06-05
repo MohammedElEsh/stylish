@@ -376,12 +376,14 @@ ThemeData lightTheme = ThemeData(
   searchBarTheme: SearchBarThemeData(
     backgroundColor: WidgetStateProperty.all(AppColors.surfaceLight),
     hintStyle: WidgetStateProperty.all(
-        AppTypography.regular14.copyWith(color: AppColors.grey3)),
+        AppTypography.semiBold14.copyWith(color: AppColors.textSecondary)),
     textStyle: WidgetStateProperty.all(
-        AppTypography.regular14.copyWith(color: AppColors.textPrimaryLight)),
-    elevation: WidgetStateProperty.all(2),
+        AppTypography.semiBold14.copyWith(color: AppColors.textPrimaryLight)),
+    elevation: WidgetStateProperty.all(0),
     shape: WidgetStateProperty.all(
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(14))),
+    padding:
+        WidgetStateProperty.all(const EdgeInsets.symmetric(horizontal: 16)),
   ),
 
   // ── Menu Button ───────────────────────────────────────────────────────────

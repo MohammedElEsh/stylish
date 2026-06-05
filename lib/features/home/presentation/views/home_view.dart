@@ -1,9 +1,8 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/constants/app_strings.dart';
+import '../../../../core/shared/inputs/search_field.dart';
 import '../../../../core/shared/layout/app_top_bar.dart';
 import '../manager/home_cubit.dart';
 import '../manager/home_state.dart';
@@ -19,26 +18,14 @@ class HomeView extends StatelessWidget {
           appBar: AppTopBar(
             topPadding: ScreenUtil().statusBarHeight,
           ),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+          body: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 24.w,
+              vertical: 8.h,
+            ),
+            child: const Column(
               children: [
-                Icon(
-                  Icons.home_outlined,
-                  size: 64,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  AppStrings.homeWelcome.tr(),
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  AppStrings.homeSubtitle.tr(),
-                  style: Theme.of(context).textTheme.bodyMedium,
-                  textAlign: TextAlign.center,
-                ),
+                SearchField(),
               ],
             ),
           ),
