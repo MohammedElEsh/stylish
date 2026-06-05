@@ -24,16 +24,6 @@
     "required": "This field is required",
     "field_required": "{} is required"
   },
-  "home": {
-    "getting_started": {
-      "title": "You want Authentic, here you go!",
-      "subtitle": "Find it here, buy it now!",
-      "button": "Get Started"
-    },
-    "title": "Home",
-    "welcome": "Welcome Home!",
-    "subtitle": "You have successfully completed the onboarding process."
-  },
   "auth": {
     "or_continue_with": "Or Continue With",
     "login": {
@@ -78,5 +68,22 @@
       "link": "Register",
       "second_part": " button, you agree to the public offer"
     }
+  },
+  "nav": {
+    "home": "Home",
+    "wishlist": "Wishlist",
+    "cart": "Cart",
+    "search": "Search",
+    "settings": "Settings"
+  },
+  "home": {
+    "getting_started": {
+      "title": "You want Authentic, here you go!",
+      "subtitle": "Find it here, buy it now!",
+      "button": "Get Started"
+    },
+    "title": "Home",
+    "welcome": "Welcome Home!",
+    "subtitle": "You have successfully completed the onboarding process."
   }
 }

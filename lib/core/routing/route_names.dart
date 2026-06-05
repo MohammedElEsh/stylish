@@ -4,8 +4,11 @@ class RouteNames {
   static const String signup = '/signup';
   static const String forgotPassword = '/forgot-password';
   static const String gettingStarted = '/getting-started';
-  static const String home = '/home';
 
-  /// Dev-only destination used during auth flow development.
-  static const String authFlowTest = '/auth-flow-test';
+  // Authenticated shell tabs
+  static const String home = '/home';
+  static const String categories = '/categories';
+  static const String cart = '/cart';
+  static const String wishlist = '/wishlist';
+  static const String profile = '/profile';
 }

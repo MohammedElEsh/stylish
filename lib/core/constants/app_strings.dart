@@ -91,4 +91,11 @@ class AppStrings {
   static const String gettingStartedTitle = 'home.getting_started.title';
   static const String gettingStartedSubtitle = 'home.getting_started.subtitle';
   static const String gettingStartedButton = 'home.getting_started.button';
+
+  // Bottom Nav
+  static const String navHome = 'nav.home';
+  static const String navWishlist = 'nav.wishlist';
+  static const String navCart = 'nav.cart';
+  static const String navSearch = 'nav.search';
+  static const String navSettings = 'nav.settings';
 }

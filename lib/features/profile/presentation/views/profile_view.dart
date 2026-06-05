@@ -1,43 +1,36 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/app_strings.dart';
-import '../../../../core/shared/layout/app_top_bar.dart';
-import '../manager/home_cubit.dart';
-import '../manager/home_state.dart';
+import '../manager/profile_cubit.dart';
+import '../manager/profile_state.dart';
 
-class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+class ProfileView extends StatelessWidget {
+  const ProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit, HomeState>(
+    return BlocBuilder<ProfileCubit, ProfileState>(
       builder: (context, state) {
         return Scaffold(
-          appBar: AppTopBar(
-            topPadding: ScreenUtil().statusBarHeight,
+          appBar: AppBar(
+            title: Text(AppStrings.navSettings.tr()),
+            centerTitle: true,
           ),
           body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.home_outlined,
+                  Icons.person_outline,
                   size: 64,
                   color: Theme.of(context).colorScheme.primary,
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  AppStrings.homeWelcome.tr(),
+                  AppStrings.navSettings.tr(),
                   style: Theme.of(context).textTheme.headlineMedium,
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  AppStrings.homeSubtitle.tr(),
-                  style: Theme.of(context).textTheme.bodyMedium,
-                  textAlign: TextAlign.center,
                 ),
               ],
             ),

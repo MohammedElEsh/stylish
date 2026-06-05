@@ -25,9 +25,6 @@ class RouterGuard {
     final status = _sessionManager.status;
     final location = state.uri.path;
 
-    // Public/bypass routes — dev tools, marketing pages, etc.
-    if (_publicRoutes.contains(location)) return null;
-
     // The canonical home route for the current state is always allowed.
     if (location == _homeRouteFor(status)) return null;
 
@@ -72,18 +69,17 @@ class RouterGuard {
           RouteNames.signup,
           RouteNames.forgotPassword,
         };
+      case AppStatus.authenticated:
+        return const {
+          RouteNames.categories,
+          RouteNames.cart,
+          RouteNames.wishlist,
+          RouteNames.profile,
+        };
       case AppStatus.initial:
       case AppStatus.onboardingRequired:
       case AppStatus.authenticatedNeedsSetup:
-      case AppStatus.authenticated:
         return const <String>{};
     }
   }
-
-  /// Routes that bypass the state check entirely.
-  /// Reserved for screens that make sense regardless of app state
-  /// (dev tools, marketing pages, etc.).
-  static const Set<String> _publicRoutes = {
-    RouteNames.authFlowTest,
-  };
 }

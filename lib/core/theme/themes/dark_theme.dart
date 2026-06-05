@@ -303,8 +303,13 @@ ThemeData darkTheme = ThemeData(
   // ── Navigation Bar (Material 3) ───────────────────────────────────────────
   navigationBarTheme: NavigationBarThemeData(
     backgroundColor: AppColors.surfaceDark,
-    indicatorColor: AppColors.primary.withOpacity(.12),
-    labelTextStyle: WidgetStateProperty.all(AppTypography.regular12),
+    indicatorColor: Colors.transparent,
+    labelTextStyle: WidgetStateProperty.resolveWith((states) {
+      if (states.contains(WidgetState.selected)) {
+        return AppTypography.semiBold14.copyWith(color: AppColors.primary);
+      }
+      return AppTypography.semiBold14.copyWith(color: AppColors.grey3);
+    }),
     iconTheme: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
         return const IconThemeData(color: AppColors.primary);

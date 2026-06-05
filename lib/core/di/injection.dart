@@ -7,7 +7,12 @@ import '../../features/auth/data/repositories/auth_repository.dart';
 import '../../features/auth/data/repositories/auth_repository_impl.dart';
 import '../../features/auth/presentation/manager/auth_login_cubit.dart';
 import '../../features/auth/presentation/manager/auth_register_cubit.dart';
+import '../../features/cart/presentation/manager/cart_cubit.dart';
+import '../../features/categories/presentation/manager/categories_cubit.dart';
+import '../../features/home/presentation/manager/home_cubit.dart';
 import '../../features/onboarding/presentation/manager/onboarding_cubit.dart';
+import '../../features/profile/presentation/manager/profile_cubit.dart';
+import '../../features/wishlist/presentation/manager/wishlist_cubit.dart';
 import '../networking/api_consumer.dart';
 import '../networking/api_interceptors.dart';
 import '../networking/dio_consumer.dart';
@@ -127,5 +132,40 @@ Future<void> initDependencies() async {
 
   sl.registerFactory<AuthRegisterCubit>(
     () => AuthRegisterCubit(repository: sl<AuthRepository>()),
+  );
+
+  // =====================================================
+  // 9. FEATURE: HOME (authenticated shell — tab 0)
+  // =====================================================
+  sl.registerFactory<HomeCubit>(
+    () => HomeCubit(),
+  );
+
+  // =====================================================
+  // 10. FEATURE: CATEGORIES (tab 1)
+  // =====================================================
+  sl.registerFactory<CategoriesCubit>(
+    () => CategoriesCubit(),
+  );
+
+  // =====================================================
+  // 11. FEATURE: CART (tab 2)
+  // =====================================================
+  sl.registerFactory<CartCubit>(
+    () => CartCubit(),
+  );
+
+  // =====================================================
+  // 12. FEATURE: WISHLIST (tab 3)
+  // =====================================================
+  sl.registerFactory<WishlistCubit>(
+    () => WishlistCubit(),
+  );
+
+  // =====================================================
+  // 13. FEATURE: PROFILE (tab 4)
+  // =====================================================
+  sl.registerFactory<ProfileCubit>(
+    () => ProfileCubit(),
   );
 }

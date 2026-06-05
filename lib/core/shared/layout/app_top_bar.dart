@@ -1,45 +1,67 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hugeicons/hugeicons.dart';
+import 'package:stylish/core/theme/colors/app_colors.dart';
+
+import '../../constants/app_assets.dart';
 
 class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
-  final String? title;
-  final List<Widget>? actions;
-  final Widget? leading;
-  final bool centerTitle;
-  final Color? backgroundColor;
-  final double? elevation;
+  final double topPadding;
+  final VoidCallback? onMenuTap;
+  final VoidCallback? onProfileTap;
 
   const AppTopBar({
     super.key,
-    this.title,
-    this.actions,
-    this.leading,
-    this.centerTitle = true,
-    this.backgroundColor,
-    this.elevation = 0,
+    required this.topPadding,
+    this.onMenuTap,
+    this.onProfileTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return AppBar(
-      title: title != null
-          ? Text(
-              title!,
-              style: theme.textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
-            )
-          : null,
-      actions: actions,
-      leading: leading,
-      centerTitle: centerTitle,
-      backgroundColor: backgroundColor ?? Colors.transparent,
-      elevation: elevation,
-      surfaceTintColor: Colors.transparent,
+    return Padding(
+      padding: EdgeInsets.only(
+        top: topPadding,
+        left: 16.w,
+        right: 16.w,
+      ),
+      child: AppBar(
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        surfaceTintColor: Colors.transparent,
+        titleSpacing: 0,
+        leadingWidth: 56.w,
+        leading: IconButton(
+          onPressed: onMenuTap,
+          icon: HugeIcon(
+            icon: HugeIcons.strokeRoundedMenu05,
+            size: 28.r,
+          ),
+        ),
+        title: Image.asset(
+          AppAssets.appBarLogo,
+          height: 32.h,
+          fit: BoxFit.contain,
+        ),
+        actions: [
+          IconButton(
+            onPressed: onProfileTap,
+            icon: HugeIcon(
+              icon: HugeIcons.strokeRoundedUserSquare,
+              color: AppColors.primary,
+              size: 28.r,
+            ),
+          ),
+          SizedBox(width: 4.w),
+        ],
+      ),
     );
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight.h);
+  Size get preferredSize => Size.fromHeight(
+        kToolbarHeight + topPadding,
+      );
 }
