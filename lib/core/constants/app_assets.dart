@@ -12,6 +12,10 @@ class AppAssets {
 
   static const String gettingStarted = '$_imagesPath/getting_started.png';
   static const String homeSalesBanner = '$_imagesPath/home_sales_banner.png';
+  static const String homeSpecialOffer = '$_imagesPath/home_special_offer.png';
+  static const String homeGoldStars = '$_imagesPath/home_gold_stars.png';
+  static const String homeGoldLine = '$_imagesPath/home_gold_line.png';
+  static const String homeWomanHeels = '$_imagesPath/home_woman_heels.png';
 
   static const String defaultUserAvatar = '$_imagesPath/user_avatar.png';
   static const String appBarLogo = '$_imagesPath/app_bar_logo.png';

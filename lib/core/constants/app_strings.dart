@@ -119,6 +119,17 @@ class AppStrings {
   static const String homeTrendingProductsTitle =
       'home.trending_products.title';
 
+  // Home - Special Offers
+  static const String homeSpecialOffersTitle = 'home.special_offers.title';
+  static const String homeSpecialOffersSubtitle =
+      'home.special_offers.subtitle';
+
+  // Home - Flat and Heels
+  static const String homeFlatAndHeelsTitle = 'home.flat_and_heels.title';
+  static const String homeFlatAndHeelsSubtitle =
+      'home.flat_and_heels.subtitle';
+  static const String homeFlatAndHeelsButton = 'home.flat_and_heels.button';
+
   // Home - Generic Section Banner (default action label)
   static const String homeSectionViewAll = 'home.section.view_all';
 

@@ -12,8 +12,10 @@ import '../../../categories/presentation/widgets/categories_list.dart';
 import '../manager/home_cubit.dart';
 import '../manager/home_state.dart';
 import '../widgets/filter_sort_row.dart';
+import '../widgets/flat_and_heels_banner.dart';
 import '../widgets/promo_banner_carousel.dart';
 import '../widgets/promotional_banner.dart';
+import '../widgets/special_offers_banner.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -49,13 +51,17 @@ class HomeView extends StatelessWidget {
                   backgroundColor: AppColors.secondaryMedium,
                 ),
                 SizedBox(height: 16.h),
+                const SpecialOffersBanner(),
+                SizedBox(height: 16.h),
+                const FlatAndHeelsBanner(),
+                SizedBox(height: 16.h),
                 PromotionalBanner(
                   title: AppStrings.homeTrendingProductsTitle.tr(),
                   subtitle: AppStrings.homeDealOfTheDayLastDate.tr(),
                   subtitleIcon: HugeIcons.strokeRoundedDateTime,
                   backgroundColor: AppColors.primaryMedium,
                 ),
-                SizedBox(height: 16.h),
+                SizedBox(height: 500.h),
               ],
             ),
           ),
