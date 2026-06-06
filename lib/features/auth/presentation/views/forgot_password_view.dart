@@ -54,7 +54,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
               ),
               SizedBox(height: 64.h),
               AppButton(
-                variant: AppButtonVariant.filled,
+                variant: AppButtonVariant.elevated,
                 label: AppStrings.authForgotPasswordSubmit.tr(),
                 onPressed: _onSubmit,
               ),

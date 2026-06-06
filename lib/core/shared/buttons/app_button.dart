@@ -16,7 +16,7 @@ import '../../theme/typography/app_typography.dart';
 /// any variant without duplicating its base look.
 enum AppButtonVariant {
   /// Solid background. Resolves to `theme.elevatedButtonTheme.style`.
-  filled,
+  elevated,
 
   /// Transparent background with a colored border.
   /// Resolves to `theme.outlinedButtonTheme.style`.
@@ -169,7 +169,7 @@ class AppButton extends StatelessWidget {
 
   ButtonStyle? _resolveBaseStyle(ThemeData theme) {
     switch (variant) {
-      case AppButtonVariant.filled:
+      case AppButtonVariant.elevated:
         return theme.elevatedButtonTheme.style;
       case AppButtonVariant.outlined:
         return theme.outlinedButtonTheme.style;
@@ -182,7 +182,7 @@ class AppButton extends StatelessWidget {
 
   Color _resolveFallbackFg(ThemeData theme) {
     switch (variant) {
-      case AppButtonVariant.filled:
+      case AppButtonVariant.elevated:
         return theme.colorScheme.onPrimary;
       case AppButtonVariant.outlined:
       case AppButtonVariant.text:
@@ -202,7 +202,7 @@ class AppButton extends StatelessWidget {
     required Widget child,
   }) {
     switch (variant) {
-      case AppButtonVariant.filled:
+      case AppButtonVariant.elevated:
         return ElevatedButton(
           onPressed: onPressed,
           onLongPress: onLongPress,
@@ -277,8 +277,8 @@ class AppButton extends StatelessWidget {
       );
     }
 
-    final baseTextStyle = resolvedStyle?.textStyle?.resolve({}) ??
-        AppTypography.semiBold14;
+    final baseTextStyle =
+        resolvedStyle?.textStyle?.resolve({}) ?? AppTypography.semiBold14;
 
     return Row(
       mainAxisSize: MainAxisSize.min,

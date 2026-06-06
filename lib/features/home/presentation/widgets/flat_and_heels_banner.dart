@@ -65,39 +65,35 @@ class FlatAndHeelsBanner extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(8.w, 14.h, 16.w, 14.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      AppStrings.homeFlatAndHeelsTitle.tr(),
-                      style: AppTypography.semiBold20,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    AppStrings.homeFlatAndHeelsTitle.tr(),
+                    style: AppTypography.semiBold20,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  SizedBox(height: 4.h),
+                  Text(
+                    AppStrings.homeFlatAndHeelsSubtitle.tr(),
+                    style: AppTypography.regular14,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  SizedBox(height: 18.h),
+                  AppButton(
+                    variant: AppButtonVariant.elevated,
+                    label: AppStrings.homeFlatAndHeelsButton.tr(),
+                    onPressed: () {},
+                    expanded: false,
+                    suffixIcon: HugeIcon(
+                      icon: HugeIcons.strokeRoundedArrowRight01,
+                      size: 14.r,
                     ),
-                    SizedBox(height: 4.h),
-                    Text(
-                      AppStrings.homeFlatAndHeelsSubtitle.tr(),
-                      style: AppTypography.regular14,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    SizedBox(height: 12.h),
-                    AppButton(
-                      enabled: true,
-                      variant: AppButtonVariant.filled,
-                      label: AppStrings.homeFlatAndHeelsButton.tr(),
-                      onPressed: () {},
-                      expanded: false,
-                      suffixIcon: HugeIcon(
-                        icon: HugeIcons.strokeRoundedArrowRight01,
-                        size: 14.r,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],

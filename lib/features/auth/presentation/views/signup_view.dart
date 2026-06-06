@@ -90,7 +90,7 @@ class _SignupViewState extends State<SignupView> {
                   ),
                   SizedBox(height: 24.h),
                   AppButton(
-                    variant: AppButtonVariant.filled,
+                    variant: AppButtonVariant.elevated,
                     label: AppStrings.authSignupButton.tr(),
                     onPressed: _onSignUp,
                     isLoading: isLoading,
