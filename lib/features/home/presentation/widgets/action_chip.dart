@@ -20,17 +20,20 @@ class HomeActionChip extends StatelessWidget {
 
     return Material(
       color: theme.colorScheme.surface,
+      borderRadius: BorderRadius.circular(12.r),
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(8.r),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+          padding: EdgeInsets.symmetric(
+            horizontal: 14.w,
+            vertical: 8.h,
+          ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 label,
-                style: theme.textTheme.bodyLarge,
+                style: theme.textTheme.bodyMedium,
               ),
               SizedBox(width: 6.w),
               HugeIcon(

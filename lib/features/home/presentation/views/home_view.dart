@@ -18,7 +18,7 @@ class HomeView extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppTopBar(
-            topPadding: ScreenUtil().statusBarHeight,
+            topPadding: 12.h,
           ),
           body: Padding(
             padding: EdgeInsets.symmetric(
