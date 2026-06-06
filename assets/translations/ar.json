@@ -109,6 +109,10 @@
     "trending_products": {
       "title": "المنتجات الرائجة"
     },
+    "special_offers": {
+      "title": "عروض خاصة",
+      "subtitle": "وفّر الكثير مع عروض محدودة تم اختيارها خصيصاً لك"
+    },
     "section": {
       "view_all": "عرض الكل"
     }

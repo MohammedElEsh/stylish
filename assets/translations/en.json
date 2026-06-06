@@ -109,6 +109,10 @@
     "trending_products": {
       "title": "Trending Products"
     },
+    "special_offers": {
+      "title": "Special Offers",
+      "subtitle": "Save big on limited-time deals curated just for you"
+    },
     "section": {
       "view_all": "View all"
     }
