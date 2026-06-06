@@ -35,6 +35,7 @@ class AppErrorWidget extends StatelessWidget {
             ),
             SizedBox(height: 24.h),
             AppButton(
+              variant: AppButtonVariant.filled,
               label: AppStrings.sharedRetry.tr(),
               onPressed: onRetry,
               expanded: false,

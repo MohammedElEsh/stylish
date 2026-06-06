@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../theme/typography/app_typography.dart';
+
 /// Visual variant of [AppButton]. Each variant pulls its base style from
-/// the matching Material button theme, so global theming stays centralized
-/// in the [ThemeData] definitions (see `light_theme.dart` / `dark_theme.dart`).
+/// the matching Material button theme in the active [ThemeData]
+/// (see `light_theme.dart` / `dark_theme.dart`).
+///
+/// The button theme is the single source of truth for the look (color,
+/// padding, radius, text style). Change it there to affect every
+/// [AppButton] of that variant globally.
 ///
 /// The optional [AppButton.style] parameter is always merged on top of the
 /// resolved base style, so a single override can recolor / resize / restyle
@@ -18,6 +24,9 @@ enum AppButtonVariant {
 
   /// No background, no border. Resolves to `theme.textButtonTheme.style`.
   text,
+
+  /// Round icon-only button. Resolves to `theme.iconButtonTheme.style`.
+  icon,
 }
 
 class AppButton extends StatelessWidget {
@@ -27,9 +36,7 @@ class AppButton extends StatelessWidget {
     // required
     required this.label,
     required this.onPressed,
-
-    // variant
-    this.variant = AppButtonVariant.filled,
+    required this.variant,
 
     // states
     this.isLoading = false,
@@ -71,7 +78,6 @@ class AppButton extends StatelessWidget {
 
   final String label;
   final VoidCallback? onPressed;
-
   final AppButtonVariant variant;
 
   final bool isLoading;
@@ -111,12 +117,29 @@ class AppButton extends StatelessWidget {
     final theme = Theme.of(context);
 
     final baseStyle = _resolveBaseStyle(theme);
-    final resolvedStyle = baseStyle?.merge(style);
+    final resolvedStyle = baseStyle?.merge(style) ?? style;
 
     final fg = resolvedStyle?.foregroundColor?.resolve({}) ??
         _resolveFallbackFg(theme);
 
-    final child = _buildChild(fg);
+    final child = _buildChild(resolvedStyle, fg);
+
+    if (variant == AppButtonVariant.icon) {
+      return _buildButton(
+        onPressed: _disabled ? null : onPressed,
+        onLongPress: onLongPress,
+        onHover: onHover,
+        autofocus: autofocus,
+        focusNode: focusNode,
+        style: resolvedStyle,
+        clipBehavior: clipBehavior,
+        child: Semantics(
+          label: semanticLabel ?? label,
+          button: true,
+          child: child,
+        ),
+      );
+    }
 
     return SizedBox(
       width: width ?? (expanded ? double.infinity : null),
@@ -140,7 +163,9 @@ class AppButton extends StatelessWidget {
 
   // ── Variant resolution ────────────────────────────────────────────────────
   // Single source of truth: each variant maps to one Material button theme
-  // and one underlying widget. Adding a new variant is a 3-line change.
+  // in the active ThemeData. To restyle every button of a kind globally,
+  // edit the corresponding `*ButtonTheme` block in light_theme.dart /
+  // dark_theme.dart.
 
   ButtonStyle? _resolveBaseStyle(ThemeData theme) {
     switch (variant) {
@@ -150,6 +175,8 @@ class AppButton extends StatelessWidget {
         return theme.outlinedButtonTheme.style;
       case AppButtonVariant.text:
         return theme.textButtonTheme.style;
+      case AppButtonVariant.icon:
+        return theme.iconButtonTheme.style;
     }
   }
 
@@ -159,6 +186,7 @@ class AppButton extends StatelessWidget {
         return theme.colorScheme.onPrimary;
       case AppButtonVariant.outlined:
       case AppButtonVariant.text:
+      case AppButtonVariant.icon:
         return theme.colorScheme.primary;
     }
   }
@@ -207,10 +235,37 @@ class AppButton extends StatelessWidget {
           clipBehavior: clipBehavior,
           child: child,
         );
+      case AppButtonVariant.icon:
+        return IconButton(
+          onPressed: onPressed,
+          onLongPress: onLongPress,
+          onHover: onHover,
+          autofocus: autofocus,
+          focusNode: focusNode,
+          style: style,
+          tooltip: semanticLabel,
+          icon: child,
+        );
     }
   }
 
-  Widget _buildChild(Color fg) {
+  Widget _buildChild(ButtonStyle? resolvedStyle, Color fg) {
+    if (variant == AppButtonVariant.icon) {
+      if (prefixIcon != null) {
+        return IconTheme(
+          data: IconThemeData(color: fg, size: 24),
+          child: prefixIcon!,
+        );
+      }
+      if (suffixIcon != null) {
+        return IconTheme(
+          data: IconThemeData(color: fg, size: 24),
+          child: suffixIcon!,
+        );
+      }
+      return const SizedBox.shrink();
+    }
+
     if (isLoading) {
       return SizedBox(
         width: 18.r,
@@ -222,6 +277,9 @@ class AppButton extends StatelessWidget {
       );
     }
 
+    final baseTextStyle = resolvedStyle?.textStyle?.resolve({}) ??
+        AppTypography.semiBold14;
+
     return Row(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -230,7 +288,7 @@ class AppButton extends StatelessWidget {
           IconTheme(data: IconThemeData(color: fg), child: prefixIcon!),
           SizedBox(width: 8.w),
         ],
-        Text(label, style: TextStyle(color: fg)),
+        Text(label, style: baseTextStyle.copyWith(color: fg)),
         if (suffixIcon != null) ...[
           SizedBox(width: 8.w),
           IconTheme(data: IconThemeData(color: fg), child: suffixIcon!),
