@@ -107,6 +107,21 @@ class AppStrings {
   static const String homePromoColours = 'home.promo.colours';
   static const String homePromoShopNow = 'home.promo.shop_now';
 
+  // Home - Deal of the Day
+  static const String homeDealOfTheDayTitle = 'home.deal_of_the_day.title';
+  static const String homeDealOfTheDayRemaining =
+      'home.deal_of_the_day.remaining';
+  static const String homeDealOfTheDayLastDate =
+      'home.deal_of_the_day.last_date';
+  static const String homeDealOfTheDayViewAll = 'home.deal_of_the_day.view_all';
+
+  // Home - Trending Products
+  static const String homeTrendingProductsTitle =
+      'home.trending_products.title';
+
+  // Home - Generic Section Banner (default action label)
+  static const String homeSectionViewAll = 'home.section.view_all';
+
   // Bottom Nav
   static const String navHome = 'nav.home';
   static const String navWishlist = 'nav.wishlist';

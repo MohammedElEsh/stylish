@@ -230,7 +230,7 @@ class AppButton extends StatelessWidget {
           IconTheme(data: IconThemeData(color: fg), child: prefixIcon!),
           SizedBox(width: 8.w),
         ],
-        Text(label),
+        Text(label, style: TextStyle(color: fg)),
         if (suffixIcon != null) ...[
           SizedBox(width: 8.w),
           IconTheme(data: IconThemeData(color: fg), child: suffixIcon!),

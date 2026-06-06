@@ -99,6 +99,18 @@
       "subtitle": "متوفر الآن في المنتج",
       "colours": "جميع الألوان",
       "shop_now": "تسوق الآن"
+    },
+    "deal_of_the_day": {
+      "title": "عرض اليوم",
+      "remaining": "متبقي 22س : 56د : 30ث",
+      "last_date": "ينتهي 29/02/22",
+      "view_all": "عرض الكل"
+    },
+    "trending_products": {
+      "title": "المنتجات الرائجة"
+    },
+    "section": {
+      "view_all": "عرض الكل"
     }
   }
 }
