@@ -101,6 +101,12 @@ class AppStrings {
   static const String homeFilterSortSort = 'home.filter_sort.sort';
   static const String homeFilterSortFilter = 'home.filter_sort.filter';
 
+  // Home - Promo Banner
+  static const String homePromoDiscount = 'home.promo.discount';
+  static const String homePromoSubtitle = 'home.promo.subtitle';
+  static const String homePromoColours = 'home.promo.colours';
+  static const String homePromoShopNow = 'home.promo.shop_now';
+
   // Bottom Nav
   static const String navHome = 'nav.home';
   static const String navWishlist = 'nav.wishlist';

@@ -1,6 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+/// Visual variant of [AppButton]. Each variant pulls its base style from
+/// the matching Material button theme, so global theming stays centralized
+/// in the [ThemeData] definitions (see `light_theme.dart` / `dark_theme.dart`).
+///
+/// The optional [AppButton.style] parameter is always merged on top of the
+/// resolved base style, so a single override can recolor / resize / restyle
+/// any variant without duplicating its base look.
+enum AppButtonVariant {
+  /// Solid background. Resolves to `theme.elevatedButtonTheme.style`.
+  filled,
+
+  /// Transparent background with a colored border.
+  /// Resolves to `theme.outlinedButtonTheme.style`.
+  outlined,
+
+  /// No background, no border. Resolves to `theme.textButtonTheme.style`.
+  text,
+}
+
 class AppButton extends StatelessWidget {
   const AppButton({
     super.key,
@@ -8,6 +27,9 @@ class AppButton extends StatelessWidget {
     // required
     required this.label,
     required this.onPressed,
+
+    // variant
+    this.variant = AppButtonVariant.filled,
 
     // states
     this.isLoading = false,
@@ -50,6 +72,8 @@ class AppButton extends StatelessWidget {
   final String label;
   final VoidCallback? onPressed;
 
+  final AppButtonVariant variant;
+
   final bool isLoading;
   final bool enabled;
 
@@ -86,20 +110,18 @@ class AppButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    // 👇 CORE: uses your elevatedButtonTheme exactly
-    final baseStyle = theme.elevatedButtonTheme.style;
-
+    final baseStyle = _resolveBaseStyle(theme);
     final resolvedStyle = baseStyle?.merge(style);
 
     final fg = resolvedStyle?.foregroundColor?.resolve({}) ??
-        theme.colorScheme.onPrimary;
+        _resolveFallbackFg(theme);
 
     final child = _buildChild(fg);
 
     return SizedBox(
       width: width ?? (expanded ? double.infinity : null),
       height: height,
-      child: ElevatedButton(
+      child: _buildButton(
         onPressed: _disabled ? null : onPressed,
         onLongPress: onLongPress,
         onHover: onHover,
@@ -114,6 +136,78 @@ class AppButton extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  // ── Variant resolution ────────────────────────────────────────────────────
+  // Single source of truth: each variant maps to one Material button theme
+  // and one underlying widget. Adding a new variant is a 3-line change.
+
+  ButtonStyle? _resolveBaseStyle(ThemeData theme) {
+    switch (variant) {
+      case AppButtonVariant.filled:
+        return theme.elevatedButtonTheme.style;
+      case AppButtonVariant.outlined:
+        return theme.outlinedButtonTheme.style;
+      case AppButtonVariant.text:
+        return theme.textButtonTheme.style;
+    }
+  }
+
+  Color _resolveFallbackFg(ThemeData theme) {
+    switch (variant) {
+      case AppButtonVariant.filled:
+        return theme.colorScheme.onPrimary;
+      case AppButtonVariant.outlined:
+      case AppButtonVariant.text:
+        return theme.colorScheme.primary;
+    }
+  }
+
+  Widget _buildButton({
+    required VoidCallback? onPressed,
+    required VoidCallback? onLongPress,
+    required ValueChanged<bool>? onHover,
+    required bool autofocus,
+    required FocusNode? focusNode,
+    required ButtonStyle? style,
+    required Clip clipBehavior,
+    required Widget child,
+  }) {
+    switch (variant) {
+      case AppButtonVariant.filled:
+        return ElevatedButton(
+          onPressed: onPressed,
+          onLongPress: onLongPress,
+          onHover: onHover,
+          autofocus: autofocus,
+          focusNode: focusNode,
+          style: style,
+          clipBehavior: clipBehavior,
+          child: child,
+        );
+      case AppButtonVariant.outlined:
+        return OutlinedButton(
+          onPressed: onPressed,
+          onLongPress: onLongPress,
+          onHover: onHover,
+          autofocus: autofocus,
+          focusNode: focusNode,
+          style: style,
+          clipBehavior: clipBehavior,
+          child: child,
+        );
+      case AppButtonVariant.text:
+        return TextButton(
+          onPressed: onPressed,
+          onLongPress: onLongPress,
+          onHover: onHover,
+          autofocus: autofocus,
+          focusNode: focusNode,
+          style: style,
+          clipBehavior: clipBehavior,
+          child: child,
+        );
+    }
   }
 
   Widget _buildChild(Color fg) {

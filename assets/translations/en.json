@@ -93,6 +93,12 @@
       "title": "All Featured",
       "sort": "Sort",
       "filter": "Filter"
+    },
+    "promo": {
+      "discount": "50-40% OFF",
+      "subtitle": "Now in product",
+      "colours": "All colours",
+      "shop_now": "Shop Now"
     }
   }
 }

@@ -8,6 +8,7 @@ import '../../../categories/presentation/widgets/categories_list.dart';
 import '../manager/home_cubit.dart';
 import '../manager/home_state.dart';
 import '../widgets/filter_sort_row.dart';
+import '../widgets/promo_banner_carousel.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -32,6 +33,8 @@ class HomeView extends StatelessWidget {
                 const FilterSortRow(),
                 SizedBox(height: 24.h),
                 const CategoriesList(),
+                SizedBox(height: 16.h),
+                const PromoBannerCarousel(),
               ],
             ),
           ),

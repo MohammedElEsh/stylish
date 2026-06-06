@@ -102,11 +102,11 @@ ThemeData lightTheme = ThemeData(
   // ── Outlined Button ───────────────────────────────────────────────────────
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
-      foregroundColor: AppColors.primary,
+      foregroundColor: Colors.white,
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      side: const BorderSide(color: AppColors.primary),
-      textStyle: AppTypography.regular12,
+      side: const BorderSide(color: Colors.white),
+      textStyle: AppTypography.semiBold14,
     ),
   ),
 
