@@ -66,7 +66,7 @@ class GettingStartedView extends StatelessWidget {
                   ),
                   SizedBox(height: 40.h),
                   AppButton(
-                    variant: AppButtonVariant.filled,
+                    variant: AppButtonVariant.elevated,
                     label: AppStrings.gettingStartedButton.tr(),
                     onPressed: () => _onGetStarted(context),
                   ),
