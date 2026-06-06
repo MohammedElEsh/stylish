@@ -60,10 +60,7 @@ class CategoryItem extends StatelessWidget {
               textAlign: TextAlign.center,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: theme.textTheme.labelMedium?.copyWith(
-                fontWeight: FontWeight.w500,
-                color: theme.colorScheme.onSurface,
-              ),
+              style: theme.textTheme.labelLarge,
             ),
           ],
         ),

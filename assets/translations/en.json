@@ -93,6 +93,24 @@
       "title": "All Featured",
       "sort": "Sort",
       "filter": "Filter"
+    },
+    "promo": {
+      "discount": "50-40% OFF",
+      "subtitle": "Now in product",
+      "colours": "All colours",
+      "shop_now": "Shop Now"
+    },
+    "deal_of_the_day": {
+      "title": "Deal of the Day",
+      "remaining": "22h : 56m : 30s remaining",
+      "last_date": "Last Date 29/02/22",
+      "view_all": "View all"
+    },
+    "trending_products": {
+      "title": "Trending Products"
+    },
+    "section": {
+      "view_all": "View all"
     }
   }
 }
