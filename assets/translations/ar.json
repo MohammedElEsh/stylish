@@ -120,6 +120,14 @@
     },
     "section": {
       "view_all": "عرض الكل"
+    },
+    "new_arrivals": {
+      "title": "وصل حديثاً",
+      "subtitle": "تشكيلة صيف 25"
+    },
+    "sponsored": {
+      "header": "إعلان",
+      "title": "خصم يصل إلى 50%"
     }
   }
 }

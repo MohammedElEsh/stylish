@@ -41,7 +41,7 @@ class CategoriesList extends StatelessWidget {
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               itemCount: itemCount,
-              separatorBuilder: (_, __) => SizedBox(width: 12.w),
+              separatorBuilder: (_, __) => SizedBox(width: 2.w),
               itemBuilder: (context, index) {
                 if (isLoading) {
                   return SizedBox(

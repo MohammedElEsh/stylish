@@ -133,6 +133,14 @@ class AppStrings {
   // Home - Generic Section Banner (default action label)
   static const String homeSectionViewAll = 'home.section.view_all';
 
+  // Home - New Arrivals
+  static const String homeNewArrivalsTitle = 'home.new_arrivals.title';
+  static const String homeNewArrivalsSubtitle = 'home.new_arrivals.subtitle';
+
+  // Home - Sponsored
+  static const String homeSponsoredHeader = 'home.sponsored.header';
+  static const String homeSponsoredTitle = 'home.sponsored.title';
+
   // Bottom Nav
   static const String navHome = 'nav.home';
   static const String navWishlist = 'nav.wishlist';
