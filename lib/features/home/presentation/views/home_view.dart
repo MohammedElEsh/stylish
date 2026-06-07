@@ -22,9 +22,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppTopBar(
-        topPadding: 12.h,
-      ),
+      appBar: const AppTopBar(),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(
           horizontal: 24.w,
