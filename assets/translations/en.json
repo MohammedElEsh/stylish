@@ -120,6 +120,14 @@
     },
     "section": {
       "view_all": "View all"
+    },
+    "new_arrivals": {
+      "title": "New Arrivals",
+      "subtitle": "Summer' 25 Collections"
+    },
+    "sponsored": {
+      "header": "Sponsord",
+      "title": "up to 50% Off"
     }
   }
 }

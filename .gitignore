@@ -30,6 +30,7 @@ migrate_working_dir/
 .pub-cache/
 build/
 coverage/
+devtools_options.yaml
 
 # Flutter generated docs
 doc/api/
