@@ -13,6 +13,9 @@ import '../../features/categories/data/repositories/categories_repository_impl.d
 import '../../features/categories/presentation/manager/categories_cubit.dart';
 import '../../features/home/presentation/manager/home_cubit.dart';
 import '../../features/onboarding/presentation/manager/onboarding_cubit.dart';
+import '../../features/products/data/repositories/products_repository.dart';
+import '../../features/products/data/repositories/products_repository_impl.dart';
+import '../../features/products/presentation/manager/products_cubit.dart';
 import '../../features/profile/presentation/manager/profile_cubit.dart';
 import '../../features/wishlist/presentation/manager/wishlist_cubit.dart';
 import '../networking/api_consumer.dart';
@@ -155,7 +158,18 @@ Future<void> initDependencies() async {
   );
 
   // =====================================================
-  // 11. FEATURE: CART (tab 2)
+  // 11. FEATURE: PRODUCTS
+  // =====================================================
+  sl.registerLazySingleton<ProductsRepository>(
+    () => ProductsRepositoryImpl(apiConsumer: sl<ApiConsumer>()),
+  );
+
+  sl.registerFactory<ProductsCubit>(
+    () => ProductsCubit(repository: sl<ProductsRepository>()),
+  );
+
+  // =====================================================
+  // 12. FEATURE: CART (tab 2)
   // =====================================================
   sl.registerFactory<CartCubit>(
     () => CartCubit(),

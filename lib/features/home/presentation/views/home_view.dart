@@ -8,6 +8,7 @@ import '../../../../core/shared/inputs/search_field.dart';
 import '../../../../core/shared/layout/app_top_bar.dart';
 import '../../../../core/theme/colors/app_colors.dart';
 import '../../../categories/presentation/widgets/categories_list.dart';
+import '../../../products/presentation/widgets/products_list.dart';
 import '../widgets/filter_sort_row.dart';
 import '../widgets/flat_and_heels_banner.dart';
 import '../widgets/new_arrivals_banner.dart';
@@ -39,6 +40,8 @@ class HomeView extends StatelessWidget {
             SizedBox(height: 16.h),
             const PromoBannerCarousel(),
             SizedBox(height: 16.h),
+            const ProductsList(),
+            SizedBox(height: 16.h),
             PromotionalBanner(
               title: AppStrings.homeDealOfTheDayTitle.tr(),
               subtitle: AppStrings.homeDealOfTheDayRemaining.tr(),
@@ -60,7 +63,7 @@ class HomeView extends StatelessWidget {
             const NewArrivalsBanner(),
             SizedBox(height: 16.h),
             const SponsoredBanner(),
-            SizedBox(height: 500.h),
+            SizedBox(height: 100.h),
           ],
         ),
       ),
