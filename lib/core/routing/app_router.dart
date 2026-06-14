@@ -17,6 +17,7 @@ import '../../features/home/presentation/views/getting_started_view.dart';
 import '../../features/home/presentation/views/home_view.dart';
 import '../../features/onboarding/presentation/manager/onboarding_cubit.dart';
 import '../../features/onboarding/presentation/views/onboarding_view.dart';
+import '../../features/products/presentation/manager/products_cubit.dart';
 import '../../features/profile/presentation/manager/profile_cubit.dart';
 import '../../features/profile/presentation/views/profile_view.dart';
 import '../../features/wishlist/presentation/manager/wishlist_cubit.dart';
@@ -83,6 +84,10 @@ void initRouter() {
                     BlocProvider(
                       create: (_) =>
                           sl<CategoriesCubit>()..loadCategories(),
+                    ),
+                    BlocProvider(
+                      create: (_) =>
+                          sl<ProductsCubit>()..loadProducts(),
                     ),
                   ],
                   child: const HomeView(),

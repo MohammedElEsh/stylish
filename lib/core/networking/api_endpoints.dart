@@ -6,4 +6,5 @@ class ApiEndpoints {
   static const String profile = '/auth/profile';
   static const String checkEmailAvailability = '/users/is-available';
   static const String categories = '/categories';
+  static const String products = '/products';
 }

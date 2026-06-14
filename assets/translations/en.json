@@ -129,5 +129,11 @@
       "header": "Sponsord",
       "title": "up to 50% Off"
     }
+  },
+  "products": {
+    "title": "Products",
+    "subtitle": "Discover our collection",
+    "empty": "No products found",
+    "retry": "Try again"
   }
 }
