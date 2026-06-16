@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+
 import '../../../../features/categories/data/models/category_model.dart';
 
 class ProductModel extends Equatable {

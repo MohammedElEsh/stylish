@@ -19,11 +19,19 @@ class ProductsLoading extends ProductsState {
 
 class ProductsLoaded extends ProductsState {
   final List<ProductModel> products;
+  final bool hasMore;
+  final int offset;
+  final bool isLoadingMore;
 
-  const ProductsLoaded({required this.products});
+  const ProductsLoaded({
+    required this.products,
+    required this.hasMore,
+    required this.offset,
+    this.isLoadingMore = false,
+  });
 
   @override
-  List<Object?> get props => [products];
+  List<Object?> get props => [products, hasMore, offset, isLoadingMore];
 }
 
 class ProductsError extends ProductsState {

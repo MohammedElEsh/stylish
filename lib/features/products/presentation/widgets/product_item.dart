@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stylish/core/formatters/currency_formatter.dart';
-import 'package:stylish/core/theme/colors/app_colors.dart';
+import 'package:stylish/core/theme/typography/app_typography.dart';
 
 import '../../data/models/product_model.dart';
 
@@ -11,109 +11,155 @@ class ProductItem extends StatelessWidget {
     super.key,
     required this.product,
     this.onTap,
+    this.onFavoriteTap,
+    this.isFavorite = false,
   });
 
   final ProductModel product;
   final VoidCallback? onTap;
+  final VoidCallback? onFavoriteTap;
+  final bool isFavorite;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colors = theme.colorScheme;
     final price = CurrencyFormatter.format(product.price);
 
-    return InkWell(
-      onTap: onTap,
+    return Material(
+      color: colors.surface,
       borderRadius: BorderRadius.circular(12.r),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: theme.colorScheme.surface,
-          borderRadius: BorderRadius.circular(12.r),
-          border: Border.all(
-            color: theme.colorScheme.outlineVariant,
-            width: 0.5,
-          ),
-        ),
+      elevation: 2,
+      shadowColor: colors.shadow.withOpacity(0.1),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: onTap,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Product Image
-            Expanded(
-              flex: 3,
-              child: ClipRRect(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(12.r)),
-                child: product.images.isNotEmpty
-                    ? CachedNetworkImage(
-                        imageUrl: product.images.first,
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                        placeholder: (_, __) => ColoredBox(
-                          color: theme.colorScheme.surfaceContainerHighest,
-                        ),
-                        errorWidget: (_, __, ___) => ColoredBox(
-                          color: theme.colorScheme.surfaceContainerHighest,
-                          child: Icon(
-                            Icons.image_not_supported_outlined,
-                            size: 32.r,
-                            color: theme.colorScheme.onSurfaceVariant,
-                          ),
-                        ),
-                      )
-                    : ColoredBox(
-                        color: theme.colorScheme.surfaceContainerHighest,
-                        child: Icon(
-                          Icons.image_not_supported_outlined,
-                          size: 32.r,
-                          color: theme.colorScheme.onSurfaceVariant,
-                        ),
-                      ),
+            // IMAGE SECTION
+            AspectRatio(
+              aspectRatio: 7 / 8,
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: _Image(product: product),
+                  ),
+
+                  // FAVORITE BUTTON
+                  Positioned(
+                    top: 8.h,
+                    right: 8.w,
+                    child: _FavoriteButton(
+                      colors: colors,
+                      isFavorite: isFavorite,
+                      onTap: onFavoriteTap,
+                    ),
+                  ),
+                ],
               ),
             ),
-            // Product Info
-            Expanded(
-              flex: 2,
-              child: Padding(
-                padding: EdgeInsets.all(8.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // Category & Title
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          product.category.name,
-                          style: theme.textTheme.labelSmall?.copyWith(
-                            color: theme.colorScheme.primary,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        SizedBox(height: 2.h),
-                        Text(
-                          product.title,
-                          style: theme.textTheme.titleSmall?.copyWith(
-                            fontWeight: FontWeight.w600,
-                          ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
+
+            // INFO SECTION
+            Padding(
+              padding: EdgeInsets.all(10.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    product.category.name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTypography.regular12.copyWith(
+                      color: colors.primary,
+                      fontWeight: FontWeight.w600,
                     ),
-                    // Price
-                    Text(
-                      price,
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        color: AppColors.primary,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  ),
+                  SizedBox(height: 4.h),
+                  Text(
+                    product.title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTypography.semiBold14,
+                  ),
+                  SizedBox(height: 18.h),
+                  Text(
+                    price,
+                    style: AppTypography.semiBold18.copyWith(
+                      color: colors.primary,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _Image extends StatelessWidget {
+  const _Image({required this.product});
+
+  final ProductModel product;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
+    if (product.images.isEmpty) {
+      return _fallback(colors);
+    }
+
+    return CachedNetworkImage(
+      imageUrl: product.images.first,
+      fit: BoxFit.cover,
+      placeholder: (_, __) => ColoredBox(
+        color: colors.surfaceContainerHighest,
+      ),
+      errorWidget: (_, __, ___) => _fallback(colors),
+    );
+  }
+
+  Widget _fallback(ColorScheme colors) {
+    return ColoredBox(
+      color: colors.surfaceContainerHighest,
+      child: Icon(
+        Icons.image_not_supported_outlined,
+        size: 32.r,
+        color: colors.onSurfaceVariant,
+      ),
+    );
+  }
+}
+
+class _FavoriteButton extends StatelessWidget {
+  const _FavoriteButton({
+    required this.colors,
+    required this.isFavorite,
+    this.onTap,
+  });
+
+  final ColorScheme colors;
+  final bool isFavorite;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: colors.surface.withOpacity(0.9),
+      borderRadius: BorderRadius.circular(8.r),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(8.r),
+        child: Padding(
+          padding: EdgeInsets.all(6.r),
+          child: Icon(
+            isFavorite ? Icons.favorite : Icons.favorite_border,
+            size: 18.r,
+            color: colors.onSurface,
+          ),
         ),
       ),
     );

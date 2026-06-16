@@ -12,9 +12,15 @@ class ProductsRepositoryImpl implements ProductsRepository {
       : _apiConsumer = apiConsumer;
 
   @override
-  EitherResult<List<ProductModel>> getProducts() {
+  EitherResult<List<ProductModel>> getProducts({
+    required int offset,
+    required int limit,
+  }) {
     return safeCall(() async {
-      final response = await _apiConsumer.get(ApiEndpoints.products);
+      final response = await _apiConsumer.get(
+        ApiEndpoints.products,
+        queryParameters: {'offset': offset, 'limit': limit},
+      );
 
       if (response is! List) {
         throw const ServerFailure('Unexpected response format');
