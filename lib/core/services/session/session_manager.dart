@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stylish/core/errors/failures.dart';
 
+import '../auth/token_refresher.dart';
 import '../auth/token_service.dart';
 import '../logger/logger_service.dart';
 
@@ -30,8 +32,9 @@ enum AppStatus {
 class SessionManager extends ChangeNotifier {
   final SharedPreferences prefs;
   final TokenService tokenService;
+  final TokenRefresher tokenRefresher;
 
-  SessionManager(this.prefs, this.tokenService);
+  SessionManager(this.prefs, this.tokenService, this.tokenRefresher);
 
   static const _onboardingKey = 'onboarding_done';
 
@@ -44,21 +47,63 @@ class SessionManager extends ChangeNotifier {
   /// Called once at app startup — inspects persistent storage
   /// and decides the initial app flow state.
   ///
-  /// A returning user with a valid token is treated as [AppStatus.authenticated]
-  /// (NOT [AppStatus.authenticatedNeedsSetup]) so that the
-  /// "getting started" screen is only shown immediately after a fresh login,
-  /// not on every cold start.
+  /// Flow:
+  /// 1. Onboarding not done → onboardingRequired
+  /// 2. No tokens stored → unauthenticated
+  /// 3. Has tokens → proactive refresh:
+  ///    - Refresh succeeds (200) → authenticated
+  ///    - Refresh fails with 401 (refresh token expired) → logout → unauthenticated
+  ///    - Refresh fails with network/other error → authenticated (assume token still valid,
+  ///      let the interceptor handle 401 on actual API calls)
   Future<void> initialize() async {
     if (!onboardingDone) {
+      LoggerService.i('SessionManager.initialize — onboarding not done', tag: 'SessionManager');
       _status = AppStatus.onboardingRequired;
       notifyListeners();
       return;
     }
 
-    final token = await tokenService.getAccessToken();
-    _status = (token != null && token.isNotEmpty)
-        ? AppStatus.authenticated
-        : AppStatus.unauthenticated;
+    final accessToken = await tokenService.getAccessToken();
+    final refreshToken = await tokenService.getRefreshToken();
+
+    if (accessToken == null || accessToken.isEmpty ||
+        refreshToken == null || refreshToken.isEmpty) {
+      LoggerService.i('SessionManager.initialize — no tokens stored', tag: 'SessionManager');
+      _status = AppStatus.unauthenticated;
+      notifyListeners();
+      return;
+    }
+
+    LoggerService.i('SessionManager.initialize — proactive token refresh...', tag: 'SessionManager');
+
+    final result = await tokenRefresher.refresh();
+
+    if (result.isRight()) {
+      LoggerService.i('SessionManager.initialize — proactive refresh succeeded', tag: 'SessionManager');
+      _status = AppStatus.authenticated;
+    } else {
+      final isAuthFailure = result.fold(
+        (failure) => failure is AuthFailure ||
+            (failure is ServerFailure && failure.statusCode == 401),
+        (_) => false,
+      );
+
+      if (isAuthFailure) {
+        LoggerService.w('SessionManager.initialize — refresh token expired (401), logging out', tag: 'SessionManager');
+        await logout();
+      } else {
+        result.fold(
+          (failure) => LoggerService.w(
+            'SessionManager.initialize — refresh failed (network/other), treating as authenticated. '
+            'Interceptor will handle 401 on actual requests. Failure: $failure',
+            tag: 'SessionManager',
+          ),
+          (_) => null,
+        );
+        _status = AppStatus.authenticated;
+      }
+    }
+
     notifyListeners();
   }
 

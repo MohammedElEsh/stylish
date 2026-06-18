@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:fpdart/fpdart.dart';
+import 'package:stylish/core/errors/failures.dart';
 
 import '../services/auth/token_refresher.dart';
 import '../services/auth/token_service.dart';
@@ -11,7 +13,7 @@ class ApiInterceptors extends Interceptor {
   final TokenRefresher _tokenRefresher;
   final SessionManager _sessionManager;
 
-  Future<bool>? _refreshFuture;
+  Future<Either<Failure, void>>? _refreshFuture;
 
   ApiInterceptors({
     required Dio dio,
@@ -74,12 +76,31 @@ class ApiInterceptors extends Interceptor {
     }
 
     _refreshFuture ??= _tokenRefresher.refresh();
-    final refreshed = await _refreshFuture!;
+    final result = await _refreshFuture!;
     _refreshFuture = null;
 
+    final refreshed = result.isRight();
+
     if (!refreshed) {
-      LoggerService.e('Token refresh failed — logging out', tag: 'AUTH');
-      await _sessionManager.logout();
+      // Check if it's a 401 (refresh token expired) vs network error
+      final isAuthFailure = result.fold(
+        (failure) => failure is AuthFailure ||
+            (failure is ServerFailure && failure.statusCode == 401),
+        (_) => false,
+      );
+
+      if (isAuthFailure) {
+        LoggerService.e('Token refresh failed (401) — logging out', tag: 'AUTH');
+        await _sessionManager.logout();
+      } else {
+        result.fold(
+          (failure) => LoggerService.w(
+            'Token refresh failed (network/other) — not logging out, letting request fail. Failure: $failure',
+            tag: 'AUTH',
+          ),
+          (_) => null,
+        );
+      }
       return handler.next(err);
     }
 

@@ -64,6 +64,7 @@ Future<void> initDependencies() async {
     () => SessionManager(
       sl<SharedPreferences>(),
       sl<TokenService>(),
+      sl<TokenRefresher>(),
     ),
   );
 

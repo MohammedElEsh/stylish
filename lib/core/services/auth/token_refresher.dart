@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:fpdart/fpdart.dart';
 
+import '../../errors/failures.dart';
+import '../../errors/safe_call.dart';
 import '../../networking/api_endpoints.dart';
 import '../logger/logger_service.dart';
 import 'token_service.dart';
@@ -17,14 +20,19 @@ class TokenRefresher {
   TokenRefresher({required TokenService tokenService})
       : _tokenService = tokenService;
 
-  Future<bool> refresh() async {
+  /// Returns Right(unit) on success, Left(Failure) on failure.
+  /// Failure types:
+  /// - AuthFailure / ServerFailure(statusCode: 401) → refresh token expired
+  /// - NetworkFailure → transient network error
+  /// - Other Failure → server error, etc.
+  Future<Either<Failure, void>> refresh() async {
     final refreshToken = await _tokenService.getRefreshToken();
     if (refreshToken == null || refreshToken.isEmpty) {
       LoggerService.w('No refresh token stored — cannot refresh', tag: 'AUTH');
-      return false;
+      return const Left(AuthFailure('No refresh token available'));
     }
 
-    try {
+    return safeCall(() async {
       final res = await _dio.post<Map<String, dynamic>>(
         ApiEndpoints.refresh,
         data: {'refreshToken': refreshToken},
@@ -38,7 +46,7 @@ class TokenRefresher {
           'Refresh response missing access_token',
           tag: 'AUTH',
         );
-        return false;
+        throw const ServerFailure('Invalid refresh response');
       }
 
       await _tokenService.saveTokens(
@@ -48,15 +56,6 @@ class TokenRefresher {
 
       LoggerService.i('Token refresh succeeded — new tokens saved',
           tag: 'AUTH');
-      return true;
-    } catch (e, st) {
-      LoggerService.e(
-        'Token refresh request failed',
-        error: e,
-        stackTrace: st,
-        tag: 'AUTH',
-      );
-      return false;
-    }
+    });
   }
 }
