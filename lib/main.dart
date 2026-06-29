@@ -1,7 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'app.dart';
+import 'core/dev/bloc_observer.dart';
 import 'core/di/injection.dart';
 import 'core/localization/localization_helper.dart';
 import 'core/routing/app_router.dart';
@@ -20,10 +23,10 @@ void main() async {
 
   initRouter();
 
-  // if (kDebugMode) {
-  //   Bloc.observer = AppBlocObserver();
-  //   await DevTools.resetAll();
-  // }
+  if (kDebugMode) {
+    Bloc.observer = AppBlocObserver();
+    // await DevTools.resetAll();
+  }
 
   runApp(
     EasyLocalization(
