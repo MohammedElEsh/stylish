@@ -17,13 +17,13 @@ class FeedbackCard extends StatelessWidget {
   Color _backgroundColor(BuildContext context) {
     switch (message.type) {
       case FeedbackType.success:
-        return AppColors.success.withOpacity(0.12);
+        return AppColors.success.withValues(alpha: 0.12);
       case FeedbackType.error:
-        return AppColors.error.withOpacity(0.12);
+        return AppColors.error.withValues(alpha: 0.12);
       case FeedbackType.info:
-        return AppColors.info.withOpacity(0.12);
+        return AppColors.info.withValues(alpha: 0.12);
       case FeedbackType.warning:
-        return AppColors.warning.withOpacity(0.12);
+        return AppColors.warning.withValues(alpha: 0.12);
     }
   }
 
@@ -75,7 +75,7 @@ class FeedbackCard extends StatelessWidget {
         color: _backgroundColor(context),
         borderRadius: BorderRadius.circular(10.r),
         border:
-            Border.all(color: _borderColor(context).withOpacity(0.3), width: 1),
+            Border.all(color: _borderColor(context).withValues(alpha: 0.3), width: 1),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,

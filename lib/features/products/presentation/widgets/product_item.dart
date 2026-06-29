@@ -30,7 +30,7 @@ class ProductItem extends StatelessWidget {
       color: colors.surface,
       borderRadius: BorderRadius.circular(12.r),
       elevation: 2,
-      shadowColor: colors.shadow.withOpacity(0.1),
+      shadowColor: colors.shadow.withValues(alpha: 0.1),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onTap,
@@ -148,7 +148,7 @@ class _FavoriteButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: colors.surface.withOpacity(0.9),
+      color: colors.surface.withValues(alpha: 0.9),
       borderRadius: BorderRadius.circular(8.r),
       child: InkWell(
         onTap: onTap,

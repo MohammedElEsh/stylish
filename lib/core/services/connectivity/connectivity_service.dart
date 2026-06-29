@@ -10,6 +10,8 @@ abstract class ConnectivityService {
   Stream<bool> get onConnectivityChanged;
 
   bool get currentStatus;
+
+  void dispose();
 }
 
 class ConnectivityServiceImpl implements ConnectivityService {
@@ -57,6 +59,7 @@ class ConnectivityServiceImpl implements ConnectivityService {
     });
   }
 
+  @override
   void dispose() {
     _debounce?.cancel();
     _controller.close();

@@ -20,7 +20,7 @@ class SocialButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50.r),
         ),
-        backgroundColor: theme.colorScheme.primary.withOpacity(0.1),
+        backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.1),
       ),
       child: SvgPicture.asset(asset, width: 24.w, height: 24.w),
     );

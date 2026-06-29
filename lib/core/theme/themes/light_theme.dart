@@ -102,10 +102,10 @@ ThemeData lightTheme = ThemeData(
   // ── Outlined Button ───────────────────────────────────────────────────────
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
-      foregroundColor: Colors.white,
+      foregroundColor: AppColors.primary,
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      side: const BorderSide(color: Colors.white),
+      side: const BorderSide(color: AppColors.primary),
       textStyle: AppTypography.semiBold14,
     ),
   ),
@@ -190,7 +190,7 @@ ThemeData lightTheme = ThemeData(
     }),
     trackColor: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return AppColors.primary.withOpacity(.4);
+        return AppColors.primary.withValues(alpha: .4);
       }
       return AppColors.grey5;
     }),
@@ -199,7 +199,7 @@ ThemeData lightTheme = ThemeData(
   // ── Chip ──────────────────────────────────────────────────────────────────
   chipTheme: ChipThemeData(
     backgroundColor: AppColors.grey5,
-    selectedColor: AppColors.primary.withOpacity(.12),
+    selectedColor: AppColors.primary.withValues(alpha: .12),
     labelStyle: AppTypography.regular12,
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -229,7 +229,7 @@ ThemeData lightTheme = ThemeData(
     activeTrackColor: AppColors.primary,
     inactiveTrackColor: AppColors.grey5,
     thumbColor: AppColors.primary,
-    overlayColor: AppColors.primary.withOpacity(.12),
+    overlayColor: AppColors.primary.withValues(alpha: .12),
     trackHeight: 4,
     thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 10),
   ),
@@ -316,13 +316,13 @@ ThemeData lightTheme = ThemeData(
       if (states.contains(WidgetState.selected)) {
         return AppTypography.semiBold14.copyWith(color: AppColors.primary);
       }
-      return AppTypography.semiBold14.copyWith(color: Colors.black);
+      return AppTypography.semiBold14.copyWith(color: AppColors.textPrimaryLight);
     }),
     iconTheme: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
         return const IconThemeData(color: AppColors.primary);
       }
-      return const IconThemeData(color: Colors.black);
+      return const IconThemeData(color: AppColors.textPrimaryLight);
     }),
   ),
 
@@ -366,7 +366,7 @@ ThemeData lightTheme = ThemeData(
   segmentedButtonTheme: SegmentedButtonThemeData(
     style: SegmentedButton.styleFrom(
       selectedForegroundColor: AppColors.primary,
-      selectedBackgroundColor: AppColors.primary.withOpacity(.12),
+      selectedBackgroundColor: AppColors.primary.withValues(alpha: .12),
       textStyle: AppTypography.regular14,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     ),

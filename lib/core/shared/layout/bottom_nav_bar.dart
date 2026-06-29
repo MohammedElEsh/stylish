@@ -54,7 +54,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 borderRadius: BorderRadius.circular(28.r),
                 boxShadow: [
                   BoxShadow(
-                    color: theme.colorScheme.shadow.withOpacity(0.08),
+                    color: theme.colorScheme.shadow.withValues(alpha: 0.08),
                     blurRadius: 20.r,
                     offset: const Offset(0, 8),
                   ),
@@ -111,12 +111,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
                   width: 64.w,
                   height: 64.w,
                   decoration: BoxDecoration(
-                    color:
-                        isCartActive ? theme.colorScheme.primary : Colors.white,
+                    color: isCartActive
+                        ? theme.colorScheme.primary
+                        : theme.colorScheme.surface,
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.12),
+                        color: theme.colorScheme.shadow.withValues(alpha: 0.12),
                         blurRadius: 15.r,
                         offset: const Offset(0, 6),
                       ),

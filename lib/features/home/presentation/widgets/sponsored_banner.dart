@@ -12,7 +12,7 @@ class SponsoredBanner extends StatelessWidget {
     super.key,
     this.header,
     this.title,
-    this.bannerImage = AppAssets.homeSponserd,
+    this.bannerImage = AppAssets.homeSponsored,
     this.borderRadius,
     this.onTap,
   });

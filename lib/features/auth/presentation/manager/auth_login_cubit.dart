@@ -16,7 +16,7 @@ class AuthLoginCubit extends Cubit<AuthLoginState> {
     required String email,
     required String password,
   }) async {
-    LoggerService.i('Attempting login for: $email', tag: 'AuthLoginCubit');
+    LoggerService.i('Attempting login', tag: 'AuthLoginCubit');
     emit(const AuthLoginLoading());
 
     final result = await _repository.login(

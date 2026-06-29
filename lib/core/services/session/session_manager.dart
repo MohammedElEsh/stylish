@@ -138,7 +138,7 @@ class SessionManager extends ChangeNotifier {
 
   /// Persists the tokens and transitions to [AppStatus.authenticatedNeedsSetup].
   /// The router will then redirect the user to the "getting started" screen.
-  Future<bool> login({
+  Future<void> login({
     required String accessToken,
     String? refreshToken,
   }) async {
@@ -150,7 +150,6 @@ class SessionManager extends ChangeNotifier {
 
     _status = AppStatus.authenticatedNeedsSetup;
     notifyListeners();
-    return true;
   }
 
   Future<void> logout() async {

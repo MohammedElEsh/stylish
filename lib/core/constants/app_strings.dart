@@ -1,6 +1,4 @@
 class AppStrings {
-  static const String appName = 'Stylish';
-
   // Shared
   static const String sharedGetStarted = 'shared.get_started';
   static const String sharedRetry = 'shared.retry';

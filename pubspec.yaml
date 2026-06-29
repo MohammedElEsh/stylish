@@ -7,7 +7,6 @@ environment:
   sdk: ">=3.5.0 <4.0.0"
 
 dependencies:
-  flutter_skill: ^0.9.36
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.9
@@ -70,7 +69,6 @@ dependencies:
   # Localization
   easy_localization: ^3.0.8
 
-  flutter_native_splash: ^2.4.8
   get_it: ^9.2.1
   intl: ^0.20.2
   pretty_dio_logger: ^1.4.0
@@ -80,6 +78,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
+  flutter_native_splash: ^2.4.8
   mocktail: ^1.0.5
   bloc_test: ^10.0.0
 

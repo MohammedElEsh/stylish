@@ -57,13 +57,13 @@ class _OfflineWidgetState extends State<OfflineWidget>
                 child: Container(
                   padding: EdgeInsets.all(24.r),
                   decoration: BoxDecoration(
-                    color: AppColors.error.withOpacity(0.08),
+                    color: AppColors.error.withValues(alpha: 0.08),
                     shape: BoxShape.circle,
                   ),
                   child: Container(
                     padding: EdgeInsets.all(16.r),
                     decoration: BoxDecoration(
-                      color: AppColors.error.withOpacity(0.12),
+                      color: AppColors.error.withValues(alpha: 0.12),
                       shape: BoxShape.circle,
                     ),
                     child: Icon(

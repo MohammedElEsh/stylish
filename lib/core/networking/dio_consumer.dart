@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-import '../services/logger/logger_service.dart';
 import 'api_consumer.dart';
 import 'api_endpoints.dart';
 import 'api_interceptors.dart';
@@ -19,15 +18,16 @@ class DioConsumer implements ApiConsumer {
     dio.options.baseUrl = ApiEndpoints.baseUrl.trim();
     dio.interceptors.addAll([
       apiInterceptors,
-      PrettyDioLogger(
-        request: true,
-        requestBody: true,
-        responseBody: true,
-        responseHeader: false,
-        error: true,
-        compact: true,
-        maxWidth: 90,
-      ),
+      if (const bool.fromEnvironment('dart.vm.product') == false)
+        PrettyDioLogger(
+          request: true,
+          requestBody: false,
+          responseBody: true,
+          responseHeader: false,
+          error: true,
+          compact: true,
+          maxWidth: 90,
+        ),
     ]);
   }
 
@@ -42,10 +42,6 @@ class DioConsumer implements ApiConsumer {
       path,
       queryParameters: queryParameters,
       data: isFormData ? FormData.fromMap(data as Map<String, dynamic>) : data,
-    );
-    LoggerService.d(
-      'GET ${dio.options.baseUrl}$path → ${response.statusCode}',
-      tag: 'DioConsumer',
     );
     return response.data;
   }
@@ -62,10 +58,6 @@ class DioConsumer implements ApiConsumer {
       queryParameters: queryParameters,
       data: isFormData ? FormData.fromMap(data as Map<String, dynamic>) : data,
     );
-    LoggerService.d(
-      'POST ${dio.options.baseUrl}$path → ${response.statusCode}',
-      tag: 'DioConsumer',
-    );
     return response.data;
   }
 
@@ -80,10 +72,6 @@ class DioConsumer implements ApiConsumer {
       path,
       queryParameters: queryParameters,
       data: isFormData ? FormData.fromMap(data as Map<String, dynamic>) : data,
-    );
-    LoggerService.d(
-      'PUT ${dio.options.baseUrl}$path → ${response.statusCode}',
-      tag: 'DioConsumer',
     );
     return response.data;
   }
@@ -100,22 +88,16 @@ class DioConsumer implements ApiConsumer {
       queryParameters: queryParameters,
       data: isFormData ? FormData.fromMap(data as Map<String, dynamic>) : data,
     );
-    LoggerService.d(
-      'PATCH ${dio.options.baseUrl}$path → ${response.statusCode}',
-      tag: 'DioConsumer',
-    );
     return response.data;
   }
 
   @override
-  Future<dynamic> delete(String path, {bool isFormData = false}) async {
+  Future<dynamic> delete(String path, {Object? data, bool isFormData = false}) async {
     final response = await dio.delete<dynamic>(
       path,
-      data: isFormData ? FormData.fromMap({}) : null,
-    );
-    LoggerService.d(
-      'DELETE ${dio.options.baseUrl}$path → ${response.statusCode}',
-      tag: 'DioConsumer',
+      data: isFormData && data != null
+          ? FormData.fromMap(data as Map<String, dynamic>)
+          : data,
     );
     return response.data;
   }

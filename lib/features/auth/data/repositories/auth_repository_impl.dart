@@ -42,16 +42,10 @@ class AuthRepositoryImpl implements AuthRepository {
 
       final tokens = AuthTokens.fromJson(response);
 
-      final sessionValid = await _sessionManager.login(
+      await _sessionManager.login(
         accessToken: tokens.accessToken,
         refreshToken: tokens.refreshToken,
       );
-
-      if (!sessionValid) {
-        throw const AuthFailure(
-          'Token validation failed after login. Please try again.',
-        );
-      }
 
       return tokens;
     });

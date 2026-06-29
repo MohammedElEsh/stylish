@@ -28,10 +28,8 @@ analyzer:
     - "**/android/app/build/**"
     - "**/android/build/**"
     - "**/web/**"
-    - "**/test/**"
-    - "**/integration_test/**"
   strong-mode:
-    implicit-casts: true
+    implicit-casts: false
     implicit-dynamic: false
   language:
     strict-casts: false

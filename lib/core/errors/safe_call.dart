@@ -10,8 +10,12 @@ import 'failures.dart';
 
 typedef EitherResult<T> = Future<Either<Failure, T>>;
 
-Future<Either<Failure, T>> safeCall<T>(Future<T> Function() call) async {
-  final connected = await sl<ConnectivityService>().isConnected;
+Future<Either<Failure, T>> safeCall<T>(
+  Future<T> Function() call, {
+  ConnectivityService? connectivityService,
+}) async {
+  final service = connectivityService ?? sl<ConnectivityService>();
+  final connected = await service.isConnected;
   if (!connected) {
     LoggerService.w('No connectivity — aborting safeCall', tag: 'SafeCall');
     return const Left(NetworkFailure());
