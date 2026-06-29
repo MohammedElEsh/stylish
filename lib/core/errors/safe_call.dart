@@ -3,12 +3,20 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 
+import '../di/injection.dart';
+import '../services/connectivity/connectivity_service.dart';
 import '../services/logger/logger_service.dart';
 import 'failures.dart';
 
 typedef EitherResult<T> = Future<Either<Failure, T>>;
 
 Future<Either<Failure, T>> safeCall<T>(Future<T> Function() call) async {
+  final connected = await sl<ConnectivityService>().isConnected;
+  if (!connected) {
+    LoggerService.w('No connectivity — aborting safeCall', tag: 'SafeCall');
+    return const Left(NetworkFailure());
+  }
+
   try {
     final result = await call();
     return Right(result);

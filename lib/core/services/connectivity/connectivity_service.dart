@@ -2,9 +2,13 @@ import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 
+import '../logger/logger_service.dart';
+
 abstract class ConnectivityService {
   Future<bool> get isConnected;
+
   Stream<bool> get onConnectivityChanged;
+
   bool get currentStatus;
 }
 
@@ -15,6 +19,7 @@ class ConnectivityServiceImpl implements ConnectivityService {
   Timer? _debounce;
 
   ConnectivityServiceImpl(this._connectivity) {
+    LoggerService.i('ConnectivityService initialized', tag: 'Connectivity');
     _connectivity.onConnectivityChanged.listen(_onConnectivityEvent);
   }
 
@@ -24,7 +29,12 @@ class ConnectivityServiceImpl implements ConnectivityService {
   @override
   Future<bool> get isConnected async {
     final result = await _connectivity.checkConnectivity();
-    return !result.contains(ConnectivityResult.none);
+    final connected = !result.contains(ConnectivityResult.none);
+    LoggerService.d(
+      'isConnected check: $connected (${result.map((e) => e.name).join(', ')})',
+      tag: 'Connectivity',
+    );
+    return connected;
   }
 
   @override
@@ -38,6 +48,11 @@ class ConnectivityServiceImpl implements ConnectivityService {
     _debounce?.cancel();
     _debounce = Timer(const Duration(seconds: 1), () {
       _lastStatus = connected;
+      LoggerService.i(
+        'Connectivity changed: ${connected ? "ONLINE" : "OFFLINE"} '
+        '(${results.map((e) => e.name).join(', ')})',
+        tag: 'Connectivity',
+      );
       _controller.add(connected);
     });
   }

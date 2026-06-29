@@ -2,7 +2,10 @@
   "shared": {
     "get_started": "ابدأ الآن",
     "retry": "إعادة المحاولة",
-    "no_internet": "لا يوجد اتصال بالإنترنت"
+    "no_internet": "لا يوجد اتصال بالإنترنت",
+    "no_internet_subtitle": "تحقق من إعدادات الشبكة وحاول مرة أخرى.",
+    "connection_restored": "تم استعادة الاتصال",
+    "still_no_connection": "لا يزال لا يوجد اتصال"
   },
   "onboarding": {
     "actions": {

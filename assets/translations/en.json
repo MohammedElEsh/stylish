@@ -2,7 +2,10 @@
   "shared": {
     "get_started": "Get Started",
     "retry": "Retry",
-    "no_internet": "No internet connection"
+    "no_internet": "No internet connection",
+    "no_internet_subtitle": "Please check your network settings and try again.",
+    "connection_restored": "Connection restored",
+    "still_no_connection": "Still no connection"
   },
   "onboarding": {
     "actions": {

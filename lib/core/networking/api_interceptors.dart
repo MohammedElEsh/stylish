@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:stylish/core/errors/failures.dart';
 
 import '../services/auth/token_refresher.dart';
 import '../services/auth/token_service.dart';
+import '../services/connectivity/connectivity_service.dart';
 import '../services/logger/logger_service.dart';
 import '../services/session/session_manager.dart';
 
@@ -12,6 +15,7 @@ class ApiInterceptors extends Interceptor {
   final TokenService _tokenService;
   final TokenRefresher _tokenRefresher;
   final SessionManager _sessionManager;
+  final ConnectivityService _connectivityService;
 
   Future<Either<Failure, void>>? _refreshFuture;
 
@@ -20,10 +24,12 @@ class ApiInterceptors extends Interceptor {
     required TokenService tokenService,
     required TokenRefresher tokenRefresher,
     required SessionManager sessionManager,
+    required ConnectivityService connectivityService,
   })  : _dio = dio,
         _tokenService = tokenService,
         _tokenRefresher = tokenRefresher,
-        _sessionManager = sessionManager;
+        _sessionManager = sessionManager,
+        _connectivityService = connectivityService;
 
   // ── Attach token to every request ─────────────────────────────────────────
 
@@ -32,6 +38,21 @@ class ApiInterceptors extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
+    final connected = await _connectivityService.isConnected;
+    if (!connected) {
+      LoggerService.w(
+        'No connectivity — rejecting ${options.method} ${options.path}',
+        tag: 'NETWORK',
+      );
+      return handler.reject(
+        DioException(
+          requestOptions: options,
+          type: DioExceptionType.connectionError,
+          error: const SocketException('No internet connection'),
+        ),
+      );
+    }
+
     final token = await _tokenService.getAccessToken();
     if (token != null && token.isNotEmpty) {
       options.headers['Authorization'] = 'Bearer $token';

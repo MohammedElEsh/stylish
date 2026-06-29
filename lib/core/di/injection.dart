@@ -86,6 +86,7 @@ Future<void> initDependencies() async {
       tokenService: sl<TokenService>(),
       tokenRefresher: sl<TokenRefresher>(),
       sessionManager: sl<SessionManager>(),
+      connectivityService: sl<ConnectivityService>(),
     ),
   );
 
