@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../di/injection.dart';
-import '../services/connectivity/connectivity_service.dart';
-import '../shared/feedback/offline_banner.dart';
+import '../../di/injection.dart';
+import '../../services/connectivity/connectivity_service.dart';
+import 'offline_banner.dart';
 
 class ConnectivityWrapper extends StatelessWidget {
   final Widget? child;

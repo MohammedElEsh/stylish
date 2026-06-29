@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/shared/inputs/app_text_field.dart';
-import '../../../../core/validators/app_validators.dart';
+import '../../../../core/utils/app_validators.dart';
 
 class SignupForm extends StatelessWidget {
   const SignupForm({

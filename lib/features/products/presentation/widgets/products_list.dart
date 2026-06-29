@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:stylish/core/pagination/pagination_helper.dart';
+import 'package:stylish/core/utils/pagination_helper.dart';
 import 'package:stylish/features/products/presentation/widgets/product_item.dart';
 
 import '../../data/models/product_model.dart';

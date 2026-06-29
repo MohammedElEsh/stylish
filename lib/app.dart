@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'core/constants/app_constants.dart';
 import 'core/routing/app_router.dart';
 import 'core/theme/themes/app_themes.dart';
-import 'core/wrappers/screen_util_wrapper.dart';
+import 'core/shared/wrappers/screen_util_wrapper.dart';
 
 class App extends StatelessWidget {
   const App({super.key});

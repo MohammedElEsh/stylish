@@ -1,8 +1,3 @@
-/// Legacy string constants.
-///
-/// DEPRECATED: Use [Strings] from 'package:stylish/core/localization/strings.dart'
-/// for all localized text. This file is retained only for non-localized
-/// application constants.
 class AppStrings {
   static const String appName = 'Stylish';
 
@@ -126,8 +121,7 @@ class AppStrings {
 
   // Home - Flat and Heels
   static const String homeFlatAndHeelsTitle = 'home.flat_and_heels.title';
-  static const String homeFlatAndHeelsSubtitle =
-      'home.flat_and_heels.subtitle';
+  static const String homeFlatAndHeelsSubtitle = 'home.flat_and_heels.subtitle';
   static const String homeFlatAndHeelsButton = 'home.flat_and_heels.button';
 
   // Home - Generic Section Banner (default action label)
