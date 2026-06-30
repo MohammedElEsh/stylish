@@ -82,12 +82,10 @@ void initRouter() {
                   providers: [
                     BlocProvider(create: (_) => sl<HomeCubit>()),
                     BlocProvider(
-                      create: (_) =>
-                          sl<CategoriesCubit>()..loadCategories(),
+                      create: (_) => sl<CategoriesCubit>()..loadCategories(),
                     ),
                     BlocProvider(
-                      create: (_) =>
-                          sl<ProductsCubit>()..loadProducts(),
+                      create: (_) => sl<ProductsCubit>()..fetchProducts(),
                     ),
                   ],
                   child: const HomeView(),

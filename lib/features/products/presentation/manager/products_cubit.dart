@@ -8,15 +8,16 @@ import 'products_state.dart';
 class ProductsCubit extends Cubit<ProductsState> {
   final ProductsRepository _repository;
   static const int _defaultLimit = 10;
-  bool _isLoadingMore = false;
+  int _currentOffset = 0;
 
   ProductsCubit({required ProductsRepository repository})
       : _repository = repository,
         super(const ProductsInitial());
 
-  Future<void> loadProducts() async {
+  Future<void> fetchProducts() async {
     LoggerService.i('Loading products', tag: 'ProductsCubit');
     emit(const ProductsLoading());
+    _currentOffset = 0;
 
     final result =
         await _repository.getProducts(offset: 0, limit: _defaultLimit);
@@ -28,69 +29,59 @@ class ProductsCubit extends Cubit<ProductsState> {
           tag: 'ProductsCubit',
         );
         FeedbackHandler.error(failure.message);
-        emit(ProductsError(message: failure.message));
+        emit(ProductsFailure(errorMessage: failure.message));
       },
       (products) {
         LoggerService.i(
           'Products loaded: ${products.length}',
           tag: 'ProductsCubit',
         );
-        emit(ProductsLoaded(
+        _currentOffset = products.length;
+        emit(ProductsSuccess(
           products: products,
           hasMore: products.length >= _defaultLimit,
-          offset: products.length,
         ));
       },
     );
   }
 
-  Future<void> loadMore() async {
+  Future<void> fetchMoreProducts() async {
     final currentState = state;
-    if (_isLoadingMore) return;
-    if (currentState is! ProductsLoaded) return;
+    if (currentState is! ProductsSuccess) return;
     if (!currentState.hasMore) return;
 
-    _isLoadingMore = true;
     LoggerService.i('Loading more products', tag: 'ProductsCubit');
-    emit(ProductsLoaded(
-      products: currentState.products,
-      hasMore: currentState.hasMore,
-      offset: currentState.offset,
-      isLoadingMore: true,
+    emit(ProductsPaginationLoading(
+      currentProducts: currentState.products,
     ));
 
     final result = await _repository.getProducts(
-      offset: currentState.offset,
+      offset: _currentOffset,
       limit: _defaultLimit,
     );
 
     result.fold(
       (failure) {
-        _isLoadingMore = false;
         LoggerService.w(
           'Products load more failed: ${failure.message}',
           tag: 'ProductsCubit',
         );
         FeedbackHandler.error(failure.message);
-        emit(ProductsLoaded(
-          products: currentState.products,
-          hasMore: currentState.hasMore,
-          offset: currentState.offset,
-          isLoadingMore: false,
+        emit(ProductsPaginationFailure(
+          errorMessage: failure.message,
+          currentProducts: currentState.products,
         ));
       },
       (newProducts) {
-        _isLoadingMore = false;
         final allProducts = [...currentState.products, ...newProducts];
+        _currentOffset = allProducts.length;
         LoggerService.i(
           'Products loaded more: ${newProducts.length}, total: ${allProducts.length}',
           tag: 'ProductsCubit',
         );
-        emit(ProductsLoaded(
+        emit(ProductsSuccess(
           products: allProducts,
           hasMore: newProducts.length >= _defaultLimit,
-          offset: allProducts.length,
-          isLoadingMore: false,
         ));
       },
     );

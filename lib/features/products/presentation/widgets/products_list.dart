@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 import 'package:stylish/core/utils/pagination_helper.dart';
 import 'package:stylish/features/products/presentation/widgets/product_item.dart';
 
 import '../../data/models/product_model.dart';
 import '../manager/products_cubit.dart';
 import '../manager/products_state.dart';
-import 'product_item_skeleton.dart';
+import 'product_item_shimmer.dart';
 
 class ProductsList extends StatelessWidget {
   const ProductsList({
@@ -24,55 +23,60 @@ class ProductsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ProductsCubit, ProductsState>(
       builder: (context, state) {
-        if (state is ProductsError) {
+        final isLoading = state is ProductsLoading;
+        final isPaginationLoading = state is ProductsPaginationLoading;
+        final isFailure = state is ProductsFailure;
+
+        if (isFailure) {
           return const SizedBox.shrink();
         }
 
-        final isLoading = state is! ProductsLoaded;
+        List<ProductModel> products;
 
-        final products =
-            state is ProductsLoaded ? state.products : <ProductModel>[];
+        if (state is ProductsSuccess) {
+          products = state.products;
+        } else if (isPaginationLoading) {
+          products = state.currentProducts;
+        } else {
+          products = <ProductModel>[];
+        }
 
-        final hasMore = state is ProductsLoaded && state.hasMore;
+        final paginationSkeletonCount = isPaginationLoading ? 2 : 0;
 
         return NotificationListener<ScrollNotification>(
           onNotification: (notification) {
             PaginationHelper.onNotification(
               notification,
-              () => context.read<ProductsCubit>().loadMore(),
+              () => context.read<ProductsCubit>().fetchMoreProducts(),
             );
             return false;
           },
-          child: Skeletonizer(
-            enabled: isLoading,
-            child: SizedBox(
-              height: 280.h,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemCount: isLoading ? 8 : products.length + (hasMore ? 1 : 0),
-                separatorBuilder: (_, __) => SizedBox(width: 12.w),
-                itemBuilder: (context, index) {
-                  if (isLoading) {
-                    return ProductItemSkeleton.build(itemWidth);
-                  }
+          child: SizedBox(
+            height: 280.h,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemCount:
+                  isLoading ? 8 : products.length + paginationSkeletonCount,
+              separatorBuilder: (_, __) => SizedBox(width: 12.w),
+              itemBuilder: (context, index) {
+                if (isLoading) {
+                  return ProductItemShimmer.build(itemWidth);
+                }
 
-                  if (index >= products.length) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
+                if (index >= products.length) {
+                  return ProductItemShimmer.build(itemWidth);
+                }
 
-                  final product = products[index];
+                final product = products[index];
 
-                  return SizedBox(
-                    width: itemWidth.w,
-                    child: ProductItem(
-                      product: product,
-                      onTap: () => onProductTap?.call(product),
-                    ),
-                  );
-                },
-              ),
+                return SizedBox(
+                  width: itemWidth.w,
+                  child: ProductItem(
+                    product: product,
+                    onTap: () => onProductTap?.call(product),
+                  ),
+                );
+              },
             ),
           ),
         );

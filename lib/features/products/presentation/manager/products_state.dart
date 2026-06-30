@@ -2,43 +2,61 @@ import 'package:equatable/equatable.dart';
 
 import '../../data/models/product_model.dart';
 
-class ProductsState extends Equatable {
+sealed class ProductsState extends Equatable {
   const ProductsState();
 
   @override
   List<Object?> get props => [];
 }
 
-class ProductsInitial extends ProductsState {
+final class ProductsInitial extends ProductsState {
   const ProductsInitial();
 }
 
-class ProductsLoading extends ProductsState {
+final class ProductsLoading extends ProductsState {
   const ProductsLoading();
 }
 
-class ProductsLoaded extends ProductsState {
+final class ProductsPaginationLoading extends ProductsState {
+  final List<ProductModel> currentProducts;
+
+  const ProductsPaginationLoading({required this.currentProducts});
+
+  @override
+  List<Object?> get props => [currentProducts];
+}
+
+final class ProductsSuccess extends ProductsState {
   final List<ProductModel> products;
   final bool hasMore;
-  final int offset;
-  final bool isLoadingMore;
 
-  const ProductsLoaded({
+  const ProductsSuccess({
     required this.products,
     required this.hasMore,
-    required this.offset,
-    this.isLoadingMore = false,
   });
 
   @override
-  List<Object?> get props => [products, hasMore, offset, isLoadingMore];
+  List<Object?> get props => [products, hasMore];
 }
 
-class ProductsError extends ProductsState {
-  final String message;
+final class ProductsFailure extends ProductsState {
+  final String errorMessage;
 
-  const ProductsError({required this.message});
+  const ProductsFailure({required this.errorMessage});
 
   @override
-  List<Object?> get props => [message];
+  List<Object?> get props => [errorMessage];
+}
+
+final class ProductsPaginationFailure extends ProductsState {
+  final String errorMessage;
+  final List<ProductModel> currentProducts;
+
+  const ProductsPaginationFailure({
+    required this.errorMessage,
+    required this.currentProducts,
+  });
+
+  @override
+  List<Object?> get props => [errorMessage, currentProducts];
 }

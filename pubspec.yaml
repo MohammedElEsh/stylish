@@ -43,6 +43,7 @@ dependencies:
   hugeicons: ^1.1.7
 
   # Shimmer / Skeleton
+  shimmer: ^3.0.0
   skeletonizer: ^2.1.3
 
   # Responsive UI
@@ -56,7 +57,7 @@ dependencies:
   logger: ^2.7.0
 
   # Media
-  image_picker: ^1.2.2
+  image_picker: ^1.2.3
 
   # Utilities
   crypto: ^3.0.7
