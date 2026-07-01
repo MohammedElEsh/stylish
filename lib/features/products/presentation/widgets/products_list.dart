@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:stylish/core/utils/pagination_helper.dart';
 import 'package:stylish/features/products/presentation/widgets/product_item.dart';
 
 import '../../data/models/product_model.dart';
@@ -41,14 +40,16 @@ class ProductsList extends StatelessWidget {
           products = <ProductModel>[];
         }
 
-        final paginationSkeletonCount = isPaginationLoading ? 2 : 0;
+        final paginationShimmerCount = isPaginationLoading ? 2 : 0;
 
         return NotificationListener<ScrollNotification>(
           onNotification: (notification) {
-            PaginationHelper.onNotification(
-              notification,
-              () => context.read<ProductsCubit>().fetchMoreProducts(),
-            );
+            if (notification is ScrollUpdateNotification) {
+              final metrics = notification.metrics;
+              if (metrics.pixels / metrics.maxScrollExtent > 0.8) {
+                context.read<ProductsCubit>().fetchMoreProducts();
+              }
+            }
             return false;
           },
           child: SizedBox(
@@ -56,7 +57,7 @@ class ProductsList extends StatelessWidget {
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               itemCount:
-                  isLoading ? 8 : products.length + paginationSkeletonCount,
+                  isLoading ? 8 : products.length + paginationShimmerCount,
               separatorBuilder: (_, __) => SizedBox(width: 12.w),
               itemBuilder: (context, index) {
                 if (isLoading) {
