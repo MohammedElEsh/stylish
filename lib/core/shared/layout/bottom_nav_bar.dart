@@ -25,15 +25,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   void initState() {
     super.initState();
-    _highlightedIndex = widget.currentIndex == 2 ? 0 : widget.currentIndex;
+    _highlightedIndex = widget.currentIndex;
   }
 
   @override
   void didUpdateWidget(covariant BottomNavBar oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.currentIndex != 2) {
-      _highlightedIndex = widget.currentIndex;
-    }
+    _highlightedIndex = widget.currentIndex;
   }
 
   @override
