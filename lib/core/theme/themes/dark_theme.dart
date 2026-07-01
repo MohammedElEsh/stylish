@@ -97,10 +97,10 @@ ThemeData darkTheme = ThemeData(
   // ── Outlined Button ───────────────────────────────────────────────────────
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
-      foregroundColor: AppColors.primary,
+      foregroundColor: AppColors.surfaceDark,
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      side: const BorderSide(color: AppColors.primary),
+      side: const BorderSide(color: AppColors.surfaceDark),
       textStyle: AppTypography.semiBold14,
     ),
   ),

@@ -56,6 +56,10 @@ class AppButton extends StatelessWidget {
     this.minSize,
     this.maxSize,
 
+    // color overrides
+    this.foregroundColor,
+    this.borderColor,
+
     // theme override (safe escape hatch)
     this.style,
 
@@ -95,6 +99,9 @@ class AppButton extends StatelessWidget {
   final Size? minSize;
   final Size? maxSize;
 
+  final Color? foregroundColor;
+  final Color? borderColor;
+
   final ButtonStyle? style;
 
   final bool autofocus;
@@ -117,7 +124,8 @@ class AppButton extends StatelessWidget {
     final theme = Theme.of(context);
 
     final baseStyle = _resolveBaseStyle(theme);
-    final resolvedStyle = baseStyle?.merge(style) ?? style;
+    final colorOverrideStyle = _buildColorOverrideStyle();
+    final resolvedStyle = baseStyle?.merge(colorOverrideStyle).merge(style) ?? colorOverrideStyle?.merge(style) ?? style;
 
     final fg = resolvedStyle?.foregroundColor?.resolve({}) ??
         _resolveFallbackFg(theme);
@@ -166,6 +174,19 @@ class AppButton extends StatelessWidget {
   // in the active ThemeData. To restyle every button of a kind globally,
   // edit the corresponding `*ButtonTheme` block in light_theme.dart /
   // dark_theme.dart.
+
+  ButtonStyle? _buildColorOverrideStyle() {
+    if (foregroundColor == null && borderColor == null) return null;
+
+    return ButtonStyle(
+      foregroundColor: foregroundColor != null
+          ? WidgetStateProperty.all(foregroundColor!)
+          : null,
+      side: borderColor != null
+          ? WidgetStateProperty.all(BorderSide(color: borderColor!))
+          : null,
+    );
+  }
 
   ButtonStyle? _resolveBaseStyle(ThemeData theme) {
     switch (variant) {
